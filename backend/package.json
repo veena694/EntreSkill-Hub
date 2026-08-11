@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "nodemon --watch src -e ts --exec ts-node src/server.ts",
     "clean": "rimraf dist",
-    "build": "npm run clean && tsc",
+    "build": "tsc",
     "start": "node dist/server.js",
     "test": "jest --runInBand --detectOpenHandles --forceExit",
     "test:coverage": "jest --runInBand --coverage --detectOpenHandles --forceExit",
