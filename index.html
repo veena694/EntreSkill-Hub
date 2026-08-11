@@ -1,0 +1,623 @@
+<!DOCTYPE html><html class="scroll-smooth" lang="en"><head>
+<script type="module" src="/api.js"></script>
+<script>
+    (function() {
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+        } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('light');
+        }
+    })();
+</script>
+
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>EntreSkill Hub – Skill-to-Startup Enablement Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#edc063",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#ffe8c0",
+                        "background": "#fcf9f8",
+                        "on-secondary-container": "#127252",
+                        "on-surface": "#1b1c1c",
+                        "secondary-fixed": "#9ef4cb",
+                        "surface-container-low": "#f6f3f2",
+                        "secondary": "#046c4c",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#fcf9f8",
+                        "primary-fixed": "#9cf2e8",
+                        "inverse-on-surface": "#f3f0ef",
+                        "inverse-primary": "#80d5cb",
+                        "inverse-surface": "#303030",
+                        "surface-tint": "#006a63",
+                        "secondary-container": "#9ef4cb",
+                        "on-primary-fixed": "#00201d",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#82d7b0",
+                        "surface-dim": "#dcd9d9",
+                        "on-tertiary-fixed": "#261900",
+                        "on-tertiary-fixed-variant": "#5c4300",
+                        "tertiary-fixed": "#ffdea1",
+                        "primary-container": "#0f766e",
+                        "surface-variant": "#e5e2e1",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#f0eded",
+                        "on-secondary-fixed": "#002114",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#87640a",
+                        "surface-container-high": "#eae7e7",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#80d5cb",
+                        "outline-variant": "#bdc9c6",
+                        "surface-bright": "#fcf9f8",
+                        "on-surface-variant": "#3e4947",
+                        "on-secondary-fixed-variant": "#005138",
+                        "on-primary-container": "#a3faef",
+                        "outline": "#6e7977",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#6a4d00",
+                        "on-primary-fixed-variant": "#00504a",
+                        "primary": "#005c55",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-background": "#1b1c1c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "sm": "12px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "container-max": "1200px",
+                        "lg": "48px",
+                        "xl": "80px",
+                        "md": "24px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "display-lg-mobile": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bento-card {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .bento-card:hover {
+            transform: translateY(-8px);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="sticky top-0 z-50 flex justify-between items-center w-full px-margin-mobile md:px-lg h-20 bg-surface/80 backdrop-blur-md border-b border-surface-variant max-w-container-max mx-auto">
+<a href="index.html" class="flex items-center gap-base"><span class="material-symbols-outlined text-primary text-headline-md" data-icon="spa">spa</span>
+<span class="text-headline-md font-bold text-primary tracking-tight">EntreSkill Hub</span></a>
+<nav class="hidden md:flex items-center gap-lg">
+<a href="index.html" class="text-primary font-semibold border-b-2 border-primary py-2 transition-all">Home</a>
+<a href="roadmap.html" class="text-on-surface-variant hover:text-primary transition-colors py-2">Roadmap</a>
+<a href="learn.html" class="text-on-surface-variant hover:text-primary transition-colors py-2">Learn</a>
+<a href="mentors.html" class="text-on-surface-variant hover:text-primary transition-colors py-2">Mentors</a>
+</nav>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined p-2 text-on-surface-variant hover:text-primary" data-icon="search">search</button>
+<a href="profile.html#settings" class="material-symbols-outlined p-2 text-on-surface-variant hover:text-primary flex items-center justify-center">account_circle</a>
+</div>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative min-h-[795px] flex items-center overflow-hidden pt-lg md:pt-0">
+<!-- Animated Shader Background -->
+<!-- STITCH_SHADER_START:ANIMATION_2 class="absolute inset-0 w-full h-full opacity-40 mix-blend-multiply" -->
+<div class="absolute inset-0 w-full h-full opacity-40 mix-blend-multiply" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_2" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_2');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+varying vec2 v_texCoord;
+uniform float u_time;
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+
+// Earthy palette from design system
+vec3 bgLow = vec3(0.976, 0.973, 0.957); // #F9F8F4
+vec3 bgHigh = vec3(0.953, 0.937, 0.910); // #F3EFE8
+vec3 accent = vec3(0.059, 0.463, 0.431); // #0F766E (Emerald)
+vec3 highlight = vec3(0.804, 0.639, 0.286); // #CDA349 (Gold)
+
+float hash(vec2 p) {
+    p = fract(p * vec2(123.34, 456.21));
+    p += dot(p, p + 45.32);
+    return fract(p.x * p.y);
+}
+
+float noise(vec2 p) {
+    vec2 i = floor(p);
+    vec2 f = fract(p);
+    float a = hash(i);
+    float b = hash(i + vec2(1.0, 0.0));
+    float c = hash(i + vec2(0.0, 1.0));
+    float d = hash(i + vec2(1.0, 1.0));
+    vec2 u = f * f * (3.0 - 2.0 * f);
+    return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
+}
+
+void main() {
+    vec2 uv = v_texCoord;
+    vec2 p = (uv - 0.5) * 2.0;
+    p.x *= u_resolution.x / u_resolution.y;
+
+    // Subtle background gradient
+    float grad = uv.y + noise(uv * 3.0 + u_time * 0.1) * 0.1;
+    vec3 col = mix(bgLow, bgHigh, grad);
+
+    // Floating "Opportunities" - subtle light spheres
+    for(int i = 0; i < 5; i++) {
+        float t = u_time * 0.2 + float(i) * 12.5;
+        vec2 pos = vec2(sin(t), cos(t * 0.7)) * 0.5;
+        pos += noise(vec2(t)) * 0.2;
+        float d = length(p - pos);
+        float size = 0.05 + 0.02 * sin(t * 2.0);
+        float glow = smoothstep(size, 0.0, d);
+        col = mix(col, accent, glow * 0.03);
+    }
+
+    // Floating business symbols - abstract light points
+    for(int i = 0; i < 8; i++) {
+        float t = u_time * 0.15 + float(i) * 7.8;
+        vec2 pos = vec2(cos(t * 1.2), sin(t * 0.8)) * 0.8;
+        float d = length(p - pos);
+        float size = 0.01;
+        float sparkle = smoothstep(size, 0.0, d);
+        col = mix(col, highlight, sparkle * 0.1);
+    }
+
+    // Soft grain/texture
+    col += (hash(uv + u_time * 0.01) - 0.5) * 0.01;
+
+    gl_FragColor = vec4(col, 1.0);
+}
+`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_2 -->
+<div class="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-lg grid grid-cols-1 md:grid-cols-2 gap-xl items-center">
+<div class="flex flex-col gap-md">
+<div class="inline-flex items-center self-start px-4 py-2 rounded-full bg-secondary-container text-on-secondary-container font-label-md">
+<span class="material-symbols-outlined text-sm mr-2" data-icon="auto_awesome">auto_awesome</span>
+                        Start Your Micro-Enterprise
+                    </div>
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface max-w-xl">
+                        Turn Your Skills Into Your Own Business
+                    </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg">
+                        Discover business opportunities, learn the ropes, and connect with mentors to launch your micro-enterprise today.
+                    </p>
+<div class="flex flex-col sm:flex-row gap-md mt-base">
+<a href="join.html" class="bg-primary text-on-primary px-xl py-4 rounded-full font-label-md hover:scale-105 transition-transform shadow-lg text-center flex items-center justify-center">Start Your Journey</a>
+<a href="roadmap.html" class="border-2 border-primary text-primary px-xl py-4 rounded-full font-label-md hover:bg-primary-container hover:border-primary-container transition-colors text-center flex items-center justify-center">Explore Business Ideas</a>
+</div>
+</div>
+<div class="relative hidden md:block group">
+<div class="absolute -inset-4 bg-primary-fixed-dim/20 rounded-full blur-3xl animate-pulse"></div>
+<img class="relative z-10 w-full h-auto drop-shadow-2xl group-hover:scale-105 transition-transform duration-700" data-alt="A sophisticated 3D digital illustration of a glowing seedling emerging from a crystal geometric base, surrounded by floating icons representing global trade, digital finance, and creative design. The style is ultra-modern and tactile, with soft warm studio lighting against a clean, off-white background, embodying professional growth and entrepreneurial momentum." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiVBUkLpmKFVkj3qIKYAXVyp8I8bqU4HhOZ5hgmK3TTHSdr3KPpQL09Qf_eyK1Rrv3Uq1OgwHFuWLekkVq_0qNBPfMtTBvaAW9PkADo3zzOSukPxAj0UdPVQMoZfNx_d-b1krZvsA20wFUkegqu3ObWYmPxwQnel_r_d3ffAqvOmeJqx73O2m1I-iLfo4tvvjX-pLECggFoXmbVDU4u4bP8kBdEgglsPdfcu0nc-cTTpdkCUGhGulmZ3G_jxXQwUBd7GCO6iotZiA">
+</div>
+</div>
+</section>
+<!-- Stats Section -->
+<section class="py-xl bg-surface">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-lg">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg text-center">
+<div class="p-md bg-surface-container-lowest rounded-lg border border-outline-variant/30 flex flex-col items-center">
+<span class="material-symbols-outlined text-tertiary text-4xl mb-base" data-icon="store">store</span>
+<div class="font-display-lg-mobile md:font-display-lg text-on-surface">10k+</div>
+<div class="font-label-md text-on-surface-variant">Active Businesses</div>
+</div>
+<div class="p-md bg-surface-container-lowest rounded-lg border border-outline-variant/30 flex flex-col items-center">
+<span class="material-symbols-outlined text-secondary text-4xl mb-base" data-icon="psychology">psychology</span>
+<div class="font-display-lg-mobile md:font-display-lg text-on-surface">250+</div>
+<div class="font-label-md text-on-surface-variant">Expert Mentors</div>
+</div>
+<div class="p-md bg-surface-container-lowest rounded-lg border border-outline-variant/30 flex flex-col items-center">
+<span class="material-symbols-outlined text-primary text-4xl mb-base" data-icon="lightbulb">lightbulb</span>
+<div class="font-display-lg-mobile md:font-display-lg text-on-surface">500+</div>
+<div class="font-label-md text-on-surface-variant">Vetted Business Ideas</div>
+</div>
+</div>
+</div>
+</section>
+<!-- How It Works (Bento Grid) -->
+<section class="py-xl bg-surface-container-low">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-lg">
+<div class="mb-lg text-center md:text-left">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-on-surface">How It Works</h2>
+<p class="font-body-md text-on-surface-variant mt-xs">Your roadmap from skill to profit in four clear steps.</p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-md">
+<div class="bento-card p-md bg-surface-container-lowest border border-outline-variant rounded-lg flex flex-col gap-md">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container" data-icon="search_check">search_check</span>
+</div>
+<h3 class="font-headline-md text-on-surface">Discover Skills</h3>
+<p class="font-body-sm text-on-surface-variant">Audit your existing talents and find what people are willing to pay for.</p>
+</div>
+<div class="bento-card p-md bg-surface-container-lowest border border-outline-variant rounded-lg flex flex-col gap-md mt-md md:mt-0">
+<div class="w-12 h-12 rounded-full bg-tertiary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary-fixed-variant" data-icon="explore">explore</span>
+</div>
+<h3 class="font-headline-md text-on-surface">Find Business</h3>
+<p class="font-body-sm text-on-surface-variant">Match your skills with profitable micro-enterprise opportunities in our database.</p>
+</div>
+<div class="bento-card p-md bg-surface-container-lowest border border-outline-variant rounded-lg flex flex-col gap-md">
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-fixed" data-icon="school">school</span>
+</div>
+<h3 class="font-headline-md text-on-surface">Learn</h3>
+<p class="font-body-sm text-on-surface-variant">Master the essentials: registration, pricing, marketing, and taxes.</p>
+</div>
+<div class="bento-card p-md bg-primary text-on-primary border border-primary rounded-lg flex flex-col gap-md mt-md md:mt-0">
+<div class="w-12 h-12 rounded-full bg-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="rocket_launch">rocket_launch</span>
+</div>
+<h3 class="font-headline-md">Launch</h3>
+<p class="font-body-sm opacity-90">Open your doors to your first customer with confidence and support.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured Categories -->
+<section class="py-xl">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-lg">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-lg gap-md">
+<div>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-on-surface">Featured Opportunities</h2>
+<p class="font-body-md text-on-surface-variant mt-xs">Explore sectors with high growth potential for micro-owners.</p>
+</div>
+<button class="flex items-center text-primary font-label-md group">
+                        View All Categories
+                        <span class="material-symbols-outlined ml-2 group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-md">
+<!-- Food -->
+<div class="group rounded-lg overflow-hidden border border-outline-variant bg-surface-container-lowest shadow-sm hover:shadow-lg transition-all">
+<div class="h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A minimalist, high-end close-up of a beautifully plated artisanal sourdough bread and local honey on a marble countertop. Bright morning sun creates soft shadows. The aesthetic is clean, warm, and professional, representing the premium home-based food industry in a light-mode palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGhOsxt8tEtrbLUPEhLRUD-voLGjIGEYEu0TDu0WU6CUZ1HzfxCPtzL6rU6vOvAv3NAHqRnDN1pqUpgf57Klbna3b_B3XlVPqXjJNCpS1rjfkvWO2b7f-5il6SyvlMTKpat67He2G8aVgNzdhX4qGpxeXggTJP2RbQKZnatRj0VClrIFsSGe3F2rfewQaT77qQWlhIHxRRNYxX8Qw8pyi_Wmbfwz1esOR0VW_0KL6JCWmBrSiEsfkqJUDDUc8xHCjlc-j1IzCd6A0">
+</div>
+<div class="p-md flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<h4 class="font-headline-md text-on-surface">Food &amp; Bev</h4>
+<span class="px-2 py-1 rounded-full bg-secondary-container text-on-secondary-container text-[10px] uppercase font-bold tracking-wider">High Demand</span>
+</div>
+<div class="flex flex-col gap-xs font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" data-icon="payments">payments</span>
+                                    $500 - $2k Investment
+                                </div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" data-icon="speed">speed</span>
+                                    Moderate Difficulty
+                                </div>
+</div>
+</div>
+</div>
+<!-- Tech -->
+<div class="group rounded-lg overflow-hidden border border-outline-variant bg-surface-container-lowest shadow-sm hover:shadow-lg transition-all">
+<div class="h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A sleek, professional workstation featuring a modern laptop, a notepad with tidy sketches, and a small green succulent on a white oak desk. Soft natural light illuminates the space. The mood is focused and technologically advanced, echoing the startup and digital services world with a clean, high-utility aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqLpkNef45Up_BQjYrIle20NnDHi3EN8em2cQnmhv1bOyM6lxXor71OYyuE1khNR9JdAglNMXKzoroZyA7ndYzExRGV2SUi3KjbTalZvBkCj_8oT3G-DgWv0FVakoPhTFJlF4KrrdeBOaOVhcQcRhNwW2S1ewE8cme04objiLd5YlNF11Gmnw5G-nkCc0diR_OOxHVs68GP-3V0bmaXfPaTUE6a7z_6EXG9keW6de6J-B3wGzK07WsglDyiqjsAgJCOCDgiIRhAGM">
+</div>
+<div class="p-md flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<h4 class="font-headline-md text-on-surface">Tech Services</h4>
+<span class="px-2 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-[10px] uppercase font-bold tracking-wider">Fast Launch</span>
+</div>
+<div class="flex flex-col gap-xs font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" data-icon="payments">payments</span>
+                                    $0 - $500 Investment
+                                </div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" data-icon="speed">speed</span>
+                                    Technical Skills Required
+                                </div>
+</div>
+</div>
+</div>
+<!-- Agriculture -->
+<div class="group rounded-lg overflow-hidden border border-outline-variant bg-surface-container-lowest shadow-sm hover:shadow-lg transition-all">
+<div class="h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A lush, modern urban micro-garden with organized rows of bright green herbs in minimalist ceramic pots. Soft afternoon glow creates a serene, grounded atmosphere. The focus is on organic growth and sustainability, maintaining a premium, editorial design feel with earthy tones and deep greens." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWa70bDy50ZCsQagLcSd6jloQvQpEa3VdfxMQNsLo58lTpdlsj7GaU9BgcmT0gwrGO-81l5r6lSZOoDH75TCTQUpYE46I3ViVaIOGTW-ltXCEn0yi7iPIv6Cbw7a50oM2os2L9p2GlK3BH_7fd9kLzLEjJohuFM5iI34RaR4S5AsCnnx59lf8BS9XWFVT9UVUWqTONEAfySUsO9EeyrzsYmOA0ooNCB3fFHH1xtHrf_ZVRIFzjLyFBv2qO3JmW7vupZS-LtGe1rUs">
+</div>
+<div class="p-md flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<h4 class="font-headline-md text-on-surface">Agriculture</h4>
+<span class="px-2 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-[10px] uppercase font-bold tracking-wider">Sustainable</span>
+</div>
+<div class="flex flex-col gap-xs font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" data-icon="payments">payments</span>
+                                    $1k - $5k Investment
+                                </div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" data-icon="speed">speed</span>
+                                    Physical Space Needed
+                                </div>
+</div>
+</div>
+</div>
+<!-- Fashion -->
+<div class="group rounded-lg overflow-hidden border border-outline-variant bg-surface-container-lowest shadow-sm hover:shadow-lg transition-all">
+<div class="h-48 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A minimalist fashion design studio with high-quality linen fabrics draped over a clean wooden table. Sunlight hits a metallic sewing needle and thread. The scene is elegant, tactile, and professional, using a neutral color palette of beige and cream to evoke sophisticated craftsmanship and boutique branding." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcKJAB0LFVhXuPsIF5dRGFgdXWQU4i5veyOa3XRwegZn4nOwTe9ItF0HZR1i5QlOsqDjE-GXyO7SE2c1Xn_I5wP6e1eyg-aSQ9HILGXheryCfTV4w5UYZHmy9ATjRpl2zI06qpAs7v5liRGHPSkJGVk0kHUiNWirCto82i9YY263d9wIv9-Zg-xcrsravbPypPFKz2F3IllE2_COJlwU5Ly4nJb08J49RmewSBs3b_jlLzE0A5tHFYjuDfdX-hLa_jodnicLObd3w">
+</div>
+<div class="p-md flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<h4 class="font-headline-md text-on-surface">Fashion</h4>
+<span class="px-2 py-1 rounded-full bg-outline-variant text-on-surface-variant text-[10px] uppercase font-bold tracking-wider">Creative</span>
+</div>
+<div class="flex flex-col gap-xs font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" data-icon="payments">payments</span>
+                                    $500 - $3k Investment
+                                </div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" data-icon="speed">speed</span>
+                                    Creative Passion
+                                </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials -->
+<section class="py-xl bg-surface-container">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-lg">
+<div class="text-center mb-lg">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-on-surface">Founder Stories</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="p-lg bg-surface-container-lowest rounded-lg border border-outline-variant relative overflow-hidden">
+<span class="material-symbols-outlined text-6xl text-primary/10 absolute -top-2 -left-2 scale-150" data-icon="format_quote">format_quote</span>
+<div class="relative z-10">
+<p class="font-body-lg text-on-surface mb-md italic">"EntreSkill Hub didn't just give me an idea; they gave me a roadmap. I went from baking for friends to owning a boutique catering business in 6 months."</p>
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a smiling young woman with a confident expression, set against a soft-focus background of a bright modern kitchen. The lighting is warm and flattering, reinforcing the brand's 'calm confidence' and entrepreneurial success." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsAS0fNFbMOwXZ1ng6-2BBpmuooLh5QhSuycfMuc-3giMxNvrCdvQUZ30838lOwpMjC2uH-mM7zphBV8ey9e35cc_OkTxgqfUcLYF5RFw1OLUfDTomCY8GcrLkjgPtOJHxqaD3SPFduc81WP205FuIt8bDaocdempEZ-Z1B8KlSqFxwlEbE484nImte0YuBQs8v0JwlCPHE1ZfG_5zW7qZ0EtyDNjgEUY3hYfDadMnHTkms9uf-NEU7fAxQRPv9-jayjhK5TsL8is">
+</div>
+<div>
+<div class="font-label-md text-on-surface">Elena Rodriguez</div>
+<div class="font-body-sm text-on-surface-variant">Founder, Hearth &amp; Grain</div>
+</div>
+</div>
+</div>
+</div>
+<div class="p-lg bg-surface-container-lowest rounded-lg border border-outline-variant relative overflow-hidden">
+<span class="material-symbols-outlined text-6xl text-primary/10 absolute -top-2 -left-2 scale-150" data-icon="format_quote">format_quote</span>
+<div class="relative z-10">
+<p class="font-body-lg text-on-surface mb-md italic">"The mentor network was the game-changer. Having someone who's 'been there' to check my business plan saved me thousands in early mistakes."</p>
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a mature man with graying hair and a kind, knowledgeable smile, wearing a casual but sharp business shirt. The setting is a bright, minimalist home office. He represents the experienced mentor archetype within the EntreSkill Hub ecosystem." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0j6mKVpna3v3Pbh38ovRByLx0QM5t8GfMM89-baG5zFHrsz2yZKnartOCrPHerct0ttUBOVjtfkSsmwKuBUDPgAeJfpm5IzvcR1Zrp_twy3XosIvx7uKjE5PabOzvFusQV2J4iXx-NkjdaMD27Oossc0QbnRa5UI7BnR0jSWUbaPuAbgC-JN_Dlxo-2Eh3ZcZQhLPmmz7LngAPwLI16wyE7bHs9BCBP7H5gyVMdn6SPKRvQKPfiARdAvkvOzWAFzx2ivxNg7lF9A">
+</div>
+<div>
+<div class="font-label-md text-on-surface">Marcus Chen</div>
+<div class="font-body-sm text-on-surface-variant">Tech Consultant &amp; Mentor</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-xl px-margin-mobile md:px-lg max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-4 gap-gutter border-t border-outline-variant">
+<div class="md:col-span-1 flex flex-col gap-sm">
+<a href="index.html" class="flex items-center gap-base"><span class="material-symbols-outlined text-primary text-headline-md" data-icon="spa">spa</span>
+<span class="text-headline-md font-bold text-primary">EntreSkill Hub</span></a>
+<p class="font-body-sm text-on-surface-variant mt-sm">Empowering the next generation of micro-entrepreneurs with tools, knowledge, and community.</p>
+</div>
+<div>
+<h5 class="font-label-md text-on-surface mb-md">Platform</h5>
+<ul class="flex flex-col gap-sm">
+<li><a href="roadmap.html" class="text-on-surface-variant hover:text-primary transition-colors text-body-sm">Business Ideas</a></li>
+<li><a href="roadmap.html" class="text-on-surface-variant hover:text-primary transition-colors text-body-sm">Roadmaps</a></li>
+<li><a href="mentors.html" class="text-on-surface-variant hover:text-primary transition-colors text-body-sm">Mentors</a></li>
+<li><a href="learn.html" class="text-on-surface-variant hover:text-primary transition-colors text-body-sm">Curriculum</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-label-md text-on-surface mb-md">Company</h5>
+<ul class="flex flex-col gap-sm">
+<li><a class="text-on-surface-variant hover:text-primary transition-colors text-body-sm" href="#">About Us</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors text-body-sm" href="#">Success Stories</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors text-body-sm" href="#">Newsletter</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors text-body-sm" href="#">Contact</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-label-md text-on-surface mb-md">Legal</h5>
+<ul class="flex flex-col gap-sm">
+<li><a class="text-on-surface-variant hover:text-primary transition-colors text-body-sm" href="#">Privacy Policy</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors text-body-sm" href="#">Terms of Service</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors text-body-sm" href="#">Help Center</a></li>
+</ul>
+</div>
+<div class="md:col-span-4 mt-lg pt-lg border-t border-outline-variant flex flex-col md:flex-row justify-between items-center gap-md">
+<span class="font-body-sm text-on-surface-variant">© 2024 EntreSkill Hub. All rights reserved.</span>
+<div class="flex gap-md">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary" data-icon="facebook">face_nod</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary" data-icon="public">public</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary" data-icon="alternate_email">alternate_email</span>
+</div>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-xs pb-4 h-20 bg-surface shadow-[0_-4px_20px_rgba(0,0,0,0.04)] md:hidden">
+<a href="dashboard.html" class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl px-4 py-2 scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-sm mt-1">Home</span>
+</a>
+<a href="roadmap.html" class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="alt_route">alt_route</span>
+<span class="font-label-sm mt-1">Roadmap</span>
+</a>
+<a href="learn.html" class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-label-sm mt-1">Learn</span>
+</a>
+<a href="mentors.html" class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-sm mt-1">Mentors</span>
+</a>
+<a href="profile.html#settings" class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-sm mt-1">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple scroll interaction for header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('shadow-sm');
+                header.classList.remove('bg-surface/80');
+                header.classList.add('bg-surface');
+            } else {
+                header.classList.remove('shadow-sm');
+                header.classList.add('bg-surface/80');
+                header.classList.remove('bg-surface');
+            }
+        });
+
+        // Hover effects for cards
+        document.querySelectorAll('.bento-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.classList.add('shadow-lg');
+            });
+            card.addEventListener('mouseleave', () => {
+                card.classList.remove('shadow-lg');
+            });
+        });
+    </script>
+</body></html>

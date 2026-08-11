@@ -1,0 +1,321 @@
+// PostgreSQL schema for EntreSkill Hub
+// Migrated from MongoDB (Prisma MongoDB adapter) to PostgreSQL
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ───────────────────────────────────────────
+// USER
+// ───────────────────────────────────────────
+
+model User {
+  id           String    @id @default(uuid())
+  email        String    @unique
+  passwordHash String
+  role         String    @default("user") // "user" | "mentor" | "admin"
+  isActive     Boolean   @default(true)
+  isVerified   Boolean   @default(false)
+  // Formerly embedded composite types — stored as JSON
+  personalInfo Json      @default("{\"fullName\":\"\",\"phoneNumber\":null,\"location\":null,\"profilePicture\":null,\"bio\":null}")
+  onboarding   Json      @default("{\"skills\":[],\"interests\":[],\"budget\":0,\"experience\":\"\",\"goals\":[]}")
+  preferences  Json      @default("{\"notifications\":true,\"darkMode\":false,\"publicProfile\":true}")
+  achievements String[]
+  isDeleted    Boolean   @default(false)
+  deletedAt    DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  refreshTokens           RefreshToken[]
+  emailVerificationTokens EmailVerificationToken[]
+  passwordResetTokens     PasswordResetToken[]
+  bookings                MentorBooking[]
+  mentorProfile           Mentor?
+  progress                Progress?
+
+  @@index([role])
+  @@index([isDeleted])
+  @@map("users")
+}
+
+// ───────────────────────────────────────────
+// TOKENS
+// ───────────────────────────────────────────
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String   @unique
+  expiresAt DateTime
+  isRevoked Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([expiresAt])
+  @@map("refreshTokens")
+}
+
+model EmailVerificationToken {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([expiresAt])
+  @@map("emailVerificationTokens")
+}
+
+model PasswordResetToken {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([expiresAt])
+  @@map("passwordResetTokens")
+}
+
+// ───────────────────────────────────────────
+// MENTOR
+// ───────────────────────────────────────────
+
+model Mentor {
+  id             String   @id @default(uuid())
+  userId         String   @unique
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  specialization String
+  skills         String[]
+  languages      String[]
+  // Formerly: Availability[] embedded type → JSON array [{dayOfWeek, slots[]}]
+  availability   Json     @default("[]")
+  rating         Float    @default(5.0)
+  reviewsCount   Int      @default(0)
+  isVerified     Boolean  @default(false)
+  documents      String[]
+  // Formerly: MentorSocialLinks embedded type → JSON {linkedin, website}
+  socialLinks    Json     @default("{\"linkedin\":null,\"website\":null}")
+  ratePerHour    Float    @default(0)
+  isDeleted      Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  bookings             MentorBooking[]
+  businessIdeaRecs     MentorBusinessIdea[]
+
+  @@index([isVerified, isDeleted])
+  @@map("mentors")
+}
+
+// ───────────────────────────────────────────
+// MENTOR BOOKING
+// ───────────────────────────────────────────
+
+model MentorBooking {
+  id          String    @id @default(uuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mentorId    String
+  mentor      Mentor    @relation(fields: [mentorId], references: [id], onDelete: Cascade)
+  bookingDate DateTime
+  timeSlot    String
+  status      String    @default("pending") // "pending" | "accepted" | "rejected" | "cancelled" | "rescheduled"
+  notes       String?
+  meetingLink String?
+  // Formerly: BookingFeedback embedded type → JSON {rating, comment}
+  feedback           Json?
+  // Formerly: RescheduleRequest embedded type → JSON {requestedBy, newDate, newTimeSlot, reason}
+  rescheduleRequests Json?
+  isDeleted   Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([mentorId, bookingDate, timeSlot, status])
+  @@map("mentorBookings")
+}
+
+// ───────────────────────────────────────────
+// BUSINESS IDEA
+// ───────────────────────────────────────────
+
+model BusinessIdea {
+  id               String   @id @default(uuid())
+  title            String   @unique
+  slug             String   @unique
+  description      String
+  shortDescription String
+  category         String
+  subcategory      String?
+  // Formerly: InvestmentRange embedded type → two flat columns
+  investmentMin    Float    @default(0)
+  investmentMax    Float    @default(0)
+  expectedRevenue  String
+  difficultyLevel  String   // "beginner" | "intermediate" | "advanced" | "expert"
+  riskLevel        String   // "low" | "moderate" | "high"
+  requiredSkills   String[]
+  requiredEquipment String[]
+  marketDemand     String
+  successTips      String[]
+  commonChallenges String[]
+  images           String[]
+  videos           String[]
+  learningResources String[]
+  tags             String[]
+  status           String   @default("pending") // "pending" | "approved" | "rejected"
+  isDeleted        Boolean  @default(false)
+  bookmarkCount    Int      @default(0)
+  popularityScore  Float    @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  roadmap               Roadmap?             @relation("IdeaRoadmap")
+  // Formerly: direct array refs on both sides → explicit junction table
+  mentorRecommendations MentorBusinessIdea[]
+
+  @@index([status, isDeleted])
+  @@map("businessIdeas")
+}
+
+// Junction table for Mentor ↔ BusinessIdea many-to-many
+model MentorBusinessIdea {
+  id             String       @id @default(uuid())
+  mentorId       String
+  mentor         Mentor       @relation(fields: [mentorId], references: [id], onDelete: Cascade)
+  businessIdeaId String
+  businessIdea   BusinessIdea @relation(fields: [businessIdeaId], references: [id], onDelete: Cascade)
+
+  @@unique([mentorId, businessIdeaId])
+  @@map("mentorBusinessIdeas")
+}
+
+// ───────────────────────────────────────────
+// ROADMAP
+// ───────────────────────────────────────────
+
+model Roadmap {
+  id             String       @id @default(uuid())
+  businessIdeaId String       @unique
+  businessIdea   BusinessIdea @relation("IdeaRoadmap", fields: [businessIdeaId], references: [id], onDelete: Cascade)
+  overview       String
+  duration       String
+  // Formerly: CostEstimation embedded type → four flat columns
+  costMarketing    Float    @default(0)
+  costRegistration Float    @default(0)
+  costEquipment    Float    @default(0)
+  costScaling      Float    @default(0)
+  isDeleted        Boolean  @default(false)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  steps RoadmapStep[]
+
+  @@map("roadmaps")
+}
+
+model RoadmapStep {
+  id            String   @id @default(uuid())
+  roadmapId     String
+  roadmap       Roadmap  @relation(fields: [roadmapId], references: [id], onDelete: Cascade)
+  stepNumber    Int
+  title         String
+  description   String
+  estimatedTime String
+  videoUrl      String?
+  articleUrl    String?
+  // Formerly: ChecklistItem[] embedded type → JSON array [{item, isOptional}]
+  checklist     Json     @default("[]")
+  resources     String[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([roadmapId, stepNumber])
+  @@map("roadmapSteps")
+}
+
+// ───────────────────────────────────────────
+// PROGRESS
+// ───────────────────────────────────────────
+
+model Progress {
+  id                 String   @id @default(uuid())
+  userId             String   @unique
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // Formerly: PrismaRoadmapProgress[] embedded type → JSON array
+  roadmapProgress    Json     @default("[]")
+  // Formerly: PrismaLearningProgress[] embedded type → JSON array
+  learningProgress   Json     @default("[]")
+  totalLearningHours Float    @default(0)
+  // Formerly: Certificate[] embedded type → JSON array
+  certificates       Json     @default("[]")
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@map("progress")
+}
+
+// ───────────────────────────────────────────
+// LEARNING RESOURCE
+// ───────────────────────────────────────────
+
+model LearningResource {
+  id          String   @id @default(uuid())
+  title       String
+  type        String   // "video" | "article" | "pdf" | "download" | "link" | "course"
+  description String
+  url         String
+  duration    String?
+  category    String
+  skillTags   String[]
+  isPremium   Boolean  @default(false)
+  isDeleted   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category, isDeleted])
+  @@map("learningResources")
+}
+
+// ───────────────────────────────────────────
+// TAXONOMY
+// ───────────────────────────────────────────
+
+model Skill {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("skills")
+}
+
+model Interest {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("interests")
+}
+
+model Category {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("categories")
+}

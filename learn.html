@@ -1,0 +1,630 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<script type="module" src="/api.js"></script>
+<script>
+    (function() {
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+        } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('light');
+        }
+    })();
+</script>
+
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>EntreSkill Hub | Learning Center</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#edc063",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-container": "#ffe8c0",
+                    "background": "#fcf9f8",
+                    "on-secondary-container": "#127252",
+                    "on-surface": "#1b1c1c",
+                    "secondary-fixed": "#9ef4cb",
+                    "surface-container-low": "#f6f3f2",
+                    "secondary": "#046c4c",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#fcf9f8",
+                    "primary-fixed": "#9cf2e8",
+                    "inverse-on-surface": "#f3f0ef",
+                    "inverse-primary": "#80d5cb",
+                    "inverse-surface": "#303030",
+                    "surface-tint": "#006a63",
+                    "secondary-container": "#9ef4cb",
+                    "on-primary-fixed": "#00201d",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed-dim": "#82d7b0",
+                    "surface-dim": "#dcd9d9",
+                    "on-tertiary-fixed": "#261900",
+                    "on-tertiary-fixed-variant": "#5c4300",
+                    "tertiary-fixed": "#ffdea1",
+                    "primary-container": "#0f766e",
+                    "surface-variant": "#e5e2e1",
+                    "on-secondary": "#ffffff",
+                    "surface-container": "#f0eded",
+                    "on-secondary-fixed": "#002114",
+                    "error-container": "#ffdad6",
+                    "tertiary-container": "#87640a",
+                    "surface-container-high": "#eae7e7",
+                    "error": "#ba1a1a",
+                    "primary-fixed-dim": "#80d5cb",
+                    "outline-variant": "#bdc9c6",
+                    "surface-bright": "#fcf9f8",
+                    "on-surface-variant": "#3e4947",
+                    "on-secondary-fixed-variant": "#005138",
+                    "on-primary-container": "#a3faef",
+                    "outline": "#6e7977",
+                    "on-error-container": "#93000a",
+                    "tertiary": "#6a4d00",
+                    "on-primary-fixed-variant": "#00504a",
+                    "primary": "#005c55",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#e5e2e1",
+                    "on-background": "#1b1c1c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "sm": "12px",
+                    "base": "8px",
+                    "xs": "4px",
+                    "container-max": "1200px",
+                    "lg": "48px",
+                    "xl": "80px",
+                    "md": "24px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "label-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "display-lg-mobile": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "body-md": ["Inter"],
+                    "body-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .premium-card-shadow {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        }
+        
+        .glass-header {
+            background: rgba(252, 249, 248, 0.8);
+            backdrop-filter: blur(12px);
+        }
+
+        .scroll-mask {
+            mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen overflow-x-hidden">
+<aside class="fixed left-0 top-0 h-screen overflow-y-auto hidden md:flex flex-col bg-surface-container-low border-r border-outline-variant w-64 z-50">
+    <div class="px-md py-lg">
+        <a href="index.html" class="flex items-center gap-xs">
+            <span class="material-symbols-outlined text-primary text-[32px]">spa</span>
+            <span class="text-headline-md font-headline-md font-bold text-primary">EntreSkill Hub</span>
+        </a>
+    </div>
+    <nav class="flex-grow flex flex-col px-2">
+        <a href="dashboard.html" class="text-on-surface-variant hover:bg-surface-variant rounded-full mx-2 my-1 px-4 py-3 flex items-center gap-3 transition-all">
+            <span class="material-symbols-outlined">grid_view</span>
+            <span class="font-label-md">Dashboard</span>
+        </a>
+        <a href="roadmap.html" class="text-on-surface-variant hover:bg-surface-variant rounded-full mx-2 my-1 px-4 py-3 flex items-center gap-3 transition-all">
+            <span class="material-symbols-outlined">map</span>
+            <span class="font-label-md">My Roadmap</span>
+        </a>
+        <a href="learn.html" class="bg-primary-container text-on-primary-container font-semibold rounded-full mx-2 my-1 px-4 py-3 flex items-center gap-3 translate-x-1 transition-transform shadow-sm">
+            <span class="material-symbols-outlined">school</span>
+            <span class="font-label-md">Learning Center</span>
+        </a>
+        <a href="mentors.html" class="text-on-surface-variant hover:bg-surface-variant rounded-full mx-2 my-1 px-4 py-3 flex items-center gap-3 transition-all">
+            <span class="material-symbols-outlined">group</span>
+            <span class="font-label-md">Mentors</span>
+        </a>
+        <a href="profile.html" class="text-on-surface-variant hover:bg-surface-variant rounded-full mx-2 my-1 px-4 py-3 flex items-center gap-3 transition-all">
+            <span class="material-symbols-outlined">person</span>
+            <span class="font-label-md">Profile</span>
+        </a>
+        <a href="management.html" class="text-on-surface-variant hover:bg-surface-variant rounded-full mx-2 my-1 px-4 py-3 flex items-center gap-3 transition-all">
+            <span class="material-symbols-outlined">admin_panel_settings</span>
+            <span class="font-label-md">Management</span>
+        </a>
+    </nav>
+    <div class="p-md mt-auto border-t border-outline-variant">
+        <div class="flex items-center gap-sm mb-4">
+            <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden">
+                <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAd9a8FALN5zgdXbVWs-J-lpwDmxkTo1R88TIYdjtehA4fQJrpMnR-F4q007WZE_CVrUr6NRR0Z00Kqkub8WFrZ_TIBQVNOVNuStB1xYG9RdyGBRjT8DpWZSl0I_66UMg5cd1S1F6ZavSg1B0Ob9_DpCf4H5sQ1deLyjTEJfds09LPt3DIgORB37ODnoHOtFEZvaSeL2F7aaGSAc_PKtRMiHMrnAjhFYpQtSRwJNAwbZDnKG5Iq-rwewAw5oRGHBn1sLBFYQAe6uW4">
+            </div>
+            <div>
+                <p class="font-label-md text-on-surface">Alex Rivers</p>
+                <p class="text-xs text-on-surface-variant">Level 4 Founder</p>
+            </div>
+        </div>
+        <a href="profile.html#settings" class="text-on-surface-variant hover:bg-surface-variant rounded-full px-4 py-2 flex items-center gap-3 transition-all">
+            <span class="material-symbols-outlined">settings</span>
+            <span class="font-label-md">Settings</span>
+        </a>
+        <button onclick="window.API.logout()" class="w-full text-left text-error hover:bg-red-50 dark:hover:bg-red-950/20 rounded-full px-4 py-2 flex items-center gap-3 transition-all mt-xs">
+            <span class="material-symbols-outlined text-error">logout</span>
+            <span class="font-label-md">Log Out</span>
+        </button>
+    </div>
+</aside>
+
+<div class="min-h-screen flex flex-col md:pl-64">
+    <header class="sticky top-0 z-40 bg-surface border-b border-surface-variant flex justify-between items-center w-full px-margin-mobile md:px-lg h-16 md:h-20">
+    <div class="flex items-center gap-xs">
+        <a href="index.html" class="flex items-center gap-xs md:hidden">
+            <span class="material-symbols-outlined text-primary text-[28px]">spa</span>
+            <span class="text-headline-md font-bold text-primary">EntreSkill Hub</span>
+        </a>
+        <h2 class="hidden md:block font-headline-md text-headline-md text-on-surface">Learning Center</h2>
+    </div>
+    <div class="flex items-center gap-md">
+        <div class="relative hidden sm:block w-48 lg:w-64">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+            <input class="w-full bg-surface-container-low border-none rounded-full pl-8 pr-4 py-1.5 text-body-sm focus:ring-2 focus:ring-primary/20 placeholder:text-on-surface-variant/50" placeholder="Search..." type="text">
+        </div>
+        <button class="relative p-2 text-on-surface-variant hover:text-primary transition-colors">
+            <span class="material-symbols-outlined">notifications</span>
+            <span class="absolute top-2 right-2 w-1.5 h-1.5 bg-error rounded-full"></span>
+        </button>
+        <a href="profile.html" class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border border-outline-variant">
+            <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAd9a8FALN5zgdXbVWs-J-lpwDmxkTo1R88TIYdjtehA4fQJrpMnR-F4q007WZE_CVrUr6NRR0Z00Kqkub8WFrZ_TIBQVNOVNuStB1xYG9RdyGBRjT8DpWZSl0I_66UMg5cd1S1F6ZavSg1B0Ob9_DpCf4H5sQ1deLyjTEJfds09LPt3DIgORB37ODnoHOtFEZvaSeL2F7aaGSAc_PKtRMiHMrnAjhFYpQtSRwJNAwbZDnKG5Iq-rwewAw5oRGHBn1sLBFYQAe6uW4">
+        </a>
+    </div>
+</header>
+    
+    <main class="flex-grow max-w-container-max w-full mx-auto px-margin-mobile md:px-lg py-md pb-24">
+        <!-- Search & Filter Bar -->
+<section class="mb-lg">
+<div class="flex flex-col md:flex-row gap-md items-center justify-between">
+<div class="w-full md:max-w-md relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-12 pr-4 py-3 bg-surface-container-lowest border border-outline-variant rounded-full focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="Search for courses, skills, or mentors..." type="text">
+</div>
+<div class="flex gap-base overflow-x-auto no-scrollbar w-full md:w-auto pb-2 md:pb-0">
+<button class="px-5 py-2 bg-primary text-on-primary rounded-full font-label-md text-label-md whitespace-nowrap">All Skills</button>
+<button class="px-5 py-2 bg-surface-container-high text-on-surface-variant hover:bg-surface-variant rounded-full font-label-md text-label-md whitespace-nowrap transition-colors">Finance</button>
+<button class="px-5 py-2 bg-surface-container-high text-on-surface-variant hover:bg-surface-variant rounded-full font-label-md text-label-md whitespace-nowrap transition-colors">Marketing</button>
+<button class="px-5 py-2 bg-surface-container-high text-on-surface-variant hover:bg-surface-variant rounded-full font-label-md text-label-md whitespace-nowrap transition-colors">Strategy</button>
+<button class="px-5 py-2 bg-surface-container-high text-on-surface-variant hover:bg-surface-variant rounded-full font-label-md text-label-md whitespace-nowrap transition-colors">Operations</button>
+</div>
+</div>
+</section>
+<!-- Continue Learning (Hero-ish horizontal list) -->
+<section class="mb-xl">
+<h2 class="font-headline-md text-headline-md mb-md text-on-surface">Continue Learning</h2>
+<div class="flex gap-md overflow-x-auto no-scrollbar scroll-mask pb-4 -mx-margin-mobile px-margin-mobile md:-mx-0 md:px-0">
+<!-- Large "Continue" Card -->
+<div class="min-w-[300px] md:min-w-[420px] bg-surface-container-lowest rounded-[24px] premium-card-shadow border border-outline-variant overflow-hidden group cursor-pointer">
+<div class="relative h-48 md:h-56">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A cinematic overhead shot of a clean, minimalist workstation with a single laptop, an open sketchbook, and a small green succulent plant. The lighting is soft and natural from a nearby window, casting long, gentle shadows. The palette is dominated by off-whites, warm woods, and emerald green, embodying an atmosphere of focused, professional entrepreneurial growth." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKD3pi4pzmxrlUSQiP38TeNbOp-ZpdZvnU6NsR_SogRLYp0rsE0QmRwDAIrLWtu0LMiJTP-nDYHec9z3BJdjx8oHjrdismiUax3rsm6UY8NjmvW0KWH5xt_a-FnvgqpWasjcCIe9uXTv1WoZzch8_SMXzwTCx006uCgYJuNsxpHSJeBQL1GUqQY4I59XXx_ll3Wi90DHYY11l1wPoE-67qEc2SPZkARgzJw7jq7w0lbp2JsWXxtUoVnmI3-Lw11kUHB25ygie1NKk">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-4 left-4 right-4 text-white">
+<span class="bg-secondary-container text-on-secondary-container text-[10px] uppercase font-bold px-2 py-1 rounded-md">In Progress</span>
+<h3 class="font-headline-md text-headline-md mt-2">Scaling Sustainable Startups</h3>
+</div>
+</div>
+<div class="p-md">
+<div class="flex justify-between items-center mb-xs">
+<span class="text-body-sm font-label-md text-outline">Module 4: Market Expansion</span>
+<span class="text-body-sm font-label-md text-secondary">65%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-secondary transition-all duration-1000" style="width: 65%;"></div>
+</div>
+<div class="mt-md flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<img class="w-8 h-8 rounded-full" data-alt="A professional studio portrait of a woman in her late 30s with a confident and kind expression. She is wearing a modern, charcoal-colored business casual outfit against a clean, warm beige studio background. The style is high-end corporate photography, focusing on clarity, professional warmth, and approachable authority." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGVfG6px_co6BMcvuRRdUcbZ3ixlx9kj2y9PKFipC_VDvOkC5DnKAbm1xaRT9cC-M7qjOpeE7ObtZ3vuRSlgG1kjh4mkg6SanmqHiXjIMA8QR8PYY2_NcFgn0QaJy8JAW6hYcBMl9Qng5a0z2o63koeKxV45mqlj2yIzKipg4YxUrRfaHDIyI8pFeNv2NJiwIE187aqk3gFxvAlCz4-Oi_Jjs2nE8Rl5Wz4hlyaOPMH8U2CwMUZrWYhG-RfD8GgpHK1sTcOyQV7Ro">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Sarah Chen</span>
+</div>
+<span class="material-symbols-outlined text-secondary">play_circle</span>
+</div>
+</div>
+</div>
+<!-- Second Continue Card -->
+<div class="min-w-[280px] md:min-w-[400px] bg-surface-container-lowest rounded-[24px] premium-card-shadow border border-outline-variant overflow-hidden group cursor-pointer">
+<div class="relative h-48 md:h-56">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A high-angle photo of professional hands carefully planting a small green sprout into dark, rich soil within a clean terracotta pot. The background is a bright, airy sunroom with blurry architectural blueprints. The aesthetic is clean and high-utility, symbolizing the grounding and nurturing aspect of foundational business training in a modern light-mode setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2b9FN4KziC8B-IL1fsVDaK_qMkX8IxlY_1Qj2fqChfujdS9isr9rFKOWvVCCWs7FM0cHZImP0SREqg4itlW4MBgiueUtnhLD6tWoN_fPTsMR7lvM_TLELR3Pqg5uXhZ4BejERYIgDStqFEZ31nwYXbXjsslwgkeSgpTWufemq5Bdb-mNvfs8-l9hZBqeyuPnnDpLn-t7ikRYwmnQiFXEcj7qi89M7wqW8bdNU1HQ5xTwKAPj_-Nw9DPt9Cc8z82Xh1JgA4MVuMCI">
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+<div class="absolute bottom-4 left-4 right-4 text-white">
+<h3 class="font-headline-md text-headline-md">Financial Literacy for Founders</h3>
+</div>
+</div>
+<div class="p-md">
+<div class="flex justify-between items-center mb-xs">
+<span class="text-body-sm font-label-md text-outline">Module 2: Burn Rate Basics</span>
+<span class="text-body-sm font-label-md text-secondary">20%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-secondary transition-all duration-1000" style="width: 20%;"></div>
+</div>
+<div class="mt-md flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<img class="w-8 h-8 rounded-full" data-alt="A sharp, modern portrait of a man in a crisp white shirt, smiling warmly at the camera. He is sitting in a minimalist, bright office space with glass partitions and soft natural light. The photograph has an editorial, high-quality finish with a focus on trust and financial expertise." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMr8QAcopTXK5mVCbQeMRvUnnWoWab-XcZez1fxMFAjaiSUaExGRrJTnbTnYkWbmNJuBinJVOWJEnLcbhYekjJTtbFntMROuiaq1EDEvpNrS7TGRKNBC_Gqh19eWkno28FjEcdh4nDLz11a_1td-lWFCe7Bs47WELzYPNpJHMVvbnclssXjr4i33AjSwmptxycaueueTReMFYXKinwpeIzLObkylnyFpqZoBvhopy8Ioxtm8_kiyhGxxegttp_VVc3kDdLaGHQLa4">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Marcus Thorne</span>
+</div>
+<span class="material-symbols-outlined text-secondary">play_circle</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Category: Featured Courses -->
+<section class="mb-xl">
+<div class="flex items-center justify-between mb-md">
+<h2 class="font-headline-md text-headline-md text-on-surface">Featured Courses</h2>
+<a class="text-primary font-label-md text-label-md hover:underline" href="#">View All</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Course Card 1 -->
+<div class="flex flex-col bg-surface-container-lowest rounded-[24px] premium-card-shadow border border-outline-variant overflow-hidden group">
+<div class="relative aspect-video">
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist 3D rendering of abstract geometric blocks stacked in a balanced, rising formation. The colors are soft cream, muted gold, and deep forest green. The scene is lit with professional soft-box lighting, creating a sophisticated and professional metaphor for business structure and growth." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKlAk28wyhpvyItRGonM-K0tsPSAs6tDObAeLth_WeZUt7bhxbdGPdwfuYSnNLno5DtDVTScsJ8kjvMPCXQpdhAF8AgRE5xBXUrEXhbvAprBiGxXrjbBhilWicc6WJlx9a6zt2En47Lw4YYBwh8QvV8P6HhTjH5LN71XTox8VjcnqwKQ4sr15Zr6LPceCN1dhUM95sicLLdVkiTrlz4rHMb7H88jcUHOg1nRGyViIfY8puF1xePNu9ZYfToBHH993jbR-CaIr5AOA">
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded-lg text-label-sm font-label-sm text-on-surface">4h 20m</div>
+</div>
+<div class="p-md flex flex-col flex-1">
+<h3 class="font-headline-sm text-on-surface mb-2 line-clamp-1">Product Market Fit 101</h3>
+<p class="text-body-sm text-on-surface-variant line-clamp-2 mb-md">Master the core principles of identifying and validating your product-market fit.</p>
+<div class="mt-auto pt-md border-t border-surface-variant flex items-center justify-between">
+<span class="text-label-sm font-label-sm text-secondary">Advanced</span>
+<button class="text-primary hover:bg-primary-container/10 p-2 rounded-full transition-all">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Course Card 2 -->
+<div class="flex flex-col bg-surface-container-lowest rounded-[24px] premium-card-shadow border border-outline-variant overflow-hidden group">
+<div class="relative aspect-video">
+<img class="w-full h-full object-cover" data-alt="A minimalist photograph of a high-end designer pen resting on a blank white notebook page. The background is a softly blurred modern cafe with warm wood textures. The focus is sharp on the pen, symbolizing the clarity and preparation needed for a successful marketing strategy launch." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKlJkGxfHXXSelghyx0GO6OpNUvx6HUAwwfKPDTrhkuA38cbWM6ABQNZOxX1KgIlf_6zDR9QnLqQxNDlUgQLjOyNfYZ1nWGUfT05eP8GbeUN3-sLz5JVki1Uk6NaG1mkSZ_L5BNs16nZB9X7XoUfyLKqJ40F4a5N3Yd0k6Y1pCNLzKuGLg24KV2qHBYmf2ycaxqUqS6vkITyG2e8IDR_VHh5jM2buIEBfsbgkMlgLVETAckS2kfo0e6hl0rgCBHTuC6m9LuqH67Ag">
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded-lg text-label-sm font-label-sm text-on-surface">2h 15m</div>
+</div>
+<div class="p-md flex flex-col flex-1">
+<h3 class="font-headline-sm text-on-surface mb-2 line-clamp-1">Growth Marketing Strategies</h3>
+<p class="text-body-sm text-on-surface-variant line-clamp-2 mb-md">Learn how to leverage data-driven marketing to scale your startup's user base.</p>
+<div class="mt-auto pt-md border-t border-surface-variant flex items-center justify-between">
+<span class="text-label-sm font-label-sm text-secondary">Beginner</span>
+<button class="text-primary hover:bg-primary-container/10 p-2 rounded-full transition-all">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Course Card 3 -->
+<div class="flex flex-col bg-surface-container-lowest rounded-[24px] premium-card-shadow border border-outline-variant overflow-hidden group">
+<div class="relative aspect-video">
+<img class="w-full h-full object-cover" data-alt="An abstract digital illustration of a network of glowing lines connecting dots, forming a globe. The color scheme uses emerald green and soft gold accents over a neutral beige background. The mood is futuristic yet grounded, representing global business connectivity and networking." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1Y3zRx5gmWldevun8D_TT9WRtslGVUmS-WjOKIM9tWE1RDHmr8Ca9aaFsenh4IHQT3xdaVDtxbFuHE1IFvHsbhkRorAtEcArHlJiZYoYOQYMf-hq8BpEnDnurzp_PAGoJx8mHaPlJjDiY56-xZs_UMLg48heEzCGKLkGHpz40x8Hr65ZUpc-HFeRJdfeVfSHDOuOciE2qO_gZOlMHXbLQotrKqcprUsLej50yvYGx9xySl7YEfsjQKsyVXpMTTXQGtIVNyStISxg">
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded-lg text-label-sm font-label-sm text-on-surface">5h 45m</div>
+</div>
+<div class="p-md flex flex-col flex-1">
+<h3 class="font-headline-sm text-on-surface mb-2 line-clamp-1">International Expansion</h3>
+<p class="text-body-sm text-on-surface-variant line-clamp-2 mb-md">A comprehensive guide to taking your domestic business into global markets.</p>
+<div class="mt-auto pt-md border-t border-surface-variant flex items-center justify-between">
+<span class="text-label-sm font-label-sm text-secondary">Expert</span>
+<button class="text-primary hover:bg-primary-container/10 p-2 rounded-full transition-all">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Course Card 4 -->
+<div class="flex flex-col bg-surface-container-lowest rounded-[24px] premium-card-shadow border border-outline-variant overflow-hidden group">
+<div class="relative aspect-video">
+<img class="w-full h-full object-cover" data-alt="A macro photograph of clock gears in pristine condition, shot with high-key lighting to emphasize their metallic precision and mechanical harmony. The aesthetic is clean, professional, and sophisticated, symbolizing efficient operational systems within a successful organization." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsrQ5nkUl5DXkbhfiUk7P9AqtM_oYbX_GssLj8apn3rVi1z53Arhx-DejKu8b0KOvN4WH4JSKjCCyJ2V366DboqHwCtQ5V291h9N31iwFZdWz2LrNLqNsZnXE8tLDGFocx-xyotBV5o740xhTuQGwzKCA5J6aA4ta3pLdUQqsRFj61HD7S7EEwGeg0BoaPLmXJAW8cO8r4Dvjr3e0L8rRul_x2RN_i33UsHvd9KowUvTxY56tytz_M9gurrtO9Awcvv17VLUp_o6s">
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded-lg text-label-sm font-label-sm text-on-surface">3h 30m</div>
+</div>
+<div class="p-md flex flex-col flex-1">
+<h3 class="font-headline-sm text-on-surface mb-2 line-clamp-1">Operational Excellence</h3>
+<p class="text-body-sm text-on-surface-variant line-clamp-2 mb-md">Optimize your internal processes to build a resilient and efficient team culture.</p>
+<div class="mt-auto pt-md border-t border-surface-variant flex items-center justify-between">
+<span class="text-label-sm font-label-sm text-secondary">Intermediate</span>
+<button class="text-primary hover:bg-primary-container/10 p-2 rounded-full transition-all">
+<span class="material-symbols-outlined">add_circle</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Course Details Screen (Hidden by default, shown via JS simulation) -->
+<div class="fixed inset-0 z-[60] bg-surface overflow-y-auto hidden translate-y-full transition-transform duration-500 ease-out" id="course-details">
+<div class="max-w-container-max mx-auto">
+<!-- Close Button -->
+<button class="absolute top-6 right-6 z-[70] bg-black/20 hover:bg-black/40 text-white w-10 h-10 rounded-full flex items-center justify-center transition-all" onclick="toggleDetails()">
+<span class="material-symbols-outlined">close</span>
+</button>
+<!-- Hero / Player Area -->
+<div class="relative bg-black aspect-video md:aspect-[21/9] flex items-center justify-center group">
+<img class="absolute inset-0 w-full h-full object-cover opacity-60" data-alt="A wide cinematic shot of a professional boardroom overlooking a futuristic city skyline at sunrise. The interior is minimal with a large wooden table and high-end ergonomic chairs. The sunlight is warm and golden, contrasting with the cool blue-grey glass and metal of the city. The overall vibe is one of high-level strategic planning and immense potential." id="detail-hero-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA77Hrp5zPVWHKBPkK4WBvkgSXWxAnDZ2OTM3e8CNltwtIzAnC2kcWCVqYjCpjgujsLg1pmmD2uME-OxyDPXRRk_cLiCRGU1chCudPiIH9iSf9RslvjhH2xN-OzuHce1wwp91qQbnY9N56IsFc0aeneOLe7KVJ5vXDY8J_tFiBu9Tj4fzaD_gYydTaI-Limq1fZAOY9Xh-iESPlUuEx_YNPw93OyUAAdmzi0mijp-gYqPHlJq8Hx5di7jLIPFIR-Dc0lVQk8K07UTQ">
+<button class="relative z-10 w-20 h-20 bg-primary text-white rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-2xl">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+<div class="px-margin-mobile md:px-lg py-xl grid grid-cols-1 lg:grid-cols-3 gap-xl">
+<!-- Main Content -->
+<div class="lg:col-span-2">
+<nav class="flex gap-md border-b border-outline-variant mb-lg">
+<button class="pb-4 border-b-2 border-primary text-primary font-bold">About Course</button>
+<button class="pb-4 text-on-surface-variant hover:text-on-surface">Curriculum</button>
+<button class="pb-4 text-on-surface-variant hover:text-on-surface">Resources</button>
+<button class="pb-4 text-on-surface-variant hover:text-on-surface">Notes</button>
+</nav>
+<div class="space-y-lg">
+<section>
+<h1 class="font-display-lg text-display-lg mb-base">Scaling Sustainable Startups</h1>
+<div class="flex flex-wrap gap-md items-center text-on-surface-variant mb-lg">
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-secondary">star</span> 4.9 (1.2k reviews)</span>
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined">group</span> 4,500 students</span>
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined">schedule</span> 12h total content</span>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                                    In this masterclass, Sarah Chen shares her decade-long experience in scaling Silicon Valley's most resilient green-tech startups. You will learn the intersection of rapid growth and ecological responsibility, focusing on lean operations and impact-driven leadership.
+                                </p>
+</section>
+<section>
+<h3 class="font-headline-md text-headline-md mb-md">Instructor</h3>
+<div class="flex items-start gap-md p-md bg-surface-container-low rounded-[24px] border border-outline-variant">
+<img class="w-20 h-20 rounded-2xl object-cover" data-alt="A professional studio portrait of a woman in her late 30s with a confident and kind expression. She is wearing a modern, charcoal-colored business casual outfit against a clean, warm beige studio background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlYKoLg8uOWece4ds4YEcjPus3YRGisG58sOaeBpDxKWU-H34GEQuiQhLseVPGZV-WByzyfXna-pTOE2Is9mJgdLUZ_dKmvOPFXp98w5jEkpe7zk28vtHhQAm1_yW6YsZD0FmRSORGw2y_tDY4hMhjZ_f7wpVjxb6qIZuf6vzHVhBPSIkWfst1c07A--rz7W0st6jJIO1qPzJYTZft6leBV-FFrvJ8DFPsm_Zk1U5SGXSesIRLPI7WwPC9rpQtxtDHmfUTre38LnA">
+<div>
+<h4 class="font-headline-sm text-on-surface">Sarah Chen</h4>
+<p class="text-secondary font-label-md text-label-md mb-xs">Managing Director at GreenCap Ventures</p>
+<p class="text-body-sm text-on-surface-variant">Forbes 30 Under 30 Alumna and advisor to over 50 sustainable startups worldwide. Specialist in circular economy business models.</p>
+</div>
+</div>
+</section>
+<section>
+<h3 class="font-headline-md text-headline-md mb-md">Resources</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="flex items-center justify-between p-sm border border-outline-variant rounded-xl hover:bg-surface-container-high transition-colors cursor-pointer">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-error">picture_as_pdf</span>
+<div>
+<p class="font-label-md text-label-md">Scaling Framework.pdf</p>
+<p class="text-xs text-on-surface-variant">2.4 MB</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">download</span>
+</div>
+<div class="flex items-center justify-between p-sm border border-outline-variant rounded-xl hover:bg-surface-container-high transition-colors cursor-pointer">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">description</span>
+<div>
+<p class="font-label-md text-label-md">Marketing Worksheet.docx</p>
+<p class="text-xs text-on-surface-variant">1.1 MB</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">download</span>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Sidebar: Notes & Related -->
+<div class="space-y-xl">
+<div class="bg-surface-container-lowest p-md rounded-[24px] premium-card-shadow border border-outline-variant">
+<h3 class="font-headline-sm mb-md flex items-center justify-between">
+                                Personal Notes
+                                <button class="text-primary text-sm font-semibold">Clear</button>
+</h3>
+<textarea class="w-full min-h-[200px] p-md bg-background border border-outline-variant rounded-xl focus:ring-2 focus:ring-primary outline-none text-body-sm resize-none" placeholder="Type your notes here while watching..."></textarea>
+<button class="w-full mt-md py-3 bg-primary text-on-primary rounded-full font-label-md">Save Note</button>
+</div>
+<div class="bg-surface-container-low p-md rounded-[24px] border border-outline-variant">
+<h3 class="font-headline-sm mb-md">Next Lessons</h3>
+<div class="space-y-md">
+<div class="flex gap-sm group cursor-pointer">
+<div class="relative w-24 aspect-video rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Minimalist abstract of colorful connecting lines on a neutral background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4ixlI97dZqFgLOmzlhk6nSV4tNtuqHLgHRkvbJMMwngGCd1wHYvHpQFpxtQ9ceN5aoUY13rx7NXTed4HhKPhWPNdSlUMxliqfuGYZB1F32kmMvjw79FXbIcoxOu_PXZL1opvTKsCZTX0PCuF0StLXD8lPW58sobO1I9px_9fVtYVJZdQEuvV25unRlF8OJ92Mmjk2YfGz0MIfUCJpQR3S5bv6NCzHKUUudTlZLdT2ncH_xV2yhknzP-_BW2jE5BMaPaRvi14RXdg">
+<div class="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-white text-sm">play_arrow</span>
+</div>
+</div>
+<div class="min-w-0">
+<p class="font-label-md text-label-md truncate">Building Circular Supply Chains</p>
+<p class="text-xs text-on-surface-variant">15:30</p>
+</div>
+</div>
+<div class="flex gap-sm group cursor-pointer opacity-50">
+<div class="w-24 aspect-video rounded-lg overflow-hidden flex-shrink-0 bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-outline">lock</span>
+</div>
+<div class="min-w-0">
+<p class="font-label-md text-label-md truncate">Hiring for Mission Alignment</p>
+<p class="text-xs text-on-surface-variant">22:15</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+    </main>
+    
+    <footer class="w-full py-xl px-margin-mobile md:px-lg max-w-container-max mx-auto border-t border-outline-variant bg-surface-container-highest mt-auto">
+<div class="md:col-span-1">
+<div class="flex items-center gap-xs mb-md">
+<span class="material-symbols-outlined text-primary text-2xl">spa</span>
+<span class="text-headline-md font-headline-md font-bold text-primary">EntreSkill Hub</span>
+</div>
+<p class="text-body-sm text-on-surface-variant mb-lg">Empowering next-gen entrepreneurs with organic growth tools and wisdom.</p>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-secondary mb-md">Resources</h4>
+<ul class="space-y-sm">
+<li><a class="text-on-surface-variant hover:text-primary transition-colors text-body-sm" href="#">Privacy Policy</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors text-body-sm" href="#">Terms of Service</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors text-body-sm" href="#">Help Center</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-secondary mb-md">Community</h4>
+<ul class="space-y-sm">
+<li><a class="text-on-surface-variant hover:text-primary transition-colors text-body-sm" href="#">Newsletter</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors text-body-sm" href="#">Events</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors text-body-sm" href="#">Forums</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-secondary mb-md">Contact</h4>
+<a class="text-on-surface-variant hover:text-primary transition-colors text-body-sm" href="mailto:hello@entreskillhub.com">hello@entreskillhub.com</a>
+</div>
+<div class="md:col-span-4 mt-lg pt-lg border-t border-surface-variant text-center">
+<p class="text-body-sm text-on-surface-variant opacity-70">© 2024 EntreSkill Hub. All rights reserved.</p>
+</div>
+</footer>
+    
+    <nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-xs pb-safe md:hidden bg-surface shadow-[0_-4px_20px_rgba(0,0,0,0.04)] h-16 rounded-t-lg">
+    <a href="dashboard.html" class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 transition-all">
+        <span class="material-symbols-outlined">dashboard</span>
+        <span class="font-label-sm text-label-sm">Home</span>
+    </a>
+    <a href="roadmap.html" class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 transition-all">
+        <span class="material-symbols-outlined">alt_route</span>
+        <span class="font-label-sm text-label-sm">Roadmap</span>
+    </a>
+    <a href="learn.html" class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl px-3 py-1 scale-90 transition-all">
+        <span class="material-symbols-outlined">school</span>
+        <span class="font-label-sm text-label-sm">Learn</span>
+    </a>
+    <a href="mentors.html" class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 transition-all">
+        <span class="material-symbols-outlined">group</span>
+        <span class="font-label-sm text-label-sm">Mentors</span>
+    </a>
+    <a href="profile.html" class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 transition-all">
+        <span class="material-symbols-outlined">person</span>
+        <span class="font-label-sm text-label-sm">Profile</span>
+    </a>
+</nav>
+</div>
+
+<script>
+        // Micro-interaction simulation for course cards
+        const courseCards = document.querySelectorAll('.course-card');
+        courseCards.forEach(card => {
+            card.addEventListener('click', () => {
+                toggleDetails();
+            });
+        });
+
+        
+        function saveNotes() {
+            const notes = document.getElementById('course-notes-area').value;
+            localStorage.setItem('learn-notes', notes);
+            alert("Notes saved successfully!");
+        }
+
+        function clearNotes() {
+            document.getElementById('course-notes-area').value = '';
+            localStorage.removeItem('learn-notes');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedNotes = localStorage.getItem('learn-notes');
+            const notesArea = document.getElementById('course-notes-area');
+            if (savedNotes && notesArea) {
+                notesArea.value = savedNotes;
+            }
+
+            // Filter logic
+            const filterBtns = document.querySelectorAll('button.whitespace-nowrap');
+            const courseCards = document.querySelectorAll('.grid-cols-1 > .flex');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => {
+                        b.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
+                        b.classList.add('bg-surface-container', 'text-on-surface-variant');
+                    });
+                    btn.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+                    btn.classList.remove('bg-surface-container', 'text-on-surface-variant');
+
+                    const filter = btn.innerText.toLowerCase().trim();
+                    courseCards.forEach(card => {
+                        const title = card.querySelector('h3').innerText.toLowerCase();
+                        const desc = card.querySelector('p').innerText.toLowerCase();
+                        const categoryTag = card.querySelector('.text-label-sm').innerText.toLowerCase();
+                        
+                        if (filter === 'all skills' || title.includes(filter) || desc.includes(filter) || categoryTag.includes(filter)) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    
+function toggleDetails() {
+            const details = document.getElementById('course-details');
+            if (details.classList.contains('hidden')) {
+                details.classList.remove('hidden');
+                setTimeout(() => {
+                    details.classList.remove('translate-y-full');
+                    details.classList.add('translate-y-0');
+                    document.body.style.overflow = 'hidden';
+                }, 10);
+            } else {
+                details.classList.remove('translate-y-0');
+                details.classList.add('translate-y-full');
+                setTimeout(() => {
+                    details.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }, 500);
+            }
+        }
+
+        // Horizontal scroll button logic could go here if added
+    </script>
+</body></html>

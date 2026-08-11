@@ -1,0 +1,48 @@
+name: Seedling Backend CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      mongodb:
+        image: mongo:6.0
+        ports:
+          - 27017:27017
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-level: '20'
+        cache: 'npm'
+        cache-dependency-path: './backend/package.json'
+
+    - name: Install dependencies
+      run: |
+        cd backend
+        npm ci
+
+    - name: Run lint
+      run: |
+        cd backend
+        # Add linting script or running checks if configured
+
+    - name: Run integration and unit tests
+      run: |
+        cd backend
+        npm test
+
+    - name: Build TypeScript output
+      run: |
+        cd backend
+        npm run build

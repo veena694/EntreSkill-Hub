@@ -1,0 +1,1052 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<script type="module" src="/api.js"></script>
+<script>
+    (function() {
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+        } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('light');
+        }
+    })();
+</script>
+
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>EntreSkill Hub | Admin &amp; Mentor Dashboards</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        body {
+            background-color: #fcf9f8;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e5e2e1;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#edc063",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#ffe8c0",
+                        "background": "#fcf9f8",
+                        "on-secondary-container": "#127252",
+                        "on-surface": "#1b1c1c",
+                        "secondary-fixed": "#9ef4cb",
+                        "surface-container-low": "#f6f3f2",
+                        "secondary": "#046c4c",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#fcf9f8",
+                        "primary-fixed": "#9cf2e8",
+                        "inverse-on-surface": "#f3f0ef",
+                        "inverse-primary": "#80d5cb",
+                        "inverse-surface": "#303030",
+                        "surface-tint": "#006a63",
+                        "secondary-container": "#9ef4cb",
+                        "on-primary-fixed": "#00201d",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#82d7b0",
+                        "surface-dim": "#dcd9d9",
+                        "on-tertiary-fixed": "#261900",
+                        "on-tertiary-fixed-variant": "#5c4300",
+                        "tertiary-fixed": "#ffdea1",
+                        "primary-container": "#0f766e",
+                        "surface-variant": "#e5e2e1",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#f0eded",
+                        "on-secondary-fixed": "#002114",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#87640a",
+                        "surface-container-high": "#eae7e7",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#80d5cb",
+                        "outline-variant": "#bdc9c6",
+                        "surface-bright": "#fcf9f8",
+                        "on-surface-variant": "#3e4947",
+                        "on-secondary-fixed-variant": "#005138",
+                        "on-primary-container": "#a3faef",
+                        "outline": "#6e7977",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#6a4d00",
+                        "on-primary-fixed-variant": "#00504a",
+                        "primary": "#005c55",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-background": "#1b1c1c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "sm": "12px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "container-max": "1200px",
+                        "lg": "48px",
+                        "xl": "80px",
+                        "md": "24px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "display-lg-mobile": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md min-h-screen overflow-x-hidden">
+<aside class="fixed left-0 top-0 h-screen overflow-y-auto hidden md:flex flex-col bg-surface-container-low border-r border-outline-variant w-64 z-50">
+    <div class="px-md py-lg">
+        <a href="index.html" class="flex items-center gap-xs">
+            <span class="material-symbols-outlined text-primary text-[32px]">spa</span>
+            <span class="text-headline-md font-headline-md font-bold text-primary">EntreSkill Hub</span>
+        </a>
+    </div>
+    <nav class="flex-grow flex flex-col px-2">
+        <a href="dashboard.html" class="text-on-surface-variant hover:bg-surface-variant rounded-full mx-2 my-1 px-4 py-3 flex items-center gap-3 transition-all">
+            <span class="material-symbols-outlined">grid_view</span>
+            <span class="font-label-md">Dashboard</span>
+        </a>
+        <a href="roadmap.html" class="text-on-surface-variant hover:bg-surface-variant rounded-full mx-2 my-1 px-4 py-3 flex items-center gap-3 transition-all">
+            <span class="material-symbols-outlined">map</span>
+            <span class="font-label-md">My Roadmap</span>
+        </a>
+        <a href="learn.html" class="text-on-surface-variant hover:bg-surface-variant rounded-full mx-2 my-1 px-4 py-3 flex items-center gap-3 transition-all">
+            <span class="material-symbols-outlined">school</span>
+            <span class="font-label-md">Learning Center</span>
+        </a>
+        <a href="mentors.html" class="text-on-surface-variant hover:bg-surface-variant rounded-full mx-2 my-1 px-4 py-3 flex items-center gap-3 transition-all">
+            <span class="material-symbols-outlined">group</span>
+            <span class="font-label-md">Mentors</span>
+        </a>
+        <a href="profile.html" class="text-on-surface-variant hover:bg-surface-variant rounded-full mx-2 my-1 px-4 py-3 flex items-center gap-3 transition-all">
+            <span class="material-symbols-outlined">person</span>
+            <span class="font-label-md">Profile</span>
+        </a>
+        <a href="management.html" class="bg-primary-container text-on-primary-container font-semibold rounded-full mx-2 my-1 px-4 py-3 flex items-center gap-3 translate-x-1 transition-transform shadow-sm">
+            <span class="material-symbols-outlined">admin_panel_settings</span>
+            <span class="font-label-md">Management</span>
+        </a>
+    </nav>
+    <div class="p-md mt-auto border-t border-outline-variant">
+        <div class="flex items-center gap-sm mb-4">
+            <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden">
+                <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAd9a8FALN5zgdXbVWs-J-lpwDmxkTo1R88TIYdjtehA4fQJrpMnR-F4q007WZE_CVrUr6NRR0Z00Kqkub8WFrZ_TIBQVNOVNuStB1xYG9RdyGBRjT8DpWZSl0I_66UMg5cd1S1F6ZavSg1B0Ob9_DpCf4H5sQ1deLyjTEJfds09LPt3DIgORB37ODnoHOtFEZvaSeL2F7aaGSAc_PKtRMiHMrnAjhFYpQtSRwJNAwbZDnKG5Iq-rwewAw5oRGHBn1sLBFYQAe6uW4">
+            </div>
+            <div>
+                <p class="font-label-md text-on-surface">Alex Rivers</p>
+                <p class="text-xs text-on-surface-variant">Level 4 Founder</p>
+            </div>
+        </div>
+        <a href="profile.html#settings" class="text-on-surface-variant hover:bg-surface-variant rounded-full px-4 py-2 flex items-center gap-3 transition-all">
+            <span class="material-symbols-outlined">settings</span>
+            <span class="font-label-md">Settings</span>
+        </a>
+        <button onclick="window.API.logout()" class="w-full text-left text-error hover:bg-red-50 dark:hover:bg-red-950/20 rounded-full px-4 py-2 flex items-center gap-3 transition-all mt-xs">
+            <span class="material-symbols-outlined text-error">logout</span>
+            <span class="font-label-md">Log Out</span>
+        </button>
+    </div>
+</aside>
+
+<div class="min-h-screen flex flex-col md:pl-64">
+    <header class="sticky top-0 z-40 bg-surface border-b border-surface-variant flex justify-between items-center w-full px-margin-mobile md:px-lg h-16 md:h-20">
+    <div class="flex items-center gap-xs">
+        <a href="index.html" class="flex items-center gap-xs md:hidden">
+            <span class="material-symbols-outlined text-primary text-[28px]">spa</span>
+            <span class="text-headline-md font-bold text-primary">EntreSkill Hub</span>
+        </a>
+        <h2 class="hidden md:block font-headline-md text-headline-md text-on-surface">Management & Admin Portal</h2>
+    </div>
+    <div class="flex items-center gap-md">
+        <div class="relative hidden sm:block w-48 lg:w-64">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+            <input class="w-full bg-surface-container-low border-none rounded-full pl-8 pr-4 py-1.5 text-body-sm focus:ring-2 focus:ring-primary/20 placeholder:text-on-surface-variant/50" placeholder="Search..." type="text">
+        </div>
+        <button class="relative p-2 text-on-surface-variant hover:text-primary transition-colors">
+            <span class="material-symbols-outlined">notifications</span>
+            <span class="absolute top-2 right-2 w-1.5 h-1.5 bg-error rounded-full"></span>
+        </button>
+        <a href="profile.html" class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border border-outline-variant">
+            <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAd9a8FALN5zgdXbVWs-J-lpwDmxkTo1R88TIYdjtehA4fQJrpMnR-F4q007WZE_CVrUr6NRR0Z00Kqkub8WFrZ_TIBQVNOVNuStB1xYG9RdyGBRjT8DpWZSl0I_66UMg5cd1S1F6ZavSg1B0Ob9_DpCf4H5sQ1deLyjTEJfds09LPt3DIgORB37ODnoHOtFEZvaSeL2F7aaGSAc_PKtRMiHMrnAjhFYpQtSRwJNAwbZDnKG5Iq-rwewAw5oRGHBn1sLBFYQAe6uW4">
+        </a>
+    </div>
+</header>
+    
+    <main class="flex-grow max-w-container-max w-full mx-auto px-margin-mobile md:px-lg py-md pb-24">
+        <!-- Toggle Switch for Demo (Admin/Mentor Views) -->
+<div class="flex items-center justify-center mb-lg">
+<div class="bg-surface-container-high p-1 rounded-full flex gap-xs flex-wrap justify-center">
+<button class="px-6 py-2 rounded-full font-label-md text-label-md transition-all bg-primary text-on-primary shadow-sm" id="admin-toggle" onclick="showView('admin')">Overview</button>
+<button class="px-6 py-2 rounded-full font-label-md text-label-md transition-all text-on-surface-variant hover:bg-surface-variant" id="mentor-toggle" onclick="showView('mentor')">Mentor Sessions</button>
+<button class="px-6 py-2 rounded-full font-label-md text-label-md transition-all text-on-surface-variant hover:bg-surface-variant" id="users-toggle" onclick="showView('users')">Manage Users</button>
+<button class="px-6 py-2 rounded-full font-label-md text-label-md transition-all text-on-surface-variant hover:bg-surface-variant" id="courses-toggle" onclick="showView('courses')">Manage Courses</button>
+</div>
+</div>
+<!-- ADMIN DASHBOARD SECTION -->
+<section class="space-y-lg" id="admin-view">
+<div class="flex flex-col gap-xs">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface">Enterprise Overview</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Real-time health and growth indicators for the EntreSkill Hub ecosystem.</p>
+</div>
+<!-- Bento KPI Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<!-- User Growth -->
+<div class="md:col-span-2 bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm flex flex-col justify-between h-48">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant">User Growth</span>
+<span class="font-headline-lg text-headline-lg text-primary">+12.4%</span>
+</div>
+<div class="p-2 bg-secondary-container rounded-lg">
+<span class="material-symbols-outlined text-on-secondary-container">trending_up</span>
+</div>
+</div>
+<div class="w-full h-16 bg-surface-container-low rounded-lg overflow-hidden flex items-end px-1 gap-[2px]">
+<!-- Simple Sparkline Mockup -->
+<div class="flex-1 bg-primary/20 h-[30%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/30 h-[45%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/25 h-[40%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/40 h-[60%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/50 h-[80%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary h-[95%] rounded-t-sm"></div>
+</div>
+</div>
+<!-- Popular Businesses -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm flex flex-col gap-sm">
+<span class="font-label-md text-label-md text-on-surface-variant">Top Sectors</span>
+<div class="flex flex-col gap-xs">
+<div class="flex justify-between items-center text-body-sm font-body-sm">
+<span>Agri-Tech</span>
+<span class="text-primary font-semibold">42%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-low rounded-full">
+<div class="h-full bg-primary rounded-full" style="width: 42%"></div>
+</div>
+<div class="flex justify-between items-center text-body-sm font-body-sm mt-2">
+<span>SaaS</span>
+<span class="text-primary font-semibold">28%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-low rounded-full">
+<div class="h-full bg-primary rounded-full" style="width: 28%"></div>
+</div>
+</div>
+</div>
+<!-- Active Mentors -->
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm flex flex-col justify-center items-center text-center">
+<span class="font-headline-lg text-headline-lg text-on-surface">1,248</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Active Mentors</span>
+<button onclick="showView('mentor')" class="mt-sm text-primary font-label-md text-label-md flex items-center gap-xs">
+                        Manage <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Approval Queue & Recent Activity -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Approval Queue -->
+<div class="lg:col-span-1 bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+<div class="p-md border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<h2 class="font-headline-md text-[18px] text-on-surface">Approval Queue</h2>
+<span class="bg-error text-on-error px-2 py-0.5 rounded-full text-[10px] font-bold">12 New</span>
+</div>
+<div class="divide-y divide-outline-variant max-h-[400px] overflow-y-auto custom-scrollbar">
+<div class="p-md hover:bg-surface transition-colors flex gap-sm items-start">
+<div class="w-10 h-10 bg-secondary-container rounded-lg flex-shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container">business_center</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="font-label-md text-on-surface">GreenLoop Logistics</span>
+<span class="font-body-sm text-on-surface-variant">New Business Submission</span>
+<div class="flex gap-sm mt-md">
+<button onclick="approveSubmission(this, 'GreenLoop Logistics')" class="flex-1 py-1.5 bg-primary text-on-primary rounded-lg text-label-sm font-label-sm hover:opacity-90 transition-all">Approve</button>
+<button onclick="reviewSubmission(this, 'GreenLoop Logistics')" class="flex-1 py-1.5 border border-outline text-on-surface-variant rounded-lg text-label-sm font-label-sm hover:bg-surface transition-all">Review</button>
+</div>
+</div>
+</div>
+<div class="p-md hover:bg-surface transition-colors flex gap-sm items-start">
+<div class="w-10 h-10 bg-tertiary-container rounded-lg flex-shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary-container">school</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="font-label-md text-on-surface">Agri-Science 101</span>
+<span class="font-body-sm text-on-surface-variant">Course Module Update</span>
+<div class="flex gap-sm mt-md">
+<button onclick="approveSubmission(this, 'Agri-Science 101')" class="flex-1 py-1.5 bg-primary text-on-primary rounded-lg text-label-sm font-label-sm hover:opacity-90 transition-all">Approve</button>
+<button onclick="reviewSubmission(this, 'Agri-Science 101')" class="flex-1 py-1.5 border border-outline text-on-surface-variant rounded-lg text-label-sm font-label-sm hover:bg-surface transition-all">Review</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Activity Table -->
+<div class="lg:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+<div class="p-md border-b border-outline-variant flex justify-between items-center">
+<h2 class="font-headline-md text-[18px] text-on-surface">Platform Activity</h2>
+<button onclick="exportActivityToCSV()" class="text-primary font-label-md hover:underline transition-all">Export CSV</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low">
+<tr>
+<th class="px-md py-sm font-label-md text-on-surface-variant">User</th>
+<th class="px-md py-sm font-label-md text-on-surface-variant">Action</th>
+<th class="px-md py-sm font-label-md text-on-surface-variant">Status</th>
+<th class="px-md py-sm font-label-md text-on-surface-variant text-right">Time</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant font-body-sm">
+<tr class="hover:bg-surface">
+<td class="px-md py-md flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A close-up portrait of a diverse female professional with a warm smile, wearing modern glasses and professional attire. She is in a softly lit, minimalist room with a clean, high-end aesthetic that feels focused and executive. The color palette is composed of soft beige and deep emerald accents, reflecting the EntreSkill Hub brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLlHRxNiT4WOyZ7X1sELxTQxcrjQtPYrwGtsl2qLXXZJjRTz1I1aaQhMHO534e2O0asAXbMh7cFDw9IjFY7WB3klnZwLuGhKG2gWG4efvHoHDslSIRwAd5PgCFHGzvC-65lZ8zrDieW167u_kcEnoVp2K3F5MZAbAziC3t7_NsFQeSgOBngDt0yST9KfAToE0kwmNST-qmSiJ7PNCYwJ1E3Gm7WgoosRMWDdVA9T1nk-AboYuv3kq8dS0FqiodE9mU6A6c5tGqBFU">
+</div>
+<span>Sarah Jenkins</span>
+</td>
+<td class="px-md py-md text-on-surface-variant">Published "Eco-Funding Guide"</td>
+<td class="px-md py-md"><span class="bg-secondary-fixed text-on-secondary-fixed px-2 py-0.5 rounded-full text-[11px] font-semibold">SUCCESS</span></td>
+<td class="px-md py-md text-right text-on-surface-variant">2m ago</td>
+</tr>
+<tr class="hover:bg-surface">
+<td class="px-md py-md flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a middle-aged male executive with graying hair and a confident, friendly expression. He is wearing a tailored navy blazer over a crisp white shirt. The background is a blurred high-end office interior with subtle wood textures and warm lighting, creating a premium and authoritative feel consistent with a professional mentor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeCvY2S8XeeC-ukDuz1P7wJ_ldH9pkrcgUeUdBlhU9Oynhw79WNzz0lNpmwFevAJ6a_1tOvWiIs1O2eFBKGSiOACowIxdI3JV9N3n25rT63ktrpWbH39jEnqEs1r0K9LWYHXdSeDJpnIUi4CTasAJ5PwXYX-gr0ftFkz64uxzZCExm2FV7C9s02WGl9I-yioe-eAM76_TwxVUHkNVgEH463yflGxT1FyCWSKxF--javCTOQqmw5gSFZBbaaKa7Q5KAkeBLivForPs">
+</div>
+<span>Marcus Chen</span>
+</td>
+<td class="px-md py-md text-on-surface-variant">New Mentor Application</td>
+<td class="px-md py-md"><span class="bg-tertiary-fixed text-on-tertiary-fixed px-2 py-0.5 rounded-full text-[11px] font-semibold">PENDING</span></td>
+<td class="px-md py-md text-right text-on-surface-variant">14m ago</td>
+</tr>
+<tr class="hover:bg-surface">
+<td class="px-md py-md flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest"></div>
+<span>System Bot</span>
+</td>
+<td class="px-md py-md text-on-surface-variant">Database optimization complete</td>
+<td class="px-md py-md"><span class="bg-secondary-fixed text-on-secondary-fixed px-2 py-0.5 rounded-full text-[11px] font-semibold">SUCCESS</span></td>
+<td class="px-md py-md text-right text-on-surface-variant">1h ago</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<!-- MENTOR DASHBOARD SECTION (Hidden by default) -->
+<section class="space-y-lg hidden" id="mentor-view">
+<div class="flex flex-col gap-xs">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface">Mentor Dashboard</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage your students, sessions, and resources.</p>
+</div>
+<!-- Session Stats & Students Bento -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Overview & Sessions -->
+<div class="lg:col-span-2 space-y-gutter">
+<!-- Session Overview Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="bg-primary p-md rounded-xl shadow-sm text-on-primary">
+<span class="font-label-md opacity-80">Scheduled Today</span>
+<div class="flex justify-between items-end mt-sm">
+<span class="text-[32px] font-bold">4</span>
+<span class="material-symbols-outlined text-[32px]">calendar_today</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-md rounded-xl shadow-sm">
+<span class="font-label-md text-on-surface-variant">Total Hours</span>
+<div class="flex justify-between items-end mt-sm">
+<span class="text-[32px] font-bold text-on-surface">128</span>
+<span class="material-symbols-outlined text-primary text-[32px]">timer</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-md rounded-xl shadow-sm">
+<span class="font-label-md text-on-surface-variant">Student Rating</span>
+<div class="flex justify-between items-end mt-sm">
+<span class="text-[32px] font-bold text-on-surface">4.9</span>
+<span class="material-symbols-outlined text-tertiary text-[32px]">grade</span>
+</div>
+</div>
+</div>
+<!-- Sessions List -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+<div class="p-md border-b border-outline-variant flex justify-between items-center">
+<h2 class="font-headline-md text-[18px]">Upcoming Sessions</h2>
+<button class="text-primary font-label-md">View Calendar</button>
+</div>
+<div class="divide-y divide-outline-variant">
+<div class="p-md flex items-center justify-between">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl bg-surface-container-low flex flex-col items-center justify-center border border-outline-variant">
+<span class="text-[10px] font-bold text-on-surface-variant uppercase">OCT</span>
+<span class="text-[16px] font-bold text-primary">12</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-on-surface">Strategic Planning</span>
+<span class="font-body-sm text-on-surface-variant">with Elena Rodriguez • 10:00 AM</span>
+</div>
+</div>
+<button class="px-4 py-2 bg-secondary text-on-secondary rounded-full text-label-sm font-label-sm">Launch Zoom</button>
+</div>
+<div class="p-md flex items-center justify-between">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl bg-surface-container-low flex flex-col items-center justify-center border border-outline-variant">
+<span class="text-[10px] font-bold text-on-surface-variant uppercase">OCT</span>
+<span class="text-[16px] font-bold text-primary">14</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-on-surface">Venture Capital Basics</span>
+<span class="font-body-sm text-on-surface-variant">with David Park • 2:30 PM</span>
+</div>
+</div>
+<button class="px-4 py-2 border border-outline text-on-surface-variant rounded-full text-label-sm font-label-sm">Details</button>
+</div>
+</div>
+</div>
+</div>
+<!-- My Students Sidebar -->
+<div class="lg:col-span-1 flex flex-col gap-gutter">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col">
+<div class="p-md border-b border-outline-variant flex justify-between items-center">
+<h2 class="font-headline-md text-[18px]">My Students</h2>
+<span class="font-label-sm text-on-surface-variant">Active: 8</span>
+</div>
+<div class="p-md space-y-md flex-1 overflow-y-auto max-h-[500px] custom-scrollbar">
+<!-- Student 1 -->
+<div class="space-y-sm">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A portrait of a young, ambitious female student with vibrant energy, dressed in casual professional attire. She is working on a laptop in a bright, modern co-working space that feels inspiring and fresh. The composition is clean with a focus on the subject's determined expression, styled with the EntreSkill Hub brand's high-end minimalist touch." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpGaKMOk1McqT7zGiWwrTKwB-Ppi4nam53JOYRzBrKdkCO302Y3mbPso22UANEPU6FRpK0QTBrVEZM76ume1sBFo4IQ7YnX9-JUxJC0XuDSeU0o8zVQ_lZJOzQKg8I4SmYVMg_ELu6LAScJkwTSn1vXlJxUGIqCUZThhhy_sqWDnkvx4DKkVOtb0l3sFmumVJt0Gw2djfW42XE7Ax4tkIjLOEA6lskC9HuW462fsKmGPk5KE0jS9V4fnj9V8RQxT8etgJ-pi8qN-c">
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-on-surface">Elena Rodriguez</span>
+<span class="text-[11px] text-on-surface-variant uppercase tracking-wider font-semibold">Agri-tech Founder</span>
+</div>
+</div>
+<div class="w-full">
+<div class="flex justify-between text-[11px] font-semibold text-on-surface-variant mb-1">
+<span>Module 4: Scaling</span>
+<span>75%</span>
+</div>
+<div class="w-full h-2 bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-3/4 rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Student 2 -->
+<div class="space-y-sm pt-4">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A high-resolution headshot of a focused male student of Asian descent, wearing a modern minimalist hoodie. He is in a clean-tech lab environment with soft, high-key lighting. The atmosphere is professional yet innovative, with the EntreSkill Hub brand colors integrated into the scene's subtle details." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOgUf5t84ug6d9v2C8L7ROiprDTO87lcYErIkJySTg1AudUMG7Tnnnfnlv9HywPWyYvbHFJ4-PQbPDd_RR-BR6U6ATXVupfmqzZZ880SgoInQnrBmqy3npWLiFi4GDA7hjOLbf0KqOJQX_u2kq5k_pb-yqyhSle7FxdltsHfhVYeA54vicjwy_oygmlX0RuW2CKrhifSuHuI7XWYDSwJwnPRst0ggaoYMlJ03bCjmy5y8hqdn6eu-cA64XRr1wiMlQajte6FiS6Z0">
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-on-surface">David Park</span>
+<span class="text-[11px] text-on-surface-variant uppercase tracking-wider font-semibold">SaaS Developer</span>
+</div>
+</div>
+<div class="w-full">
+<div class="flex justify-between text-[11px] font-semibold text-on-surface-variant mb-1">
+<span>Module 2: MVP</span>
+<span>40%</span>
+</div>
+<div class="w-full h-2 bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[40%] rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Upload Center -->
+<div class="bg-tertiary-fixed p-md rounded-xl flex flex-col gap-sm border border-tertiary-container/20">
+<div class="flex items-center gap-sm text-on-tertiary-fixed">
+<span class="material-symbols-outlined">upload_file</span>
+<h2 class="font-label-md text-[16px]">Resource Center</h2>
+</div>
+<p class="font-body-sm text-on-tertiary-fixed-variant leading-tight">Upload case studies, templates, or reading materials for your students.</p>
+<div class="mt-md border-2 border-dashed border-on-tertiary-fixed/30 rounded-xl py-8 flex flex-col items-center justify-center cursor-pointer hover:bg-tertiary-container/10 transition-colors">
+<span class="material-symbols-outlined text-on-tertiary-fixed">add_circle</span>
+<span class="font-label-md text-on-tertiary-fixed mt-2">Upload Files</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- USERS MANAGEMENT DASHBOARD -->
+<section class="space-y-lg hidden" id="users-view">
+    <div class="flex flex-col gap-xs">
+        <h1 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Manage Platform Users</h1>
+        <p class="font-body-md text-body-md text-on-surface-variant">Change user system permissions or delete registered accounts.</p>
+    </div>
+    
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+        <div class="p-md border-b border-outline-variant bg-surface-container-low flex flex-col sm:flex-row justify-between items-center gap-sm">
+            <h2 class="font-headline-md text-[18px]">System Accounts</h2>
+            <input type="text" placeholder="Search users..." onkeyup="searchUsersTable(this)" class="bg-white border border-outline-variant rounded-full px-4 py-1.5 text-body-sm focus:ring-2 focus:ring-primary outline-none w-48 sm:w-64">
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left" id="users-table">
+                <thead class="bg-surface-container-low">
+                    <tr>
+                        <th class="px-md py-sm font-label-md text-on-surface-variant">Full Name</th>
+                        <th class="px-md py-sm font-label-md text-on-surface-variant">Email Address</th>
+                        <th class="px-md py-sm font-label-md text-on-surface-variant">System Role</th>
+                        <th class="px-md py-sm font-label-md text-on-surface-variant text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-outline-variant font-body-sm">
+                    <tr class="hover:bg-surface">
+                        <td class="px-md py-md font-semibold">Alex Rivers</td>
+                        <td class="px-md py-md">founder@entreskillhub.com</td>
+                        <td class="px-md py-md">
+                            <select onchange="updateUserRole('founder@entreskillhub.com', this.value)" class="bg-surface-container-low border border-outline-variant rounded-lg px-2 py-1 focus:ring-primary focus:border-primary text-body-sm">
+                                <option value="user" selected>User</option>
+                                <option value="mentor">Mentor</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </td>
+                        <td class="px-md py-md text-right">
+                            <button onclick="removeUserRow(this, 'Alex Rivers')" class="text-error font-semibold hover:underline flex items-center gap-xs ml-auto">
+                                <span class="material-symbols-outlined text-[18px]">delete</span> Delete
+                            </button>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-surface">
+                        <td class="px-md py-md font-semibold">Elena Vance</td>
+                        <td class="px-md py-md">elena@entreskillhub.com</td>
+                        <td class="px-md py-md">
+                            <select onchange="updateUserRole('elena@entreskillhub.com', this.value)" class="bg-surface-container-low border border-outline-variant rounded-lg px-2 py-1 focus:ring-primary focus:border-primary text-body-sm">
+                                <option value="user">User</option>
+                                <option value="mentor" selected>Mentor</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </td>
+                        <td class="px-md py-md text-right">
+                            <button onclick="removeUserRow(this, 'Elena Vance')" class="text-error font-semibold hover:underline flex items-center gap-xs ml-auto">
+                                <span class="material-symbols-outlined text-[18px]">delete</span> Delete
+                            </button>
+                        </td>
+                    </tr>
+                    <tr class="hover:bg-surface">
+                        <td class="px-md py-md font-semibold">Admin User</td>
+                        <td class="px-md py-md">admin@entreskillhub.com</td>
+                        <td class="px-md py-md">
+                            <select onchange="updateUserRole('admin@entreskillhub.com', this.value)" class="bg-surface-container-low border border-outline-variant rounded-lg px-2 py-1 focus:ring-primary focus:border-primary text-body-sm">
+                                <option value="user">User</option>
+                                <option value="mentor">Mentor</option>
+                                <option value="admin" selected>Admin</option>
+                            </select>
+                        </td>
+                        <td class="px-md py-md text-right">
+                            <button onclick="removeUserRow(this, 'Admin User')" class="text-error font-semibold hover:underline flex items-center gap-xs ml-auto">
+                                <span class="material-symbols-outlined text-[18px]">delete</span> Delete
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- COURSES MANAGEMENT DASHBOARD -->
+<section class="space-y-lg hidden" id="courses-view">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-md">
+        <div class="flex flex-col gap-xs">
+            <h1 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Manage Platform Curriculum</h1>
+            <p class="font-body-md text-body-md text-on-surface-variant">Create new learning modules or remove existing courses from the directory.</p>
+        </div>
+        <button onclick="openCreateCourseModal()" class="bg-primary text-on-primary px-6 py-3 rounded-full font-label-md hover:opacity-90 shadow-md transition-all whitespace-nowrap flex items-center gap-xs">
+            <span class="material-symbols-outlined text-[20px]">add</span> Create Course
+        </button>
+    </div>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter" id="manage-courses-grid">
+        <!-- Course Card 1 -->
+        <div class="flex flex-col bg-surface-container-lowest rounded-[24px] border border-outline-variant overflow-hidden shadow-sm relative group">
+            <button onclick="deleteCourseCard(this, 'Product Market Fit 101')" class="absolute top-3 right-3 z-20 bg-error/90 hover:bg-error text-white p-2 rounded-full shadow transition-all">
+                <span class="material-symbols-outlined text-sm">delete</span>
+            </button>
+            <div class="relative aspect-video">
+                <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80">
+            </div>
+            <div class="p-md flex flex-col flex-1">
+                <h3 class="font-headline-md text-on-surface mb-xs">Product Market Fit 101</h3>
+                <p class="text-body-sm text-on-surface-variant mb-md flex-grow">Master the core principles of identifying and validating your product-market fit.</p>
+                <div class="flex justify-between items-center pt-md border-t border-outline-variant">
+                    <span class="text-label-sm font-semibold text-secondary">Advanced</span>
+                    <span class="text-label-sm text-on-surface-variant">4h 20m</span>
+                </div>
+            </div>
+        </div>
+        <!-- Course Card 2 -->
+        <div class="flex flex-col bg-surface-container-lowest rounded-[24px] border border-outline-variant overflow-hidden shadow-sm relative group">
+            <button onclick="deleteCourseCard(this, 'Growth Marketing Strategies')" class="absolute top-3 right-3 z-20 bg-error/90 hover:bg-error text-white p-2 rounded-full shadow transition-all">
+                <span class="material-symbols-outlined text-sm">delete</span>
+            </button>
+            <div class="relative aspect-video">
+                <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?auto=format&fit=crop&w=400&q=80">
+            </div>
+            <div class="p-md flex flex-col flex-1">
+                <h3 class="font-headline-md text-on-surface mb-xs">Growth Marketing Strategies</h3>
+                <p class="text-body-sm text-on-surface-variant mb-md flex-grow">Learn how to leverage data-driven marketing to scale your startup's user base.</p>
+                <div class="flex justify-between items-center pt-md border-t border-outline-variant">
+                    <span class="text-label-sm font-semibold text-secondary">Beginner</span>
+                    <span class="text-label-sm text-on-surface-variant">2h 15m</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    </main>
+    
+    <footer class="w-full py-xl px-margin-mobile md:px-lg max-w-container-max mx-auto border-t border-outline-variant bg-surface-container-highest mt-auto">
+<div class="grid grid-cols-4 gap-gutter">
+<div class="flex flex-col gap-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-[28px]">spa</span>
+<span class="text-headline-md font-headline-md font-bold text-primary">EntreSkill Hub</span>
+</div>
+<p class="font-body-sm text-on-surface-variant">Empowering the next generation of founders through clarity, community, and expert guidance.</p>
+</div>
+<div>
+<h4 class="font-label-md text-on-surface mb-md">Platform</h4>
+<ul class="space-y-sm font-body-sm text-on-surface-variant">
+<li class="hover:text-primary transition-colors cursor-pointer">Marketplace</li>
+<li class="hover:text-primary transition-colors cursor-pointer">Curriculum</li>
+<li class="hover:text-primary transition-colors cursor-pointer">Enterprise</li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-on-surface mb-md">Support</h4>
+<ul class="space-y-sm font-body-sm text-on-surface-variant">
+<li class="hover:text-primary transition-colors cursor-pointer">Help Center</li>
+<li class="hover:text-primary transition-colors cursor-pointer">Privacy Policy</li>
+<li class="hover:text-primary transition-colors cursor-pointer">Terms of Service</li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-md text-on-surface mb-md">Newsletter</h4>
+<div class="flex gap-xs">
+<input class="bg-white border-outline-variant rounded-full px-4 py-2 text-sm flex-1 focus:ring-2 focus:ring-primary outline-none" placeholder="Email address" type="email">
+<button class="bg-primary text-on-primary w-10 h-10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="mt-xl pt-lg border-t border-outline-variant text-center">
+<p class="font-body-sm text-on-surface-variant">© 2024 EntreSkill Hub. All rights reserved.</p>
+</div>
+</footer>
+    
+    <nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-xs pb-safe md:hidden bg-surface shadow-[0_-4px_20px_rgba(0,0,0,0.04)] h-16 rounded-t-lg">
+    <a href="dashboard.html" class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 transition-all">
+        <span class="material-symbols-outlined">dashboard</span>
+        <span class="font-label-sm text-label-sm">Home</span>
+    </a>
+    <a href="roadmap.html" class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 transition-all">
+        <span class="material-symbols-outlined">alt_route</span>
+        <span class="font-label-sm text-label-sm">Roadmap</span>
+    </a>
+    <a href="learn.html" class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 transition-all">
+        <span class="material-symbols-outlined">school</span>
+        <span class="font-label-sm text-label-sm">Learn</span>
+    </a>
+    <a href="mentors.html" class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 transition-all">
+        <span class="material-symbols-outlined">group</span>
+        <span class="font-label-sm text-label-sm">Mentors</span>
+    </a>
+    <a href="profile.html" class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 transition-all">
+        <span class="material-symbols-outlined">person</span>
+        <span class="font-label-sm text-label-sm">Profile</span>
+    </a>
+</nav>
+</div>
+
+<script>
+        
+        let activeReviewCard = null;
+        let activeReviewName = '';
+
+        function reviewSubmission(btn, name) {
+            activeReviewCard = btn.closest('.p-md');
+            activeReviewName = name;
+
+            const title = document.getElementById('review-title');
+            const type = document.getElementById('review-type');
+            const icon = document.getElementById('review-icon');
+            const desc = document.getElementById('review-desc');
+            const investment = document.getElementById('review-investment');
+            const difficulty = document.getElementById('review-difficulty');
+            const actions = document.getElementById('review-actions');
+
+            if (name.includes('Logistics')) {
+                title.innerText = 'GreenLoop Logistics';
+                type.innerText = 'New Business Submission';
+                icon.innerText = 'business_center';
+                desc.innerText = 'Establish automated zero-emission delivery logistics route arrays for local e-commerce networks using electric cargo cycles.';
+                investment.innerText = '$2,500 - $6,000';
+                difficulty.innerText = 'Moderate';
+                actions.innerText = 'Verify demand by executing manual mock deliveries with local courier accounts first.';
+            } else {
+                title.innerText = 'Agri-Science 101';
+                type.innerText = 'Course Module Update';
+                icon.innerText = 'school';
+                desc.innerText = 'Intermediate curriculum lessons regarding soil moisture diagnostics, fertilizer ratios, and hydroponic setups.';
+                investment.innerText = 'N/A (Curriculum update)';
+                difficulty.innerText = 'Beginner';
+                actions.innerText = 'Perform review of Quiz 3 questions to verify soil pH formulations align with USDA recommendations.';
+            }
+
+            document.getElementById('review-modal').classList.remove('hidden');
+        }
+
+        function closeReviewModal() {
+            document.getElementById('review-modal').classList.add('hidden');
+        }
+
+        function approveReviewSubmission() {
+            if (activeReviewCard) {
+                activeReviewCard.style.opacity = '0';
+                activeReviewCard.style.transform = 'scale(0.9)';
+                activeReviewCard.style.transition = 'all 0.4s ease';
+                setTimeout(() => {
+                    activeReviewCard.remove();
+                    decrementBadge();
+                    closeReviewModal();
+                    alert(`Submission "${activeReviewName}" approved successfully!`);
+                }, 400);
+            }
+        }
+
+        function rejectReviewSubmission() {
+            if (activeReviewCard) {
+                activeReviewCard.style.opacity = '0';
+                activeReviewCard.style.transform = 'scale(0.9)';
+                activeReviewCard.style.transition = 'all 0.4s ease';
+                setTimeout(() => {
+                    activeReviewCard.remove();
+                    decrementBadge();
+                    closeReviewModal();
+                    alert(`Submission "${activeReviewName}" rejected/flagged for revision.`);
+                }, 400);
+            }
+        }
+
+        function approveSubmission(btn, name) {
+            const card = btn.closest('.p-md');
+            if (card) {
+                card.style.opacity = '0';
+                card.style.transform = 'scale(0.9)';
+                card.style.transition = 'all 0.4s ease';
+                setTimeout(() => {
+                    card.remove();
+                    decrementBadge();
+                    alert(`Submission "${name}" approved successfully!`);
+                }, 400);
+            }
+        }
+
+        function decrementBadge() {
+            const countBadge = document.querySelector('.bg-error');
+            if (countBadge) {
+                const count = parseInt(countBadge.innerText) || 12;
+                if (count > 1) {
+                    countBadge.innerText = `${count - 1} New`;
+                } else {
+                    countBadge.remove();
+                }
+            }
+        }
+
+        function exportActivityToCSV() {
+            const csvRows = [
+                ['User', 'Action', 'Status', 'Time'],
+                ['Sarah Jenkins', 'Published "Eco-Funding Guide"', 'SUCCESS', '2m ago'],
+                ['Marcus Chen', 'New Mentor Application', 'PENDING', '14m ago'],
+                ['System Bot', 'Database optimization complete', 'SUCCESS', '1h ago']
+            ];
+            
+            const csvContent = "data:text/csv;charset=utf-8," 
+                + csvRows.map(e => e.map(val => `"${val.replace(/"/g, '""')}"`).join(",")).join("\n");
+            
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "platform_activity_log.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    
+function showView(view) {
+            const adminView = document.getElementById('admin-view');
+            const mentorView = document.getElementById('mentor-view');
+            const usersView = document.getElementById('users-view');
+            const coursesView = document.getElementById('courses-view');
+            
+            const adminToggle = document.getElementById('admin-toggle');
+            const mentorToggle = document.getElementById('mentor-toggle');
+            const usersToggle = document.getElementById('users-toggle');
+            const coursesToggle = document.getElementById('courses-toggle');
+
+            // Hide all
+            [adminView, mentorView, usersView, coursesView].forEach(v => {
+                if (v) v.classList.add('hidden');
+            });
+            [adminToggle, mentorToggle, usersToggle, coursesToggle].forEach(t => {
+                if (t) {
+                    t.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
+                    t.classList.add('text-on-surface-variant', 'hover:bg-surface-variant');
+                }
+            });
+
+            // Show current
+            if (view === 'admin') {
+                adminView.classList.remove('hidden');
+                adminToggle.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+                adminToggle.classList.remove('text-on-surface-variant', 'hover:bg-surface-variant');
+            } else if (view === 'mentor') {
+                mentorView.classList.remove('hidden');
+                mentorToggle.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+                mentorToggle.classList.remove('text-on-surface-variant', 'hover:bg-surface-variant');
+            } else if (view === 'users') {
+                usersView.classList.remove('hidden');
+                usersToggle.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+                usersToggle.classList.remove('text-on-surface-variant', 'hover:bg-surface-variant');
+            } else if (view === 'courses') {
+                coursesView.classList.remove('hidden');
+                coursesToggle.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+                coursesToggle.classList.remove('text-on-surface-variant', 'hover:bg-surface-variant');
+            }
+        }
+
+        // User management handlers
+        function updateUserRole(email, role) {
+            alert(`User role for "${email}" updated to "${role}" successfully!`);
+        }
+
+        function removeUserRow(btn, name) {
+            if (confirm(`Are you sure you want to permanently delete user "${name}"?`)) {
+                const row = btn.closest('tr');
+                if (row) {
+                    row.remove();
+                    alert(`User "${name}" has been removed from the platform.`);
+                }
+            }
+        }
+
+        function searchUsersTable(input) {
+            const filter = input.value.toLowerCase();
+            const rows = document.querySelectorAll('#users-table tbody tr');
+            rows.forEach(row => {
+                const name = row.children[0].innerText.toLowerCase();
+                const email = row.children[1].innerText.toLowerCase();
+                if (name.includes(filter) || email.includes(filter)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // Course management handlers
+        function openCreateCourseModal() {
+            document.getElementById('create-course-modal').classList.remove('hidden');
+        }
+
+        function closeCreateCourseModal() {
+            document.getElementById('create-course-modal').classList.add('hidden');
+        }
+
+        // Fix deleteCourseCard logic
+        function deleteCourseCard(btn, name) {
+            if (confirm(`Are you sure you want to delete the course "${name}"?`)) {
+                const card = btn.closest('.flex-col');
+                if (card) {
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.9)';
+                    card.style.transition = 'all 0.4s ease';
+                    setTimeout(() => {
+                        card.remove();
+                        alert(`Course "${name}" deleted successfully!`);
+                    }, 400);
+                }
+            }
+        }
+
+        function handleCreateCourse(e) {
+            e.preventDefault();
+            const title = document.getElementById('course-title').value;
+            const desc = document.getElementById('course-desc').value;
+            const duration = document.getElementById('course-duration').value;
+            const difficulty = document.getElementById('course-difficulty').value;
+
+            const grid = document.getElementById('manage-courses-grid');
+            if (grid) {
+                const card = document.createElement('div');
+                card.className = "flex flex-col bg-surface-container-lowest rounded-[24px] border border-outline-variant overflow-hidden shadow-sm relative group animate-in zoom-in-95 duration-300";
+                card.innerHTML = `
+                    <button onclick="deleteCourseCard(this, '${title}')" class="absolute top-3 right-3 z-20 bg-error/90 hover:bg-error text-white p-2 rounded-full shadow transition-all">
+                        <span class="material-symbols-outlined text-sm">delete</span>
+                    </button>
+                    <div class="relative aspect-video">
+                        <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=400&q=80">
+                    </div>
+                    <div class="p-md flex flex-col flex-1">
+                        <h3 class="font-headline-md text-on-surface mb-xs">${title}</h3>
+                        <p class="text-body-sm text-on-surface-variant mb-md flex-grow">${desc}</p>
+                        <div class="flex justify-between items-center pt-md border-t border-outline-variant">
+                            <span class="text-label-sm font-semibold text-secondary">${difficulty}</span>
+                            <span class="text-label-sm text-on-surface-variant">${duration}</span>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            }
+
+            closeCreateCourseModal();
+            document.getElementById('create-course-form').reset();
+            alert(`Course "${title}" created successfully!`);
+        }
+    </script>
+
+<!-- Submission Review Modal -->
+<div id="review-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm hidden animate-in fade-in duration-200">
+    <div class="bg-white rounded-[24px] border border-outline-variant p-lg w-full max-w-lg shadow-2xl relative">
+        <button onclick="closeReviewModal()" class="absolute top-4 right-4 text-on-surface-variant hover:text-primary transition-colors">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        
+        <div class="flex items-center gap-md mb-md">
+            <div class="w-12 h-12 bg-primary-container rounded-xl flex items-center justify-center text-primary">
+                <span class="material-symbols-outlined text-[28px]" id="review-icon">business_center</span>
+            </div>
+            <div>
+                <h3 class="font-headline-md text-primary" id="review-title">GreenLoop Logistics</h3>
+                <p class="text-body-sm text-on-surface-variant" id="review-type">New Business Submission</p>
+            </div>
+        </div>
+        
+        <div class="space-y-md border-t border-b border-outline-variant py-md my-md text-body-sm text-on-surface">
+            <div>
+                <span class="font-bold block text-on-surface-variant text-xs">Description:</span>
+                <p id="review-desc" class="text-body-sm">Establish automated zero-emission delivery logistics route arrays for local e-commerce networks using electric cargo cycles.</p>
+            </div>
+            <div class="grid grid-cols-2 gap-sm">
+                <div>
+                    <span class="font-bold block text-on-surface-variant text-xs">Estimated Investment:</span>
+                    <span id="review-investment" class="text-body-sm">$2,500 - $6,000</span>
+                </div>
+                <div>
+                    <span class="font-bold block text-on-surface-variant text-xs">Difficulty Level:</span>
+                    <span id="review-difficulty" class="capitalize text-body-sm">Moderate</span>
+                </div>
+            </div>
+            <div>
+                <span class="font-bold block text-on-surface-variant text-xs">Recommended Action Checklist:</span>
+                <p id="review-actions" class="text-body-sm">Verify demand by executing manual mock deliveries with local courier accounts first.</p>
+            </div>
+        </div>
+        
+        <div class="flex gap-sm">
+            <button onclick="rejectReviewSubmission()" class="flex-1 py-3 text-error font-label-md border border-error rounded-full hover:bg-error/5 transition-colors">Reject</button>
+            <button onclick="approveReviewSubmission()" class="flex-1 py-3 bg-primary text-on-primary font-label-md rounded-full hover:bg-opacity-90 shadow-lg shadow-primary/25 transition-all">Approve</button>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Create Course Modal -->
+<div id="create-course-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm hidden animate-in fade-in duration-200">
+    <div class="bg-white rounded-[24px] border border-outline-variant p-lg w-full max-w-md shadow-2xl relative">
+        <button onclick="closeCreateCourseModal()" class="absolute top-4 right-4 text-on-surface-variant hover:text-primary transition-colors">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <h3 class="font-headline-md text-primary mb-md">Create New Course</h3>
+        <form id="create-course-form" class="space-y-md" onsubmit="handleCreateCourse(event)">
+            <div class="space-y-xs">
+                <label class="text-label-md text-on-surface-variant">Course Title</label>
+                <input id="course-title" class="w-full bg-surface-container-low border border-outline-variant rounded-xl py-3 px-4 text-body-md focus:ring-2 focus:ring-primary focus:outline-none" type="text" required placeholder="e.g. Finance Basics">
+            </div>
+            <div class="space-y-xs">
+                <label class="text-label-md text-on-surface-variant">Description</label>
+                <textarea id="course-desc" class="w-full min-h-[80px] bg-surface-container-low border border-outline-variant rounded-xl py-3 px-4 text-body-sm focus:ring-2 focus:ring-primary focus:outline-none resize-none" required placeholder="e.g. Master financial metrics..."></textarea>
+            </div>
+            <div class="grid grid-cols-2 gap-sm">
+                <div class="space-y-xs">
+                    <label class="text-label-md text-on-surface-variant">Duration</label>
+                    <input id="course-duration" class="w-full bg-surface-container-low border border-outline-variant rounded-xl py-3 px-4 text-body-md focus:ring-2 focus:ring-primary focus:outline-none" type="text" required placeholder="e.g. 3h 10m">
+                </div>
+                <div class="space-y-xs">
+                    <label class="text-label-md text-on-surface-variant">Difficulty</label>
+                    <select id="course-difficulty" class="w-full bg-surface-container-low border border-outline-variant rounded-xl py-3 px-4 text-body-md focus:ring-2 focus:ring-primary focus:outline-none">
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                    </select>
+                </div>
+            </div>
+            <div class="flex gap-sm pt-md">
+                <button type="button" onclick="closeCreateCourseModal()" class="flex-1 py-3 text-primary font-label-md border border-primary rounded-full hover:bg-primary-container/10 transition-colors">Cancel</button>
+                <button type="submit" class="flex-1 py-3 bg-primary text-on-primary font-label-md rounded-full hover:bg-opacity-90 shadow-lg shadow-primary/10 transition-colors">Create Course</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body></html>

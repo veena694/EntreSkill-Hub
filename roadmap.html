@@ -1,0 +1,721 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<script type="module" src="/api.js"></script>
+<script>
+    (function() {
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+        } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('light');
+        }
+    })();
+</script>
+
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>EntreSkill Hub | Business Recommendations &amp; Roadmap</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#edc063",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-container": "#ffe8c0",
+                    "background": "#fcf9f8",
+                    "on-secondary-container": "#127252",
+                    "on-surface": "#1b1c1c",
+                    "secondary-fixed": "#9ef4cb",
+                    "surface-container-low": "#f6f3f2",
+                    "secondary": "#046c4c",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#fcf9f8",
+                    "primary-fixed": "#9cf2e8",
+                    "inverse-on-surface": "#f3f0ef",
+                    "inverse-primary": "#80d5cb",
+                    "inverse-surface": "#303030",
+                    "surface-tint": "#006a63",
+                    "secondary-container": "#9ef4cb",
+                    "on-primary-fixed": "#00201d",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed-dim": "#82d7b0",
+                    "surface-dim": "#dcd9d9",
+                    "on-tertiary-fixed": "#261900",
+                    "on-tertiary-fixed-variant": "#5c4300",
+                    "tertiary-fixed": "#ffdea1",
+                    "primary-container": "#0f766e",
+                    "surface-variant": "#e5e2e1",
+                    "on-secondary": "#ffffff",
+                    "surface-container": "#f0eded",
+                    "on-secondary-fixed": "#002114",
+                    "error-container": "#ffdad6",
+                    "tertiary-container": "#87640a",
+                    "surface-container-high": "#eae7e7",
+                    "error": "#ba1a1a",
+                    "primary-fixed-dim": "#80d5cb",
+                    "outline-variant": "#bdc9c6",
+                    "surface-bright": "#fcf9f8",
+                    "on-surface-variant": "#3e4947",
+                    "on-secondary-fixed-variant": "#005138",
+                    "on-primary-container": "#a3faef",
+                    "outline": "#6e7977",
+                    "on-error-container": "#93000a",
+                    "tertiary": "#6a4d00",
+                    "on-primary-fixed-variant": "#00504a",
+                    "primary": "#005c55",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#e5e2e1",
+                    "on-background": "#1b1c1c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "sm": "12px",
+                    "base": "8px",
+                    "xs": "4px",
+                    "container-max": "1200px",
+                    "lg": "48px",
+                    "xl": "80px",
+                    "md": "24px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "label-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "display-lg-mobile": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "body-md": ["Inter"],
+                    "body-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .pinterest-grid {
+            columns: 1;
+            gap: 24px;
+        }
+        @media (min-width: 640px) {
+            .pinterest-grid {
+                columns: 2;
+            }
+        }
+        @media (min-width: 1024px) {
+            .pinterest-grid {
+                columns: 3;
+            }
+        }
+        .roadmap-line::before {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 24px;
+            bottom: 0;
+            width: 2px;
+            background: repeating-linear-gradient(to bottom, #bdc9c6 0%, #bdc9c6 50%, transparent 50%, transparent 100%);
+            background-size: 2px 12px;
+        }
+        @media (min-width: 768px) {
+            .roadmap-line::before { left: 23px; }
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(232, 232, 232, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen overflow-x-hidden">
+<aside class="fixed left-0 top-0 h-screen overflow-y-auto hidden md:flex flex-col bg-surface-container-low border-r border-outline-variant w-64 z-50">
+    <div class="px-md py-lg">
+        <a href="index.html" class="flex items-center gap-xs">
+            <span class="material-symbols-outlined text-primary text-[32px]">spa</span>
+            <span class="text-headline-md font-headline-md font-bold text-primary">EntreSkill Hub</span>
+        </a>
+    </div>
+    <nav class="flex-grow flex flex-col px-2">
+        <a href="dashboard.html" class="text-on-surface-variant hover:bg-surface-variant rounded-full mx-2 my-1 px-4 py-3 flex items-center gap-3 transition-all">
+            <span class="material-symbols-outlined">grid_view</span>
+            <span class="font-label-md">Dashboard</span>
+        </a>
+        <a href="roadmap.html" class="bg-primary-container text-on-primary-container font-semibold rounded-full mx-2 my-1 px-4 py-3 flex items-center gap-3 translate-x-1 transition-transform shadow-sm">
+            <span class="material-symbols-outlined">map</span>
+            <span class="font-label-md">My Roadmap</span>
+        </a>
+        <a href="learn.html" class="text-on-surface-variant hover:bg-surface-variant rounded-full mx-2 my-1 px-4 py-3 flex items-center gap-3 transition-all">
+            <span class="material-symbols-outlined">school</span>
+            <span class="font-label-md">Learning Center</span>
+        </a>
+        <a href="mentors.html" class="text-on-surface-variant hover:bg-surface-variant rounded-full mx-2 my-1 px-4 py-3 flex items-center gap-3 transition-all">
+            <span class="material-symbols-outlined">group</span>
+            <span class="font-label-md">Mentors</span>
+        </a>
+        <a href="profile.html" class="text-on-surface-variant hover:bg-surface-variant rounded-full mx-2 my-1 px-4 py-3 flex items-center gap-3 transition-all">
+            <span class="material-symbols-outlined">person</span>
+            <span class="font-label-md">Profile</span>
+        </a>
+        <a href="management.html" class="text-on-surface-variant hover:bg-surface-variant rounded-full mx-2 my-1 px-4 py-3 flex items-center gap-3 transition-all">
+            <span class="material-symbols-outlined">admin_panel_settings</span>
+            <span class="font-label-md">Management</span>
+        </a>
+    </nav>
+    <div class="p-md mt-auto border-t border-outline-variant">
+        <div class="flex items-center gap-sm mb-4">
+            <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden">
+                <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAd9a8FALN5zgdXbVWs-J-lpwDmxkTo1R88TIYdjtehA4fQJrpMnR-F4q007WZE_CVrUr6NRR0Z00Kqkub8WFrZ_TIBQVNOVNuStB1xYG9RdyGBRjT8DpWZSl0I_66UMg5cd1S1F6ZavSg1B0Ob9_DpCf4H5sQ1deLyjTEJfds09LPt3DIgORB37ODnoHOtFEZvaSeL2F7aaGSAc_PKtRMiHMrnAjhFYpQtSRwJNAwbZDnKG5Iq-rwewAw5oRGHBn1sLBFYQAe6uW4">
+            </div>
+            <div>
+                <p class="font-label-md text-on-surface">Alex Rivers</p>
+                <p class="text-xs text-on-surface-variant">Level 4 Founder</p>
+            </div>
+        </div>
+        <a href="profile.html#settings" class="text-on-surface-variant hover:bg-surface-variant rounded-full px-4 py-2 flex items-center gap-3 transition-all">
+            <span class="material-symbols-outlined">settings</span>
+            <span class="font-label-md">Settings</span>
+        </a>
+        <button onclick="window.API.logout()" class="w-full text-left text-error hover:bg-red-50 dark:hover:bg-red-950/20 rounded-full px-4 py-2 flex items-center gap-3 transition-all mt-xs">
+            <span class="material-symbols-outlined text-error">logout</span>
+            <span class="font-label-md">Log Out</span>
+        </button>
+    </div>
+</aside>
+
+<div class="min-h-screen flex flex-col md:pl-64">
+    <header class="sticky top-0 z-40 bg-surface border-b border-surface-variant flex justify-between items-center w-full px-margin-mobile md:px-lg h-16 md:h-20">
+    <div class="flex items-center gap-xs">
+        <a href="index.html" class="flex items-center gap-xs md:hidden">
+            <span class="material-symbols-outlined text-primary text-[28px]">spa</span>
+            <span class="text-headline-md font-bold text-primary">EntreSkill Hub</span>
+        </a>
+        <h2 class="hidden md:block font-headline-md text-headline-md text-on-surface">Business Recommendations & Roadmap</h2>
+    </div>
+    <div class="flex items-center gap-md">
+        <div class="relative hidden sm:block w-48 lg:w-64">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+            <input class="w-full bg-surface-container-low border-none rounded-full pl-8 pr-4 py-1.5 text-body-sm focus:ring-2 focus:ring-primary/20 placeholder:text-on-surface-variant/50" placeholder="Search..." type="text">
+        </div>
+        <button class="relative p-2 text-on-surface-variant hover:text-primary transition-colors">
+            <span class="material-symbols-outlined">notifications</span>
+            <span class="absolute top-2 right-2 w-1.5 h-1.5 bg-error rounded-full"></span>
+        </button>
+        <a href="profile.html" class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border border-outline-variant">
+            <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAd9a8FALN5zgdXbVWs-J-lpwDmxkTo1R88TIYdjtehA4fQJrpMnR-F4q007WZE_CVrUr6NRR0Z00Kqkub8WFrZ_TIBQVNOVNuStB1xYG9RdyGBRjT8DpWZSl0I_66UMg5cd1S1F6ZavSg1B0Ob9_DpCf4H5sQ1deLyjTEJfds09LPt3DIgORB37ODnoHOtFEZvaSeL2F7aaGSAc_PKtRMiHMrnAjhFYpQtSRwJNAwbZDnKG5Iq-rwewAw5oRGHBn1sLBFYQAe6uW4">
+        </a>
+    </div>
+</header>
+    
+    <main class="flex-grow max-w-container-max w-full mx-auto px-margin-mobile md:px-lg py-md pb-24">
+        <!-- Recommendations Section -->
+<section class="block" id="recommendations-page">
+<!-- Filters Bar -->
+<div class="flex flex-wrap items-center gap-3 mb-lg">
+<button class="flex items-center gap-2 px-5 py-2.5 bg-surface border border-outline-variant rounded-full text-label-md hover:bg-surface-container-high transition-all">
+<span>Budget</span>
+<span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+<button class="flex items-center gap-2 px-5 py-2.5 bg-surface border border-outline-variant rounded-full text-label-md hover:bg-surface-container-high transition-all">
+<span>Category</span>
+<span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+<button class="flex items-center gap-2 px-5 py-2.5 bg-surface border border-outline-variant rounded-full text-label-md hover:bg-surface-container-high transition-all">
+<span>Skills</span>
+<span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+<div class="h-6 w-px bg-outline-variant mx-1"></div>
+<span class="text-label-sm text-on-surface-variant">42 matches found</span>
+</div>
+<!-- Pinterest Style Grid -->
+<div class="pinterest-grid gap-gutter" id="p-grid">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest rounded-[24px] overflow-hidden border border-outline-variant shadow-sm hover:shadow-md transition-all group inline-block w-full break-inside-avoid mb-6">
+<div class="relative h-48 overflow-hidden bg-gradient-to-br from-surface-container-low to-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-outline-variant text-[48px] absolute z-0 select-none">image</span>
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 z-10" data-alt="A high-angle photo of a beautifully organized urban micro-farm or vertical garden, filled with lush green herbs and vibrant microgreens. The lighting is natural sunlight streaming through a glass roof, creating a warm, organic, and professional atmosphere consistent with a clean modern design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfb-qjMObwMlrCUQxIxvxFNBYVlm3uft7s9yDUTh5DB9XazV8h2cBThVY42ZRodp31xKvPBY6kEc4UkB78njquT_YE4MzCKxoREGmVA4ZdG838P_l_kjmiGMVlL7VfjJTx7nlbgiI7CkLhttNnanXG11G9WWVs7FFnvM3VJoIWKlXEQt0G4vZjQEtB-n6-6C4T_TcmPawYtXCET6ZJT4EHqzv22rEub9FmY4sA4LhOAv7r0a2k3yeTN2kBXyPtv2ZrEBDGPCSC6Tg">
+<div class="absolute top-3 left-3 bg-secondary/90 text-white px-3 py-1 rounded-full text-label-sm backdrop-blur-sm">Sustainable</div>
+</div>
+<div class="p-6">
+<h3 class="font-headline-md text-on-surface mb-2">Micro-Green Delivery</h3>
+<p class="text-body-sm text-on-surface-variant mb-4">Start a sustainable hyper-local farm focusing on high-margin microgreens for boutique restaurants.</p>
+<div class="space-y-2 mb-6">
+<div class="flex justify-between items-center text-label-sm">
+<span class="text-on-surface-variant">Investment</span>
+<span class="font-semibold text-secondary">$1.2k - $3k</span>
+</div>
+<div class="flex justify-between items-center text-label-sm">
+<span class="text-on-surface-variant">Monthly Potential</span>
+<span class="font-semibold text-on-surface">$4.5k+</span>
+</div>
+</div>
+<button class="w-full py-3 bg-primary text-white rounded-full font-label-md hover:opacity-90 active:scale-95 transition-all" onclick="showPage('roadmap')">View Roadmap</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest rounded-[24px] overflow-hidden border border-outline-variant shadow-sm hover:shadow-md transition-all group inline-block w-full break-inside-avoid mb-6">
+<div class="relative h-64 overflow-hidden bg-gradient-to-br from-surface-container-low to-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-outline-variant text-[48px] absolute z-0 select-none">image</span>
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 z-10" data-alt="Close-up of a high-end mechanical keyboard with custom keycaps and specialized tools for assembly on a dark walnut desk. The mood is sophisticated and focused, with soft warm accent lighting highlighting the tactile textures of the plastic and metal components in a premium tech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB69-sPiZ6Eaj0snelYVbNBFCvD2i5N0By_AylRyGGui3Wj78linu8hhckAnZ42rriRVKdMQGT8hpexbMFb0A3Mysiy7bkbGd6GqbiT3hjyqn2c9ip1dbyOXEwPnwwaT8ycN6LF1xx1PxdTw7uRICDpZSmvP671XMSWbPTvbggnH0QMRTkMq7900NnEdyhSxAfpnA_1JtZUTzT4AoCE1JVloFnTlNNCDk9y6r3ZDYqwrKCG7qdsCqcfLS2efNxPxjWOHpDtZAA_EBw">
+<div class="absolute top-3 left-3 bg-tertiary text-white px-3 py-1 rounded-full text-label-sm backdrop-blur-sm">E-commerce</div>
+</div>
+<div class="p-6">
+<h3 class="font-headline-md text-on-surface mb-2">Custom Tech Studio</h3>
+<p class="text-body-sm text-on-surface-variant mb-4">Curate and build high-end custom mechanical keyboards for developers and creative professionals.</p>
+<div class="space-y-2 mb-6">
+<div class="flex justify-between items-center text-label-sm">
+<span class="text-on-surface-variant">Investment</span>
+<span class="font-semibold text-secondary">$5k - $8k</span>
+</div>
+<div class="flex justify-between items-center text-label-sm">
+<span class="text-on-surface-variant">Monthly Potential</span>
+<span class="font-semibold text-on-surface">$12k+</span>
+</div>
+</div>
+<button class="w-full py-3 bg-primary text-white rounded-full font-label-md hover:opacity-90 transition-all" onclick="showPage('roadmap')">View Roadmap</button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest rounded-[24px] overflow-hidden border border-outline-variant shadow-sm hover:shadow-md transition-all group inline-block w-full break-inside-avoid mb-6">
+<div class="relative h-56 overflow-hidden bg-gradient-to-br from-surface-container-low to-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-outline-variant text-[48px] absolute z-0 select-none">image</span>
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 z-10" data-alt="A minimalist home office setup with a high-end ergonomic chair and a single plant on the desk, emphasizing a zero-distraction environment. The aesthetic is extremely clean and airy, with a soft beige and white color palette that evokes a sense of professional clarity and calm focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwx9mHk5NumCQtEBbSJoNulvcK-VFm5qWdWD_2FWUZiVH_mtwI3iWz19_ZFQCzEXXZpvD1rrtkb6nQdhqo9uL117-l4eYLZlh-z4qqZMDFJ5xqNyl7_jc2Q1FZwXpyvn5fE2G9vqKGSlHIdOik8mR5pheYaN83LUkdpopLbhM_m2d3NzH66CquY3aLY340bl-VPMgt2fEHG60wg7QKIeIjAon9xSlm_ee3ONhSaTzYEMSPQtK4JABy5ch3QyybNWLcHFq8_VkD5fs">
+<div class="absolute top-3 left-3 bg-primary text-white px-3 py-1 rounded-full text-label-sm backdrop-blur-sm">Service</div>
+</div>
+<div class="p-6">
+<h3 class="font-headline-md text-on-surface mb-2">Remote Ops Agency</h3>
+<p class="text-body-sm text-on-surface-variant mb-4">Helping solo-founders automate their back-office operations using no-code toolsets.</p>
+<div class="space-y-2 mb-6">
+<div class="flex justify-between items-center text-label-sm">
+<span class="text-on-surface-variant">Investment</span>
+<span class="font-semibold text-secondary">$500 - $1.5k</span>
+</div>
+<div class="flex justify-between items-center text-label-sm">
+<span class="text-on-surface-variant">Monthly Potential</span>
+<span class="font-semibold text-on-surface">$8k+</span>
+</div>
+</div>
+<button class="w-full py-3 bg-primary text-white rounded-full font-label-md hover:opacity-90 transition-all" onclick="showPage('roadmap')">View Roadmap</button>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest rounded-[24px] overflow-hidden border border-outline-variant shadow-sm hover:shadow-md transition-all group inline-block w-full break-inside-avoid mb-6">
+<div class="relative h-48 overflow-hidden bg-gradient-to-br from-surface-container-low to-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-outline-variant text-[48px] absolute z-0 select-none">image</span>
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 z-10" data-alt="A collection of beautifully designed, eco-friendly ceramic containers and glass jars filled with gourmet artisanal spices. The lighting is soft and diffuse, highlighting the textures of the ingredients and the matte finish of the packaging in a modern, sophisticated pantry setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARcpTyzxjJz8aiO79E9LtDx7qiqwF03xVwo4qTTUElBHPpUyCLiKSao37zbV4yKol7kHAYKAcDKvcO5vIcCcCbNYeHd0FLPyX_mBK4l9URoPmV_kLC_wjgM2HE2ppEvWoeU0rn_Wa3SRMdaPDx5i_G7IdYm7GF6Im8q904Qyz_qwj_ATJRz3T3fhjq_l-LWmkV2GxwiRC1RNux4yRaNvEJ4Xd5FWNMWi4gNtQMGFtPIRBoDZ8_zql7sJ11cGRgl9kaAFDbVWqJros">
+<div class="absolute top-3 left-3 bg-secondary/90 text-white px-3 py-1 rounded-full text-label-sm backdrop-blur-sm">Retail</div>
+</div>
+<div class="p-6">
+<h3 class="font-headline-md text-on-surface mb-2">Artisan Pantry Box</h3>
+<p class="text-body-sm text-on-surface-variant mb-4">Subscription-based discovery boxes featuring small-batch pantry staples from local makers.</p>
+<div class="space-y-2 mb-6">
+<div class="flex justify-between items-center text-label-sm">
+<span class="text-on-surface-variant">Investment</span>
+<span class="font-semibold text-secondary">$2k - $4k</span>
+</div>
+<div class="flex justify-between items-center text-label-sm">
+<span class="text-on-surface-variant">Monthly Potential</span>
+<span class="font-semibold text-on-surface">$6k+</span>
+</div>
+</div>
+<button class="w-full py-3 bg-primary text-white rounded-full font-label-md hover:opacity-90 transition-all" onclick="showPage('roadmap')">View Roadmap</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Roadmap Section -->
+<section class="hidden max-w-3xl mx-auto py-md" id="roadmap-page">
+        <!-- Back Button -->
+        <button onclick="showPage('recommendations')" class="flex items-center gap-2 text-primary hover:text-primary/80 font-label-md mb-6 transition-colors">
+            <span class="material-symbols-outlined">arrow_back</span>
+            <span>Back to Business Ideas</span>
+        </button>
+<!-- Header & Progress -->
+<div class="mb-xl bg-surface-container-low p-8 rounded-[24px] border border-outline-variant relative overflow-hidden">
+<div class="relative z-10">
+<div class="flex justify-between items-end mb-4">
+<div>
+<span class="text-label-md text-primary font-semibold mb-1 block">Active Pursuit</span>
+<h2 class="font-headline-md text-on-surface">Micro-Green Delivery Startup</h2>
+</div>
+<div class="text-right">
+<span class="text-display-lg text-primary font-bold">35%</span>
+<span class="text-label-sm text-on-surface-variant block">Project Completion</span>
+</div>
+</div>
+<div class="w-full h-3 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[35%] transition-all duration-1000 ease-out"></div>
+</div>
+</div>
+<div class="absolute top-0 right-0 opacity-10">
+<span class="material-symbols-outlined text-[120px] rotate-12">spa</span>
+</div>
+</div>
+<!-- Timeline Steps -->
+<div class="space-y-lg relative">
+<!-- Step 1: Completed -->
+<div class="flex gap-6 relative roadmap-line">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-secondary text-white flex items-center justify-center z-10 shadow-lg">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="flex-1 bg-white p-6 rounded-[24px] border border-outline-variant shadow-sm glass-card">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-headline-md text-on-surface">Idea Validation</h4>
+<p class="text-body-sm text-on-surface-variant">Estimated: 1 week • <span class="text-secondary font-medium">Completed</span></p>
+</div>
+</div>
+<div class="space-y-3">
+<label class="flex items-center gap-3 text-body-md opacity-60">
+<input checked="" class="w-5 h-5 rounded-md border-outline text-secondary focus:ring-secondary" disabled="" type="checkbox">
+<span class="line-through">Conduct local market survey</span>
+</label>
+<label class="flex items-center gap-3 text-body-md opacity-60">
+<input checked="" class="w-5 h-5 rounded-md border-outline text-secondary focus:ring-secondary" disabled="" type="checkbox">
+<span class="line-through">Analyze competitor pricing</span>
+</label>
+<label class="flex items-center gap-3 text-body-md opacity-60">
+<input checked="" class="w-5 h-5 rounded-md border-outline text-secondary focus:ring-secondary" disabled="" type="checkbox">
+<span class="line-through">Interview 5 restaurant chefs</span>
+</label>
+</div>
+</div>
+</div>
+<!-- Step 2: In Progress -->
+<div class="flex gap-6 relative roadmap-line">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center z-10 shadow-lg ring-4 ring-primary/20">
+<span class="material-symbols-outlined">pending</span>
+</div>
+<div class="flex-1 bg-white p-6 rounded-[24px] border-2 border-primary shadow-md glass-card">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-headline-md text-primary">Market Research &amp; Sourcing</h4>
+<p class="text-body-sm text-on-surface-variant">Estimated: 2 weeks • <span class="text-primary font-medium underline">In Progress</span></p>
+</div>
+<span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-full text-label-sm">High Priority</span>
+</div>
+<div class="space-y-3">
+<label class="flex items-center gap-3 text-body-md group cursor-pointer">
+<input checked="" class="w-5 h-5 rounded-md border-outline text-primary focus:ring-primary transition-all" type="checkbox">
+<span class="group-hover:text-primary transition-colors line-through opacity-60">Select tray &amp; substrate suppliers</span>
+</label>
+<label class="flex items-center gap-3 text-body-md group cursor-pointer">
+<input class="w-5 h-5 rounded-md border-outline text-primary focus:ring-primary transition-all" type="checkbox">
+<span class="group-hover:text-primary transition-colors">Test 3 variety seed batches</span>
+</label>
+<label class="flex items-center gap-3 text-body-md group cursor-pointer">
+<input class="w-5 h-5 rounded-md border-outline text-primary focus:ring-primary transition-all" type="checkbox">
+<span class="group-hover:text-primary transition-colors">Define delivery radius &amp; logistics</span>
+</label>
+</div>
+<div class="mt-6 pt-6 border-t border-outline-variant flex items-center gap-4">
+<button class="flex-1 py-2.5 bg-primary text-white rounded-full font-label-md hover:bg-primary-container hover:text-on-primary-container transition-all">Mark Section Complete</button>
+<button class="px-4 py-2.5 text-on-surface-variant hover:bg-surface-variant rounded-full transition-all">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Step 3: Future -->
+<div class="flex gap-6 relative roadmap-line">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-outline-variant text-on-surface-variant flex items-center justify-center z-10">
+<span class="material-symbols-outlined">radio_button_unchecked</span>
+</div>
+<div class="flex-1 bg-surface-container-low p-6 rounded-[24px] border border-outline-variant opacity-60 grayscale-[50%] transition-all hover:opacity-100 hover:grayscale-0">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-headline-md text-on-surface">Registration &amp; Setup</h4>
+<p class="text-body-sm text-on-surface-variant">Estimated: 3 weeks • <span class="font-medium">Locked</span></p>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex items-center gap-3 text-body-md">
+<div class="w-5 h-5 rounded-md border-2 border-outline-variant"></div>
+<span>Register business entity</span>
+</div>
+<div class="flex items-center gap-3 text-body-md">
+<div class="w-5 h-5 rounded-md border-2 border-outline-variant"></div>
+<span>Apply for food handling permits</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Step 4: Future -->
+<div class="flex gap-6 relative">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-outline-variant text-on-surface-variant flex items-center justify-center z-10">
+<span class="material-symbols-outlined">rocket_launch</span>
+</div>
+<div class="flex-1 bg-surface-container-low p-6 rounded-[24px] border border-outline-variant opacity-60">
+<h4 class="font-headline-md text-on-surface">Official Launch</h4>
+<p class="text-body-sm text-on-surface-variant">Estimated: 1 week • Locked</p>
+</div>
+</div>
+</div>
+</section>
+    </main>
+    
+    <footer class="w-full py-xl px-margin-mobile md:px-lg max-w-container-max mx-auto border-t border-outline-variant bg-surface-container-highest mt-auto">
+<div class="col-span-1 md:col-span-1">
+<span class="text-headline-md font-bold text-primary mb-4 block">EntreSkill Hub</span>
+<p class="text-body-sm text-on-surface-variant pr-8">Empowering the next generation of founders with data-backed business roadmaps and community-led growth.</p>
+</div>
+<div class="space-y-3">
+<p class="font-label-md text-secondary">Resources</p>
+<a href="learn.html" class="block text-body-sm text-on-surface-variant hover:text-primary transition-colors">Learning Center</a>
+<a class="block text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Business Directory</a>
+<a class="block text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Newsletter</a>
+</div>
+<div class="space-y-3">
+<p class="font-label-md text-secondary">Company</p>
+<a class="block text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="block text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="block text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Contact</a>
+</div>
+<div class="space-y-4">
+<p class="font-label-md text-secondary">Subscribe</p>
+<div class="flex gap-2">
+<input class="bg-surface border border-outline-variant rounded-full px-4 py-2 text-body-sm flex-1 focus:ring-primary focus:border-primary" placeholder="Email address" type="email">
+<button class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<p class="text-[10px] text-on-surface-variant opacity-60">© 2024 EntreSkill Hub. All rights reserved.</p>
+</div>
+</footer>
+    
+    <nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-xs pb-safe md:hidden bg-surface shadow-[0_-4px_20px_rgba(0,0,0,0.04)] h-16 rounded-t-lg">
+    <a href="dashboard.html" class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 transition-all">
+        <span class="material-symbols-outlined">dashboard</span>
+        <span class="font-label-sm text-label-sm">Home</span>
+    </a>
+    <a href="roadmap.html" class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl px-3 py-1 scale-90 transition-all">
+        <span class="material-symbols-outlined">alt_route</span>
+        <span class="font-label-sm text-label-sm">Roadmap</span>
+    </a>
+    <a href="learn.html" class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 transition-all">
+        <span class="material-symbols-outlined">school</span>
+        <span class="font-label-sm text-label-sm">Learn</span>
+    </a>
+    <a href="mentors.html" class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 transition-all">
+        <span class="material-symbols-outlined">group</span>
+        <span class="font-label-sm text-label-sm">Mentors</span>
+    </a>
+    <a href="profile.html" class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1 transition-all">
+        <span class="material-symbols-outlined">person</span>
+        <span class="font-label-sm text-label-sm">Profile</span>
+    </a>
+</nav>
+</div>
+
+<script>
+        function showPage(pageId) {
+            const recommendations = document.getElementById('recommendations-page');
+            const roadmap = document.getElementById('roadmap-page');
+            const title = document.getElementById('page-title');
+            const fab = document.getElementById('main-fab');
+            
+            // Nav states (Desktop)
+            const navHome = document.getElementById('nav-home');
+            const navRoadmap = document.getElementById('nav-roadmap');
+            
+            // Nav states (Mobile)
+            const mNavHome = document.getElementById('m-nav-home');
+            const mNavRoadmap = document.getElementById('m-nav-roadmap');
+
+            if (pageId === 'recommendations') {
+                if (recommendations) recommendations.classList.remove('hidden');
+                if (roadmap) roadmap.classList.add('hidden');
+                if (title) title.innerText = 'Business Ideas';
+                if (fab) fab.classList.remove('hidden');
+                
+                // Active styles mapping
+                if (navHome) {
+                    navHome.classList.add('bg-primary-container', 'text-on-primary-container', 'font-semibold', 'translate-x-1');
+                    navHome.classList.remove('text-on-surface-variant');
+                }
+                if (navRoadmap) {
+                    navRoadmap.classList.remove('bg-primary-container', 'text-on-primary-container', 'font-semibold', 'translate-x-1');
+                    navRoadmap.classList.add('text-on-surface-variant');
+                }
+
+                if (mNavHome) {
+                    mNavHome.classList.add('bg-secondary-container', 'text-on-secondary-container', 'rounded-xl');
+                    mNavHome.classList.remove('text-on-surface-variant');
+                }
+                if (mNavRoadmap) {
+                    mNavRoadmap.classList.remove('bg-secondary-container', 'text-on-secondary-container', 'rounded-xl');
+                    mNavRoadmap.classList.add('text-on-surface-variant');
+                }
+
+            } else {
+                if (recommendations) recommendations.classList.add('hidden');
+                if (roadmap) roadmap.classList.remove('hidden');
+                if (title) title.innerText = 'My Roadmap';
+                if (fab) fab.classList.add('hidden');
+                
+                if (navRoadmap) {
+                    navRoadmap.classList.add('bg-primary-container', 'text-on-primary-container', 'font-semibold', 'translate-x-1');
+                    navRoadmap.classList.remove('text-on-surface-variant');
+                }
+                if (navHome) {
+                    navHome.classList.remove('bg-primary-container', 'text-on-primary-container', 'font-semibold', 'translate-x-1');
+                    navHome.classList.add('text-on-surface-variant');
+                }
+
+                if (mNavRoadmap) {
+                    mNavRoadmap.classList.add('bg-secondary-container', 'text-on-secondary-container', 'rounded-xl');
+                    mNavRoadmap.classList.remove('text-on-surface-variant');
+                }
+                if (mNavHome) {
+                    mNavHome.classList.remove('bg-secondary-container', 'text-on-secondary-container', 'rounded-xl');
+                    mNavHome.classList.add('text-on-surface-variant');
+                }
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Load recommendations dynamically
+        async function loadDynamicRecommendations() {
+            const grid = document.getElementById('p-grid');
+            if (!grid) return;
+
+            let skills = ["Agriculture", "SaaS", "E-commerce"];
+            try {
+                const storedSkills = localStorage.getItem('user-skills');
+                if (storedSkills) skills = JSON.parse(storedSkills);
+            } catch (e) {}
+
+            const budget = parseInt(localStorage.getItem('user-budget')) || 5000;
+            const exp = localStorage.getItem('user-experience') || 'Solopreneur';
+
+            try {
+                const ideas = await window.API.getRecommendations(skills, skills, budget, exp);
+                if (ideas && ideas.length > 0) {
+                    grid.innerHTML = '';
+                    ideas.forEach((idea, index) => {
+                        const card = document.createElement('div');
+                        card.className = "bg-surface-container-lowest rounded-[24px] overflow-hidden border border-outline-variant shadow-sm hover:shadow-md transition-all group inline-block w-full break-inside-avoid mb-6";
+                        
+                        const tagColor = index % 3 === 0 ? 'bg-secondary/90' : index % 3 === 1 ? 'bg-tertiary' : 'bg-primary';
+                        
+                        card.innerHTML = `
+                            <div class="relative h-48 overflow-hidden bg-gradient-to-br from-surface-container-low to-surface-container-high flex items-center justify-center">
+                                <span class="material-symbols-outlined text-outline-variant text-[48px] absolute z-0 select-none">image</span>
+                                <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 z-10" src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80">
+                                <div class="absolute top-3 left-3 ${tagColor} text-white px-3 py-1 rounded-full text-label-sm backdrop-blur-sm">${idea.category || 'Startup'}</div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="font-headline-md text-on-surface mb-2">${idea.title}</h3>
+                                <p class="text-body-sm text-on-surface-variant mb-4">${idea.description}</p>
+                                <div class="space-y-2 mb-6">
+                                    <div class="flex justify-between items-center text-label-sm">
+                                        <span class="text-on-surface-variant">Investment</span>
+                                        <span class="font-semibold text-secondary">$${idea.requirements.minInvestment} - $${idea.requirements.maxInvestment}</span>
+                                    </div>
+                                    <div class="flex justify-between items-center text-label-sm">
+                                        <span class="text-on-surface-variant">Difficulty</span>
+                                        <span class="font-semibold text-on-surface capitalize">${idea.difficulty}</span>
+                                    </div>
+                                </div>
+                                <button class="w-full py-3 bg-primary text-white rounded-full font-label-md hover:opacity-90 active:scale-95 transition-all" onclick="loadRoadmapForIdea('${idea._id}', '${idea.title}')">View Roadmap</button>
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    });
+                }
+            } catch (err) {
+                console.error("Failed to load recommendations:", err);
+            }
+        }
+
+        async function loadRoadmapForIdea(ideaId, title) {
+            try {
+                const roadmap = await window.API.getRoadmap(ideaId);
+                if (roadmap) {
+                    const roadmapTitle = document.querySelector('#roadmap-page h2.font-headline-md');
+                    if (roadmapTitle) roadmapTitle.innerText = `${title} Roadmap`;
+
+                    const timeline = document.querySelector('#roadmap-page .space-y-lg');
+                    if (timeline) {
+                        timeline.innerHTML = '';
+                        roadmap.steps.forEach((step, idx) => {
+                            const stepDiv = document.createElement('div');
+                            stepDiv.className = "flex gap-6 relative roadmap-line";
+                            
+                            const isCompleted = idx < 2;
+                            const icon = isCompleted ? 'check_circle' : 'pending';
+                            const iconBg = isCompleted ? 'bg-secondary' : 'bg-primary';
+
+                            stepDiv.innerHTML = `
+                                <div class="flex-shrink-0 w-10 h-10 rounded-full ${iconBg} text-white flex items-center justify-center z-10 shadow-lg">
+                                    <span class="material-symbols-outlined">${icon}</span>
+                                </div>
+                                <div class="flex-grow bg-white p-6 rounded-[24px] border border-outline-variant shadow-sm glass-card">
+                                    <div class="flex justify-between items-start mb-4">
+                                        <div>
+                                            <h4 class="font-headline-md text-on-surface">${step.title}</h4>
+                                            <p class="text-body-sm text-on-surface-variant">${step.description}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            timeline.appendChild(stepDiv);
+                        });
+                    }
+                }
+                showPage('roadmap');
+            } catch (err) {
+                console.error("Failed to load roadmap:", err);
+                showPage('roadmap');
+            }
+        }
+
+        // Initialize view
+        showPage('recommendations');
+        loadDynamicRecommendations();
+
+        // Simple smooth entrance for cards
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('#p-grid > div');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+        });
+    </script>
+</body></html>

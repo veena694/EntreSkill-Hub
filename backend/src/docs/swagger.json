@@ -1,0 +1,132 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "EntreSkill Hub API",
+    "description": "Enterprise API specification for the EntreSkill Hub skill-to-startup enablement platform.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "/api/v1",
+      "description": "Local API Server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "summary": "Register a new user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email", "password", "fullName"],
+                "properties": {
+                  "email": { "type": "string", "example": "founder@example.com" },
+                  "password": { "type": "string", "example": "securePassword123" },
+                  "fullName": { "type": "string", "example": "Jane Doe" },
+                  "role": { "type": "string", "enum": ["user", "mentor", "admin"], "example": "user" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created successfully"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Log in an existing user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email", "password"],
+                "properties": {
+                  "email": { "type": "string", "example": "founder@example.com" },
+                  "password": { "type": "string", "example": "securePassword123" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Logged in successfully, returns tokens"
+          }
+        }
+      }
+    },
+    "/business-ideas/recommendations": {
+      "post": {
+        "summary": "Get tailored business recommendations",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "skills": { "type": "array", "items": { "type": "string" }, "example": ["Programming", "Sales"] },
+                  "interests": { "type": "array", "items": { "type": "string" }, "example": ["Technology", "Food"] },
+                  "budget": { "type": "number", "example": 5000 },
+                  "experience": { "type": "string", "enum": ["beginner", "intermediate", "advanced", "expert"], "example": "intermediate" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns matching ranked business ideas"
+          }
+        }
+      }
+    },
+    "/bookings": {
+      "post": {
+        "summary": "Book a session with a mentor",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["mentorId", "bookingDate", "timeSlot"],
+                "properties": {
+                  "mentorId": { "type": "string", "example": "60d0fe4f5311236168a109ca" },
+                  "bookingDate": { "type": "string", "example": "2026-07-15" },
+                  "timeSlot": { "type": "string", "example": "09:00 AM - 10:00 AM" },
+                  "notes": { "type": "string", "example": "Discuss MVP launch strategies" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Booking scheduled"
+          }
+        }
+      }
+    }
+  }
+}

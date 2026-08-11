@@ -1,0 +1,706 @@
+<!DOCTYPE html><html class="scroll-smooth" lang="en"><head>
+<script type="module" src="/api.js"></script>
+<script>
+    (function() {
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+        } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.add('light');
+        }
+    })();
+</script>
+
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>EntreSkill Hub | Join the Community</title>
+<meta content="Step into your entrepreneurial journey with EntreSkill Hub's personalized onboarding." name="description">
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#edc063",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-container": "#ffe8c0",
+                    "background": "#fcf9f8",
+                    "on-secondary-container": "#127252",
+                    "on-surface": "#1b1c1c",
+                    "secondary-fixed": "#9ef4cb",
+                    "surface-container-low": "#f6f3f2",
+                    "secondary": "#046c4c",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#fcf9f8",
+                    "primary-fixed": "#9cf2e8",
+                    "inverse-on-surface": "#f3f0ef",
+                    "inverse-primary": "#80d5cb",
+                    "inverse-surface": "#303030",
+                    "surface-tint": "#006a63",
+                    "secondary-container": "#9ef4cb",
+                    "on-primary-fixed": "#00201d",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed-dim": "#82d7b0",
+                    "surface-dim": "#dcd9d9",
+                    "on-tertiary-fixed": "#261900",
+                    "on-tertiary-fixed-variant": "#5c4300",
+                    "tertiary-fixed": "#ffdea1",
+                    "primary-container": "#0f766e",
+                    "surface-variant": "#e5e2e1",
+                    "on-secondary": "#ffffff",
+                    "surface-container": "#f0eded",
+                    "on-secondary-fixed": "#002114",
+                    "error-container": "#ffdad6",
+                    "tertiary-container": "#87640a",
+                    "surface-container-high": "#eae7e7",
+                    "error": "#ba1a1a",
+                    "primary-fixed-dim": "#80d5cb",
+                    "outline-variant": "#bdc9c6",
+                    "surface-bright": "#fcf9f8",
+                    "on-surface-variant": "#3e4947",
+                    "on-secondary-fixed-variant": "#005138",
+                    "on-primary-container": "#a3faef",
+                    "outline": "#6e7977",
+                    "on-error-container": "#93000a",
+                    "tertiary": "#6a4d00",
+                    "on-primary-fixed-variant": "#00504a",
+                    "primary": "#005c55",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#e5e2e1",
+                    "on-background": "#1b1c1c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "sm": "12px",
+                    "base": "8px",
+                    "xs": "4px",
+                    "container-max": "1200px",
+                    "lg": "48px",
+                    "xl": "80px",
+                    "md": "24px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "label-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "display-lg-mobile": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "body-md": ["Inter"],
+                    "body-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #fcf9f8;
+            color: #1b1c1c;
+            -webkit-font-smoothing: antialiased;
+        }
+        .onboarding-card {
+            border-radius: 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            border: 1px solid #E8E8E8;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .step-hidden {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .step-active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        input:focus {
+            outline: none;
+            border-color: #005c55 !important;
+            box-shadow: 0 0 0 2px rgba(0, 92, 85, 0.1);
+        }
+        /* Custom Slider Styling */
+        input[type='range'] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type='range']::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8px;
+            cursor: pointer;
+            background: #f0eded;
+            border-radius: 4px;
+        }
+        input[type='range']::-webkit-slider-thumb {
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: #005c55;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .interest-chip.selected {
+            background-color: #005c55;
+            color: white;
+            border-color: #005c55;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-body-md text-body-md overflow-x-hidden">
+<!-- Top Navigation Anchor (Suppress on specific steps via JS logic, but rendered initially) -->
+<header class="sticky top-0 z-50 flex justify-between items-center w-full px-margin-mobile md:px-lg max-w-container-max mx-auto h-16 bg-surface/80 backdrop-blur-md" id="main-header">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-headline-md">spa</span>
+<span class="text-headline-md font-headline-md font-bold text-primary">EntreSkill Hub</span>
+</div>
+<button id="header-login-btn" onclick="toggleLoginMode(event)" class="text-on-surface-variant font-label-md hover:text-primary transition-colors">Log In</button>
+</header>
+<main class="flex-grow flex items-center justify-center relative px-margin-mobile py-xl">
+<!-- Background Animation -->
+<div class="fixed inset-0 -z-10 opacity-30">
+<!-- STITCH_SHADER_START:ANIMATION_2 class="absolute inset-0 w-full h-full" -->
+<div class="absolute inset-0 w-full h-full" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_2" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_2');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+varying vec2 v_texCoord;
+uniform float u_time;
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+
+// Earthy palette from design system
+vec3 bgLow = vec3(0.976, 0.973, 0.957); // #F9F8F4
+vec3 bgHigh = vec3(0.953, 0.937, 0.910); // #F3EFE8
+vec3 accent = vec3(0.059, 0.463, 0.431); // #0F766E (Emerald)
+vec3 highlight = vec3(0.804, 0.639, 0.286); // #CDA349 (Gold)
+
+float hash(vec2 p) {
+    p = fract(p * vec2(123.34, 456.21));
+    p += dot(p, p + 45.32);
+    return fract(p.x * p.y);
+}
+
+float noise(vec2 p) {
+    vec2 i = floor(p);
+    vec2 f = fract(p);
+    float a = hash(i);
+    float b = hash(i + vec2(1.0, 0.0));
+    float c = hash(i + vec2(0.0, 1.0));
+    float d = hash(i + vec2(1.0, 1.0));
+    vec2 u = f * f * (3.0 - 2.0 * f);
+    return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
+}
+
+void main() {
+    vec2 uv = v_texCoord;
+    vec2 p = (uv - 0.5) * 2.0;
+    p.x *= u_resolution.x / u_resolution.y;
+
+    // Subtle background gradient
+    float grad = uv.y + noise(uv * 3.0 + u_time * 0.1) * 0.1;
+    vec3 col = mix(bgLow, bgHigh, grad);
+
+    // Floating "Opportunities" - subtle light spheres
+    for(int i = 0; i < 5; i++) {
+        float t = u_time * 0.2 + float(i) * 12.5;
+        vec2 pos = vec2(sin(t), cos(t * 0.7)) * 0.5;
+        pos += noise(vec2(t)) * 0.2;
+        float d = length(p - pos);
+        float size = 0.05 + 0.02 * sin(t * 2.0);
+        float glow = smoothstep(size, 0.0, d);
+        col = mix(col, accent, glow * 0.03);
+    }
+
+    // Floating business symbols - abstract light points
+    for(int i = 0; i < 8; i++) {
+        float t = u_time * 0.15 + float(i) * 7.8;
+        vec2 pos = vec2(cos(t * 1.2), sin(t * 0.8)) * 0.8;
+        float d = length(p - pos);
+        float size = 0.01;
+        float sparkle = smoothstep(size, 0.0, d);
+        col = mix(col, highlight, sparkle * 0.1);
+    }
+
+    // Soft grain/texture
+    col += (hash(uv + u_time * 0.01) - 0.5) * 0.01;
+
+    gl_FragColor = vec4(col, 1.0);
+}
+`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_2 -->
+</div>
+<div class="w-full max-w-lg z-10">
+<!-- STEP 0: Signup Form -->
+<section class="step-active onboarding-card bg-surface-container-lowest p-md md:p-lg space-y-md" id="step-signup">
+<div class="space-y-sm text-center md:text-left">
+<h1 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Start your journey</h1>
+<p class="text-on-surface-variant font-body-md">Join a community of 50,000+ founders cultivating their dreams into reality.</p>
+</div>
+<div class="grid grid-cols-2 gap-sm">
+<button class="flex items-center justify-center gap-2 border border-outline-variant py-sm rounded-full hover:bg-surface-container-low transition-colors">
+<img alt="Google" class="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDUDGqJVi5bT8YmbG41PZmJSgDM7lY6gFVYswNwDdnW1PctaVjJdCmGArMQTssHu9c1bE9gRRhNTdmU74oqqbUqh-boeXk4nqyR6TSijh_GzKry4PBlfzG0V-U3XZYplU7LAj4eWpzoUoeHZlksLX8igzYL1re0eL2wdMX6YgeDXLecOpouyjlIwq5VH9CzfpIy7xPkLafiUEOroN69bOLmib4VQTfMyMWLdFqnzmAHCEj7qlh8rMsQlxo-s8ad63Lajv0VPjWvQc">
+<span class="font-label-md">Google</span>
+</button>
+<button class="flex items-center justify-center gap-2 border border-outline-variant py-sm rounded-full hover:bg-surface-container-low transition-colors">
+<img alt="Apple" class="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmZ3Disr5PkELuteQGckuffxGsuRKQkZZVmQIlJf4SwbmEBtJGV5zlA-LknFjTUzrjzIV43nrfLw6STCo7bqia95AFtHWczBfAbPUQdmabtKvBFOEEheRRfXRWhjLYsHjmjugmIyyNtoQDG77WefJ8RByGWKozJk180hhR8zshpI_LJOeoM-I5v3D9RrjIPavvcaRfG43bpYKREpXD4xlIyLKxdfDyEgA7lBxopoF-hpjHyu0VtsCPLoz1q4Sb9Lv7ZMPwT251epw">
+<span class="font-label-md">Apple</span>
+</button>
+</div>
+<div class="relative flex items-center py-base">
+<div class="flex-grow border-t border-outline-variant"></div>
+<span class="flex-shrink mx-4 text-on-surface-variant text-label-sm uppercase tracking-widest">or</span>
+<div class="flex-grow border-t border-outline-variant"></div>
+</div>
+<form class="space-y-sm" onsubmit="handleSubmitForm(event)">
+<div class="space-y-xs" id="name-field-container">
+<label class="text-label-md text-on-surface-variant ml-2">Full Name</label>
+<input id="input-name" class="w-full bg-surface-container-lowest border-outline-variant rounded-xl py-3 px-4 text-body-md placeholder:text-on-surface-variant/40" placeholder="John Doe" required="" type="text">
+</div>
+<div class="space-y-xs">
+<label class="text-label-md text-on-surface-variant ml-2">Email Address</label>
+<input id="input-email" class="w-full bg-surface-container-lowest border-outline-variant rounded-xl py-3 px-4 text-body-md placeholder:text-on-surface-variant/40" placeholder="john@example.com" required="" type="email">
+</div>
+<div class="space-y-xs">
+<label class="text-label-md text-on-surface-variant ml-2">Password</label>
+<input id="input-password" class="w-full bg-surface-container-lowest border-outline-variant rounded-xl py-3 px-4 text-body-md placeholder:text-on-surface-variant/40" placeholder="••••••••" required="" type="password">
+</div>
+<button class="w-full bg-primary text-on-primary py-4 rounded-full font-label-md mt-md shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all" type="submit">
+                        Create Account
+                    </button>
+<div class="text-center mt-md">
+    <a href="#" id="toggle-mode-link" onclick="toggleLoginMode(event)" class="text-body-sm text-on-surface-variant">
+        Already have an account? <span class="text-primary font-bold hover:underline">Log In</span>
+    </a>
+</div>
+</form>
+</section>
+<!-- STEP 1: Interests & Skills -->
+<section class="step-hidden onboarding-card bg-surface-container-lowest p-md md:p-lg space-y-md" id="step-1">
+<div class="flex items-center gap-base mb-md">
+<div class="h-1 flex-grow bg-primary rounded-full"></div>
+<div class="h-1 flex-grow bg-outline-variant rounded-full"></div>
+<div class="h-1 flex-grow bg-outline-variant rounded-full"></div>
+</div>
+<div class="space-y-sm">
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg">What are your focus areas?</h2>
+<p class="text-on-surface-variant">We'll tailor your dashboard based on what you're building.</p>
+</div>
+<div class="grid grid-cols-2 gap-sm" id="interests-grid">
+<button class="interest-chip flex flex-col items-center justify-center p-md border border-outline-variant rounded-xl gap-2 hover:border-primary hover:bg-primary-container/10 transition-all" onclick="toggleSelect(this)">
+<span class="material-symbols-outlined text-headline-md">rocket_launch</span>
+<span class="font-label-md">SaaS / Tech</span>
+</button>
+<button class="interest-chip flex flex-col items-center justify-center p-md border border-outline-variant rounded-xl gap-2 hover:border-primary hover:bg-primary-container/10 transition-all" onclick="toggleSelect(this)">
+<span class="material-symbols-outlined text-headline-md">storefront</span>
+<span class="font-label-md">E-commerce</span>
+</button>
+<button class="interest-chip flex flex-col items-center justify-center p-md border border-outline-variant rounded-xl gap-2 hover:border-primary hover:bg-primary-container/10 transition-all" onclick="toggleSelect(this)">
+<span class="material-symbols-outlined text-headline-md">draw</span>
+<span class="font-label-md">Design</span>
+</button>
+<button class="interest-chip flex flex-col items-center justify-center p-md border border-outline-variant rounded-xl gap-2 hover:border-primary hover:bg-primary-container/10 transition-all" onclick="toggleSelect(this)">
+<span class="material-symbols-outlined text-headline-md">payments</span>
+<span class="font-label-md">Fintech</span>
+</button>
+<button class="interest-chip flex flex-col items-center justify-center p-md border border-outline-variant rounded-xl gap-2 hover:border-primary hover:bg-primary-container/10 transition-all" onclick="toggleSelect(this)">
+<span class="material-symbols-outlined text-headline-md">biotech</span>
+<span class="font-label-md">Health</span>
+</button>
+<button class="interest-chip flex flex-col items-center justify-center p-md border border-outline-variant rounded-xl gap-2 hover:border-primary hover:bg-primary-container/10 transition-all" onclick="toggleSelect(this)">
+<span class="material-symbols-outlined text-headline-md">school</span>
+<span class="font-label-md">EdTech</span>
+</button>
+</div>
+<div class="flex gap-sm mt-md">
+<button class="flex-1 py-4 text-primary font-label-md border border-primary rounded-full" onclick="nextStep(0)">Back</button>
+<button class="flex-[2] py-4 bg-primary text-on-primary font-label-md rounded-full shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all" onclick="nextStep(2)">Continue</button>
+</div>
+</section>
+<!-- STEP 2: Budget & Time -->
+<section class="step-hidden onboarding-card bg-surface-container-lowest p-md md:p-lg space-y-md" id="step-2">
+<div class="flex items-center gap-base mb-md">
+<div class="h-1 flex-grow bg-primary rounded-full"></div>
+<div class="h-1 flex-grow bg-primary rounded-full"></div>
+<div class="h-1 flex-grow bg-outline-variant rounded-full"></div>
+</div>
+<div class="space-y-sm">
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Resources &amp; Dedication</h2>
+<p class="text-on-surface-variant font-body-md">Tell us about your commitment level so we can pace your roadmap.</p>
+</div>
+<div class="space-y-lg py-md">
+<div class="space-y-sm">
+<div class="flex justify-between items-center">
+<label class="font-label-md text-on-surface">Weekly Availability</label>
+<span class="font-label-md text-primary bg-primary-container/20 px-3 py-1 rounded-full" id="time-val">10 hours</span>
+</div>
+<input max="60" min="1" oninput="document.getElementById('time-val').innerText = this.value + ' hours'" type="range" value="10">
+<div class="flex justify-between text-label-sm text-on-surface-variant/60">
+<span>Sideline (1hr)</span>
+<span>Full-time (60hr)</span>
+</div>
+</div>
+<div class="space-y-sm">
+<div class="flex justify-between items-center">
+<label class="font-label-md text-on-surface">Starting Budget</label>
+<span class="font-label-md text-primary bg-primary-container/20 px-3 py-1 rounded-full" id="budget-val">$5,000</span>
+</div>
+<input max="50000" min="0" oninput="document.getElementById('budget-val').innerText = '$' + parseInt(this.value).toLocaleString()" step="500" type="range" value="5000">
+<div class="flex justify-between text-label-sm text-on-surface-variant/60">
+<span>Bootstrapped ($0)</span>
+<span>High-growth ($50k+)</span>
+</div>
+</div>
+</div>
+<div class="flex gap-sm mt-md">
+<button class="flex-1 py-4 text-primary font-label-md border border-primary rounded-full" onclick="nextStep(1)">Back</button>
+<button class="flex-[2] py-4 bg-primary text-on-primary font-label-md rounded-full shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all" onclick="nextStep(3)">Almost there</button>
+</div>
+</section>
+<!-- STEP 3: Business Type -->
+<section class="step-hidden onboarding-card bg-surface-container-lowest p-md md:p-lg space-y-md" id="step-3">
+<div class="flex items-center gap-base mb-md">
+<div class="h-1 flex-grow bg-primary rounded-full"></div>
+<div class="h-1 flex-grow bg-primary rounded-full"></div>
+<div class="h-1 flex-grow bg-primary rounded-full"></div>
+</div>
+<div class="space-y-sm">
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Your Business Model</h2>
+<p class="text-on-surface-variant font-body-md">How do you plan to create value?</p>
+</div>
+<div class="space-y-sm" id="model-selection">
+<button class="w-full flex items-center p-md gap-md border border-outline-variant rounded-xl hover:border-primary transition-all text-left" onclick="selectModel(this)">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">person_pin</span>
+</div>
+<div class="flex-grow">
+<p class="font-label-md text-on-surface">Solopreneur</p>
+<p class="text-body-sm text-on-surface-variant">Independent worker building a lifestyle brand.</p>
+</div>
+<span class="material-symbols-outlined text-outline-variant check-mark opacity-0">check_circle</span>
+</button>
+<button class="w-full flex items-center p-md gap-md border border-outline-variant rounded-xl hover:border-primary transition-all text-left" onclick="selectModel(this)">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined">groups</span>
+</div>
+<div class="flex-grow">
+<p class="font-label-md text-on-surface">Small Team</p>
+<p class="text-body-sm text-on-surface-variant">Collaborative venture with 2-10 core members.</p>
+</div>
+<span class="material-symbols-outlined text-outline-variant check-mark opacity-0">check_circle</span>
+</button>
+<button class="w-full flex items-center p-md gap-md border border-outline-variant rounded-xl hover:border-primary transition-all text-left" onclick="selectModel(this)">
+<div class="w-12 h-12 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed">
+<span class="material-symbols-outlined">apartment</span>
+</div>
+<div class="flex-grow">
+<p class="font-label-md text-on-surface">Venture-scale</p>
+<p class="text-body-sm text-on-surface-variant">Aiming for rapid growth and institutional funding.</p>
+</div>
+<span class="material-symbols-outlined text-outline-variant check-mark opacity-0">check_circle</span>
+</button>
+</div>
+<div class="flex gap-sm mt-md">
+<button class="flex-1 py-4 text-primary font-label-md border border-primary rounded-full" onclick="nextStep(2)">Back</button>
+<button class="flex-[2] py-4 bg-primary text-on-primary font-label-md rounded-full shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all" onclick="finishOnboarding()">Complete Setup</button>
+</div>
+</section>
+<!-- STEP 4: Success Screen -->
+<section class="step-hidden onboarding-card bg-surface-container-lowest p-md md:p-lg space-y-xl text-center" id="step-success">
+<div class="relative flex justify-center py-md">
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-32 h-32 bg-primary/10 rounded-full animate-ping"></div>
+</div>
+<div class="w-24 h-24 bg-primary rounded-full flex items-center justify-center relative z-10">
+<span class="material-symbols-outlined text-on-primary text-[48px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<div class="space-y-sm">
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">You're all set, Future Founder!</h2>
+<p class="text-on-surface-variant font-body-md px-md">You're all set! We've customized your roadmap with 12 modules focused on your unique goals.</p>
+</div>
+<div class="p-md bg-surface-container rounded-xl border border-outline-variant text-left flex items-center gap-base">
+<span class="material-symbols-outlined text-primary">auto_awesome</span>
+<p class="text-body-sm">Personalized strategy: <span class="font-semibold">Bootstrapped Tech Growth</span></p>
+</div>
+<a class="block w-full bg-primary text-on-primary py-4 rounded-full font-label-md shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all" href="dashboard.html">
+                    Go to Dashboard
+                </a>
+</section>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Hidden initially, shown in success/dashboard) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-xs pb-safe md:hidden bg-surface h-16 shadow-[0_-4px_20px_rgba(0,0,0,0.04)] hidden" id="bottom-nav">
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl px-3 py-1 scale-90">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1">
+<span class="material-symbols-outlined">alt_route</span>
+<span class="font-label-sm">Roadmap</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1">
+<span class="material-symbols-outlined">school</span>
+<span class="font-label-sm">Learn</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm">Profile</span>
+</div>
+</nav>
+<!-- Footer for Onboarding (Simplified) -->
+<footer class="w-full py-md px-margin-mobile md:px-lg max-w-container-max mx-auto border-t border-outline-variant text-center md:flex md:justify-between md:items-center">
+<p class="text-on-surface-variant text-body-sm font-body-sm">© 2024 EntreSkill Hub.</p>
+<div class="flex justify-center gap-md mt-sm md:mt-0">
+<a class="text-on-surface-variant hover:text-primary transition-colors text-label-md" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors text-label-md" href="#">Help Center</a>
+</div>
+</footer>
+<script>
+        let currentStep = 0;
+        const steps = ['signup', '1', '2', '3', 'success'];
+
+        function nextStep(stepIdx) {
+            const curId = `step-${steps[currentStep]}`;
+            const nxtId = `step-${steps[stepIdx]}`;
+
+            const curEl = document.getElementById(curId);
+            const nxtEl = document.getElementById(nxtId);
+
+            if (curEl) {
+                curEl.classList.remove('step-active');
+                curEl.classList.add('step-hidden');
+            }
+
+            setTimeout(() => {
+                if (nxtEl) {
+                    nxtEl.classList.remove('step-hidden');
+                    nxtEl.classList.add('step-active');
+                }
+                currentStep = stepIdx;
+                
+                // Hide header on success step for "Full Focus"
+                const mainHeader = document.getElementById('main-header');
+                const bottomNav = document.getElementById('bottom-nav');
+                if (stepIdx === 4) {
+                    if (mainHeader) mainHeader.style.opacity = '0';
+                    if (bottomNav) bottomNav.classList.remove('hidden');
+                } else {
+                    if (mainHeader) mainHeader.style.opacity = '1';
+                }
+            }, 300);
+        }
+
+        function toggleSelect(el) {
+            el.classList.toggle('selected');
+            // Micro-interaction
+            el.classList.add('scale-95');
+            setTimeout(() => el.classList.remove('scale-95'), 100);
+        }
+
+        function selectModel(el) {
+            // Clear others
+            const buttons = document.querySelectorAll('#model-selection button');
+            buttons.forEach(btn => {
+                btn.classList.remove('border-primary', 'bg-primary-container/10');
+                btn.querySelector('.check-mark').classList.add('opacity-0');
+            });
+            // Select current
+            el.classList.add('border-primary', 'bg-primary-container/10');
+            el.querySelector('.check-mark').classList.remove('opacity-0');
+        }
+
+        let isLoginMode = false;
+
+        function toggleLoginMode(e) {
+            if (e) e.preventDefault();
+            isLoginMode = !isLoginMode;
+            
+            const title = document.querySelector('#step-signup h1');
+            const subtitle = document.querySelector('#step-signup p');
+            const nameField = document.getElementById('name-field-container');
+            const submitBtn = document.querySelector('#step-signup button[type="submit"]');
+            const toggleLink = document.getElementById('toggle-mode-link');
+            const headerBtn = document.getElementById('header-login-btn');
+            const nameInput = document.getElementById('input-name');
+
+            if (isLoginMode) {
+                title.innerText = "Welcome back";
+                subtitle.innerText = "Enter your credentials to continue your founder journey.";
+                if (nameField) nameField.classList.add('hidden');
+                if (nameInput) nameInput.required = false;
+                submitBtn.innerText = "Log In";
+                toggleLink.innerHTML = 'Don\'t have an account? <span class="text-primary font-bold hover:underline">Sign Up</span>';
+                if (headerBtn) headerBtn.innerText = "Sign Up";
+            } else {
+                title.innerText = "Start your journey";
+                subtitle.innerText = "Join a community of 50,000+ founders cultivating their dreams into reality.";
+                if (nameField) nameField.classList.remove('hidden');
+                if (nameInput) nameInput.required = true;
+                submitBtn.innerText = "Create Account";
+                toggleLink.innerHTML = 'Already have an account? <span class="text-primary font-bold hover:underline">Log In</span>';
+                if (headerBtn) headerBtn.innerText = "Log In";
+            }
+        }
+
+        async function handleSubmitForm(e) {
+            e.preventDefault();
+            if (isLoginMode) {
+                const email = document.getElementById('input-email').value;
+                const password = document.getElementById('input-password').value;
+                try {
+                    await window.API.login(email, password);
+                    window.location.href = 'dashboard.html';
+                } catch (err) {
+                    alert("Login failed: " + err.message);
+                }
+            } else {
+                const fullName = document.getElementById('input-name').value;
+                const email = document.getElementById('input-email').value;
+                const password = document.getElementById('input-password').value;
+                try {
+                    await window.API.register(email, password, fullName);
+                    nextStep(1);
+                } catch (err) {
+                    alert("Registration failed: " + err.message);
+                }
+            }
+        }
+
+        async function finishOnboarding() {
+            const interests = [];
+            document.querySelectorAll('#interests-grid button.selected').forEach(btn => {
+                interests.push(btn.querySelector('.font-label-md').innerText);
+            });
+
+            const weeklyHours = parseInt(document.querySelector('input[max="60"]').value) || 10;
+            const budget = parseInt(document.querySelector('input[max="50000"]').value) || 5000;
+            
+            let businessModel = 'Solopreneur';
+            const selectedModelBtn = document.querySelector('#model-selection button.border-primary');
+            if (selectedModelBtn) {
+                businessModel = selectedModelBtn.querySelector('.font-label-md').innerText;
+            }
+
+            try {
+                await window.API.updateOnboarding(interests, interests, budget, businessModel);
+                localStorage.setItem('user-skills', JSON.stringify(interests));
+                localStorage.setItem('user-interests', JSON.stringify(interests));
+                localStorage.setItem('user-budget', budget);
+                localStorage.setItem('user-experience', businessModel);
+                nextStep(4);
+            } catch (err) {
+                console.error("Failed to save onboarding:", err);
+                nextStep(4);
+            }
+        }
+    </script>
+</body></html>
