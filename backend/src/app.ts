@@ -12,7 +12,7 @@ import router from './routes';
 import { errorHandler } from './middleware/error.middleware';
 
 // Load Swagger document
-const swaggerDocument = require('./docs/swagger.json');
+import swaggerDocument from './docs/swagger.json';
 
 const app = express();
 
