@@ -26,6 +26,8 @@ export interface IUser extends Omit<PrismaUser, 'personalInfo' | 'onboarding' | 
   personalInfo: PersonalInfo;
   onboarding: Onboarding;
   preferences: UserPreferences;
+  onboardingCompleted: boolean;
+  bookmarks: string[];
 }
 
 export default PrismaUser;

@@ -15,6 +15,9 @@ const controller = new AuthController();
 
 router.post('/register', validateRequest(registerSchema), controller.register);
 router.post('/login', validateRequest(loginSchema), controller.login);
+router.post('/google', controller.googleLogin);
+router.get('/google/url', controller.getGoogleAuthUrl);
+router.get('/google/callback', controller.googleCallback);
 router.post('/refresh', controller.refreshToken);
 router.post('/logout', controller.logout);
 router.post('/verify-email', controller.verifyEmail);

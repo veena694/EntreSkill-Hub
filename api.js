@@ -29,6 +29,7 @@ function clearTokens() {
     localStorage.removeItem('user-name');
     localStorage.removeItem('user-email');
     localStorage.removeItem('user-role');
+    localStorage.removeItem('onboardingCompleted');
 }
 
 // Wrapper for standard fetch that adds auth headers and rotates tokens on 401
@@ -58,7 +59,7 @@ async function apiFetch(endpoint, options = {}) {
 
                 if (refreshRes.ok) {
                     const resJson = await refreshRes.json();
-                    const data = resJson.data; // Retrieve nested tokens
+                    const data = resJson.data;
                     setTokens(data.accessToken, data.refreshToken);
                     
                     // Re-try original request with new token
@@ -103,13 +104,41 @@ const API = {
         if (!res.ok) throw new Error((await res.json()).message || 'Login failed');
         
         const responseData = await res.json();
-        const payload = responseData.data; // Retrieve data sub-object
+        const payload = responseData.data;
         
         setTokens(payload.accessToken, payload.refreshToken);
         if (payload.user) {
-            localStorage.setItem('user-name', payload.user.personalInfo.fullName);
-            localStorage.setItem('user-email', payload.user.email);
-            localStorage.setItem('user-role', payload.user.role);
+            localStorage.setItem('user-name', payload.user.personalInfo?.fullName || '');
+            localStorage.setItem('user-email', payload.user.email || '');
+            localStorage.setItem('user-role', payload.user.role || '');
+            localStorage.setItem('onboardingCompleted', String(payload.user.onboardingCompleted || false));
+        }
+        return responseData;
+    },
+
+    async getGoogleAuthUrl() {
+        const res = await apiFetch('/auth/google/url');
+        if (!res.ok) return null;
+        const json = await res.json();
+        return json.data?.url || null;
+    },
+
+    async googleLogin(email, fullName, googleId) {
+        const res = await apiFetch('/auth/google', {
+            method: 'POST',
+            body: JSON.stringify({ email, fullName, googleId })
+        });
+        if (!res.ok) throw new Error((await res.json()).message || 'Google login failed');
+
+        const responseData = await res.json();
+        const payload = responseData.data;
+
+        setTokens(payload.accessToken, payload.refreshToken);
+        if (payload.user) {
+            localStorage.setItem('user-name', payload.user.personalInfo?.fullName || '');
+            localStorage.setItem('user-email', payload.user.email || '');
+            localStorage.setItem('user-role', payload.user.role || '');
+            localStorage.setItem('onboardingCompleted', String(payload.user.onboardingCompleted || false));
         }
         return responseData;
     },
@@ -129,7 +158,36 @@ const API = {
     async getProfile() {
         const res = await apiFetch('/users/profile');
         if (!res.ok) return null;
-        return (await res.json()).user;
+        const json = await res.json();
+        return json.data || null;
+    },
+
+    async getDashboard() {
+        const res = await apiFetch('/users/dashboard');
+        if (!res.ok) return null;
+        const json = await res.json();
+        return json.data || null;
+    },
+
+    async updateProfile(profileData) {
+        const res = await apiFetch('/users/profile', {
+            method: 'PUT',
+            body: JSON.stringify(profileData)
+        });
+        if (!res.ok) return null;
+        const json = await res.json();
+        return json.data || null;
+    },
+
+    async completeOnboarding(skills, interests, budget, experience, goals) {
+        const res = await apiFetch('/users/onboarding', {
+            method: 'POST',
+            body: JSON.stringify({ skills, interests, budget, experience, goals })
+        });
+        if (!res.ok) throw new Error((await res.json()).message || 'Onboarding failed');
+        const json = await res.json();
+        localStorage.setItem('onboardingCompleted', 'true');
+        return json.data;
     },
 
     async updateOnboarding(skills, interests, budget, experience) {
@@ -185,6 +243,24 @@ const API = {
         });
         if (!res.ok) throw new Error((await res.json()).message || 'Booking failed');
         return (await res.json()).booking;
+    },
+
+    async bookmarkIdea(ideaId) {
+        const res = await apiFetch(`/users/bookmarks/${ideaId}`, { method: 'POST' });
+        if (!res.ok) return null;
+        return (await res.json()).data;
+    },
+
+    async removeBookmark(ideaId) {
+        const res = await apiFetch(`/users/bookmarks/${ideaId}`, { method: 'DELETE' });
+        if (!res.ok) return null;
+        return (await res.json()).data;
+    },
+
+    async getBookmarks() {
+        const res = await apiFetch('/users/bookmarks');
+        if (!res.ok) return [];
+        return (await res.json()).data || [];
     }
 };
 
@@ -207,11 +283,19 @@ window.API = API;
         return;
     }
 
+    // Onboarding redirect: if logged in but onboarding incomplete, go to join.html
+    if (hasValidToken && !isPublicPage) {
+        const onboardingDone = localStorage.getItem('onboardingCompleted');
+        if (onboardingDone !== 'true' && !window.location.pathname.endsWith('join.html')) {
+            window.location.href = 'join.html';
+            return;
+        }
+    }
+
     // Role-based Access Control (RBAC): Only admins can visit management.html
     if (hasValidToken && window.location.pathname.endsWith('management.html')) {
-        const userEmail = localStorage.getItem('user-email') || '';
         const userRole = localStorage.getItem('user-role') || '';
-        if (!userEmail.includes('admin') && userRole !== 'admin') {
+        if (userRole !== 'admin') {
             window.location.href = 'dashboard.html';
             return;
         }
@@ -219,63 +303,67 @@ window.API = API;
 
     if (hasValidToken) {
         document.addEventListener('DOMContentLoaded', () => {
-            const userName = localStorage.getItem('user-name') || 'Founder';
-            const userEmail = localStorage.getItem('user-email') || '';
-            const userRole = localStorage.getItem('user-role') || '';
-            
-            let displayRole = 'Level 4 Founder';
-            const isAdmin = userEmail.includes('admin') || userRole === 'admin';
-            
-            if (isAdmin) {
-                displayRole = 'Admin User';
-            } else if (userEmail.includes('elena') || userRole === 'mentor') {
-                displayRole = 'VC Advisor';
-            }
-
-            // Hide management link in the sidebar for non-admin users
-            if (!isAdmin) {
-                document.querySelectorAll('a[href="management.html"]').forEach(el => {
-                    el.style.display = 'none';
-                });
-            }
-
-            // Dynamically replace hardcoded dummy profile text
-            document.querySelectorAll('*').forEach(el => {
-                if (el.children.length === 0) {
-                    if (el.innerText === 'Alex Rivers') {
-                        el.innerText = userName;
-                    }
-                    if (el.innerText === 'Level 4 Founder') {
-                        el.innerText = displayRole;
-                    }
-                }
-            });
-
-            // Update specific profile elements
-            const profileNameEl = document.getElementById('profile-name');
-            if (profileNameEl) profileNameEl.innerText = userName;
-
-            const profileEmailEl = document.getElementById('profile-email');
-            if (profileEmailEl) profileEmailEl.innerText = userEmail;
-
-            // Fetch live profile data from the database to update details
+            // Load profile from API — this is the source of truth, not localStorage
             if (window.API && window.API.getProfile) {
                 window.API.getProfile().then(user => {
-                    if (user) {
-                        localStorage.setItem('user-name', user.personalInfo.fullName);
-                        localStorage.setItem('user-email', user.email);
-                        localStorage.setItem('user-role', user.role);
-                        
-                        document.querySelectorAll('*').forEach(el => {
-                            if (el.children.length === 0) {
-                                if (el.innerText === 'Alex Rivers' || el.innerText === 'Founder') {
-                                    el.innerText = user.personalInfo.fullName;
-                                }
-                            }
-                        });
-                        if (profileNameEl) profileNameEl.innerText = user.personalInfo.fullName;
+                    if (!user) {
+                        console.warn('Could not load profile from server.');
+                        return;
                     }
-                }).catch(err => console.log("Profile synchronization deferred:", err));
+
+                    const fullName = user.personalInfo?.fullName || 'User';
+                    const email = user.email || '';
+                    const role = user.role || '';
+
+                    // Cache for auth-guard redirect (NOT as source of truth for display)
+                    localStorage.setItem('user-name', fullName);
+                    localStorage.setItem('user-email', email);
+                    localStorage.setItem('user-role', role);
+                    localStorage.setItem('onboardingCompleted', String(user.onboardingCompleted || false));
+
+                    // Check onboarding status from server
+                    if (!user.onboardingCompleted && !window.location.pathname.endsWith('join.html')) {
+                        window.location.href = 'join.html';
+                        return;
+                    }
+
+                    let displayRole = 'Founder';
+                    if (role === 'admin') {
+                        displayRole = 'Admin';
+                    } else if (role === 'mentor') {
+                        displayRole = 'Mentor';
+                    }
+
+                    // Hide management link in the sidebar for non-admin users
+                    if (role !== 'admin') {
+                        document.querySelectorAll('a[href="management.html"]').forEach(el => {
+                            el.style.display = 'none';
+                        });
+                    }
+
+                    // Update sidebar profile name elements
+                    const sidebarNames = document.querySelectorAll('.sidebar-user-name, [data-user-name]');
+                    sidebarNames.forEach(el => { el.innerText = fullName; });
+
+                    const sidebarRoles = document.querySelectorAll('.sidebar-user-role, [data-user-role]');
+                    sidebarRoles.forEach(el => { el.innerText = displayRole; });
+
+                    // Update specific profile elements
+                    const profileNameEl = document.getElementById('profile-name');
+                    if (profileNameEl) profileNameEl.innerText = fullName;
+
+                    const profileEmailEl = document.getElementById('profile-email');
+                    if (profileEmailEl) profileEmailEl.innerText = email;
+
+                    // Update all generic placeholder elements that show user name/role
+                    document.querySelectorAll('[data-bind="user-fullname"]').forEach(el => {
+                        el.innerText = fullName;
+                    });
+                    document.querySelectorAll('[data-bind="user-role"]').forEach(el => {
+                        el.innerText = displayRole;
+                    });
+
+                }).catch(err => console.error('Profile load error:', err));
             }
         });
     }

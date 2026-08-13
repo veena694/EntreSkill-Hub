@@ -25,7 +25,7 @@ beforeEach(async () => {
     data: {
       email: 'student@test.com',
       passwordHash: 'dummy',
-      personalInfo: { fullName: 'Alex Student', phoneNumber: null, location: null, profilePicture: null, bio: null },
+      personalInfo: { fullName: 'Test Student', phoneNumber: null, location: null, profilePicture: null, bio: null },
       onboarding: { skills: [], interests: [], budget: 0, experience: '', goals: [] },
       preferences: { notifications: true, darkMode: false, publicProfile: true }
     }

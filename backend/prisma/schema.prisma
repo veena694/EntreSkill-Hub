@@ -21,11 +21,13 @@ model User {
   role         String    @default("user") // "user" | "mentor" | "admin"
   isActive     Boolean   @default(true)
   isVerified   Boolean   @default(false)
+  onboardingCompleted Boolean @default(false)
   // Formerly embedded composite types — stored as JSON
   personalInfo Json      @default("{\"fullName\":\"\",\"phoneNumber\":null,\"location\":null,\"profilePicture\":null,\"bio\":null}")
   onboarding   Json      @default("{\"skills\":[],\"interests\":[],\"budget\":0,\"experience\":\"\",\"goals\":[]}")
   preferences  Json      @default("{\"notifications\":true,\"darkMode\":false,\"publicProfile\":true}")
   achievements String[]
+  bookmarks    String[]  @default([])
   isDeleted    Boolean   @default(false)
   deletedAt    DateTime?
   createdAt    DateTime  @default(now())

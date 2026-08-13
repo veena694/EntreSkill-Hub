@@ -11,10 +11,19 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      mongodb:
-        image: mongo:6.0
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
+          POSTGRES_PASSWORD: password
         ports:
-          - 27017:27017
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
     - name: Check out repository
@@ -23,7 +32,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
-        node-level: '20'
+        node-version: '20'
         cache: 'npm'
         cache-dependency-path: './backend/package.json'
 
@@ -32,15 +41,21 @@ jobs:
         cd backend
         npm ci
 
-    - name: Run lint
+    - name: Generate Prisma Client & Push Database Schema
       run: |
         cd backend
-        # Add linting script or running checks if configured
+        npx prisma db push
+      env:
+        DATABASE_URL: postgresql://postgres:password@localhost:5432/postgres?schema=public
 
-    - name: Run integration and unit tests
+    - name: Run tests
       run: |
         cd backend
         npm test
+      env:
+        DATABASE_URL: postgresql://postgres:password@localhost:5432/postgres?schema=public
+        JWT_ACCESS_SECRET: test_jwt_access_secret_key_very_long_and_secure
+        JWT_REFRESH_SECRET: test_jwt_refresh_secret_key_very_long_and_secure
 
     - name: Build TypeScript output
       run: |

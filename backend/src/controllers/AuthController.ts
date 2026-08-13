@@ -13,7 +13,7 @@ export class AuthController {
       res.status(201).json({
         success: true,
         message: 'Registration successful. A verification link has been sent to your email.',
-        data: { userId: user.id, email: user.email, role: user.role }
+        data: { userId: user.id, email: user.email, role: user.role, onboardingCompleted: user.onboardingCompleted }
       });
     } catch (error) {
       next(error);
@@ -33,7 +33,13 @@ export class AuthController {
         success: true,
         message: 'Login successful',
         data: {
-          user: { userId: user.id, email: user.email, role: user.role, personalInfo: user.personalInfo },
+          user: {
+            userId: user.id,
+            email: user.email,
+            role: user.role,
+            personalInfo: user.personalInfo,
+            onboardingCompleted: user.onboardingCompleted
+          },
           accessToken,
           refreshToken
         }
@@ -175,5 +181,76 @@ export class AuthController {
       next(error);
     }
   };
+
+  googleLogin = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const { email, fullName, googleId } = req.body;
+      if (!email || !fullName) {
+        res.status(400).json({ success: false, message: 'Email and full name are required for Google authentication.' });
+        return;
+      }
+
+      const { user, accessToken, refreshToken } = await this.authService.googleLogin({ email, fullName, googleId });
+
+      res.cookie('accessToken', accessToken, { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
+      res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
+
+      res.status(200).json({
+        success: true,
+        message: 'Google login successful',
+        data: {
+          user: {
+            userId: user.id,
+            email: user.email,
+            role: user.role,
+            personalInfo: user.personalInfo,
+            onboardingCompleted: user.onboardingCompleted
+          },
+          accessToken,
+          refreshToken
+        }
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  getGoogleAuthUrl = async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const url = this.authService.getGoogleAuthUrl();
+      if (!url) {
+        res.status(503).json({
+          success: false,
+          message: 'Google OAuth credentials not configured on server.',
+          data: { configured: false }
+        });
+        return;
+      }
+      res.status(200).json({ success: true, data: { url, configured: true } });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  googleCallback = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const code = req.query.code as string;
+      if (!code) {
+        res.status(400).json({ success: false, message: 'Authorization code is missing.' });
+        return;
+      }
+
+      const { user, accessToken, refreshToken } = await this.authService.handleGoogleCallbackCode(code);
+
+      res.cookie('accessToken', accessToken, { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
+      res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
+
+      const targetPage = user.onboardingCompleted ? '/dashboard.html' : '/join.html';
+      res.redirect(`${targetPage}?token=${accessToken}`);
+    } catch (error) {
+      next(error);
+    }
+  };
 }
+
 export default AuthController;

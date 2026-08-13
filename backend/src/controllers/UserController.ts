@@ -62,5 +62,79 @@ export class UserController {
       next(error);
     }
   };
+
+  completeOnboarding = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const userId = req.user!.userId;
+      const { skills, interests, budget, experience, goals } = req.body;
+
+      const user = await this.userService.completeOnboarding(userId, {
+        skills: skills || [],
+        interests: interests || [],
+        budget: budget || 0,
+        experience: experience || '',
+        goals: goals || []
+      });
+
+      res.status(200).json({
+        success: true,
+        message: 'Onboarding completed successfully.',
+        data: {
+          onboardingCompleted: user?.onboardingCompleted,
+          onboarding: user?.onboarding
+        }
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  addBookmark = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const userId = req.user!.userId;
+      const { ideaId } = req.params;
+      const bookmarks = await this.userService.addBookmark(userId, ideaId);
+
+      res.status(200).json({
+        success: true,
+        message: 'Bookmark added successfully.',
+        data: { bookmarks }
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  removeBookmark = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const userId = req.user!.userId;
+      const { ideaId } = req.params;
+      const bookmarks = await this.userService.removeBookmark(userId, ideaId);
+
+      res.status(200).json({
+        success: true,
+        message: 'Bookmark removed successfully.',
+        data: { bookmarks }
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  getBookmarks = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const userId = req.user!.userId;
+      const bookmarkedIdeas = await this.userService.getUserBookmarks(userId);
+
+      res.status(200).json({
+        success: true,
+        message: 'Bookmarks retrieved successfully.',
+        data: bookmarkedIdeas
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 export default UserController;
+
