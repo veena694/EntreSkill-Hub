@@ -269,6 +269,21 @@ window.API = API;
 
 // Auth Guard and Dynamic Profile Loader
 (function() {
+    // Extract tokens from URL query parameters (e.g. after Google OAuth callback redirect from backend)
+    try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const tokenFromUrl = urlParams.get('accessToken') || urlParams.get('token');
+        const refreshFromUrl = urlParams.get('refreshToken');
+
+        if (tokenFromUrl && tokenFromUrl !== 'undefined' && tokenFromUrl !== 'null') {
+            setTokens(tokenFromUrl, refreshFromUrl);
+            const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+            window.history.replaceState({ path: cleanUrl }, '', cleanUrl);
+        }
+    } catch (e) {
+        console.warn('Error processing URL tokens:', e);
+    }
+
     const isPublicPage = window.location.pathname.endsWith('index.html') || 
                          window.location.pathname.endsWith('join.html') || 
                          window.location.pathname === '/' || 

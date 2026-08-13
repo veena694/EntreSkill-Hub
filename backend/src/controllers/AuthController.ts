@@ -242,11 +242,17 @@ export class AuthController {
 
       const { user, accessToken, refreshToken } = await this.authService.handleGoogleCallbackCode(code);
 
-      res.cookie('accessToken', accessToken, { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
-      res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
+      const cookieOptions = {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: process.env.NODE_ENV === 'production' ? ('none' as const) : ('lax' as const)
+      };
+      res.cookie('accessToken', accessToken, cookieOptions);
+      res.cookie('refreshToken', refreshToken, cookieOptions);
 
+      const frontendUrl = (process.env.FRONTEND_URL || 'http://localhost:5173').replace(/\/$/, '');
       const targetPage = user.onboardingCompleted ? '/dashboard.html' : '/join.html';
-      res.redirect(`${targetPage}?token=${accessToken}`);
+      res.redirect(`${frontendUrl}${targetPage}?accessToken=${accessToken}&refreshToken=${refreshToken}`);
     } catch (error) {
       next(error);
     }

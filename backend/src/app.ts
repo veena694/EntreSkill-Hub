@@ -21,9 +21,21 @@ app.use(helmet({
   contentSecurityPolicy: false // Disable CSP locally to make Swagger UI assets load cleanly
 }));
 
-// CORS Configuration
+const allowedOrigins = Array.from(new Set([
+  process.env.FRONTEND_URL,
+  'https://entre-skill-hub-green.vercel.app',
+  'http://localhost:5173',
+  'http://localhost:3000'
+].filter(Boolean)));
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin as string)) {
+      callback(null, true);
+    } else {
+      callback(null, true);
+    }
+  },
   credentials: true
 }));
 
