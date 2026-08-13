@@ -1,5 +1,6 @@
 // EntreSkill Hub Client API Helper
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://entreskill-hub-qafi.onrender.com/api/v1';
+const API_BASE_URL = (typeof window !== 'undefined' && window.VITE_API_URL) 
+    || 'https://entreskill-hub-qafi.onrender.com/api/v1';
 
 // Save tokens helper
 function setTokens(accessToken, refreshToken) {
@@ -35,6 +36,7 @@ function clearTokens() {
 // Wrapper for standard fetch that adds auth headers and rotates tokens on 401
 async function apiFetch(endpoint, options = {}) {
     options.headers = options.headers || {};
+    options.credentials = 'include';
     
     const token = getAccessToken();
     if (token && token !== 'undefined' && token !== 'null') {
@@ -54,6 +56,7 @@ async function apiFetch(endpoint, options = {}) {
                 const refreshRes = await fetch(`${API_BASE_URL}/auth/refresh`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
                     body: JSON.stringify({ refreshToken: refresh })
                 });
 
@@ -329,17 +332,32 @@ window.API = API;
                     const fullName = user.personalInfo?.fullName || 'User';
                     const email = user.email || '';
                     const role = user.role || '';
+                    const isCompleted = Boolean(user.onboardingCompleted);
 
                     // Cache for auth-guard redirect (NOT as source of truth for display)
                     localStorage.setItem('user-name', fullName);
                     localStorage.setItem('user-email', email);
                     localStorage.setItem('user-role', role);
-                    localStorage.setItem('onboardingCompleted', String(user.onboardingCompleted || false));
+                    localStorage.setItem('onboardingCompleted', String(isCompleted));
 
-                    // Check onboarding status from server
-                    if (!user.onboardingCompleted && !window.location.pathname.endsWith('join.html')) {
-                        window.location.href = 'join.html';
-                        return;
+                    const isJoinPage = window.location.pathname.endsWith('join.html');
+                    const isLandingPage = window.location.pathname.endsWith('index.html') || window.location.pathname === '/' || window.location.pathname === '';
+
+                    // If user is ALREADY completed:
+                    if (isCompleted) {
+                        if (isJoinPage || isLandingPage) {
+                            window.location.href = 'dashboard.html';
+                            return;
+                        }
+                    } else {
+                        // User is INCOMPLETE:
+                        if (!isJoinPage) {
+                            window.location.href = 'join.html';
+                            return;
+                        } else if (typeof window.nextStep === 'function') {
+                            // If on join.html, advance from step 0 (login form) to step 1 (onboarding)
+                            window.nextStep(1);
+                        }
                     }
 
                     let displayRole = 'Founder';

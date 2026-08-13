@@ -598,6 +598,7 @@ void main() {
                 }
             }, 300);
         }
+        window.nextStep = nextStep;
 
         function toggleSelect(el) {
             el.classList.toggle('selected');
@@ -684,8 +685,13 @@ void main() {
                 const email = document.getElementById('input-email').value;
                 const password = document.getElementById('input-password').value;
                 try {
-                    await window.API.login(email, password);
-                    window.location.href = 'dashboard.html';
+                    const res = await window.API.login(email, password);
+                    const isCompleted = res?.data?.user?.onboardingCompleted;
+                    if (isCompleted) {
+                        window.location.href = 'dashboard.html';
+                    } else {
+                        nextStep(1);
+                    }
                 } catch (err) {
                     alert("Login failed: " + err.message);
                 }
@@ -718,7 +724,8 @@ void main() {
             }
 
             try {
-                await window.API.updateOnboarding(interests, interests, budget, businessModel);
+                await window.API.completeOnboarding(interests, interests, budget, businessModel, []);
+                localStorage.setItem('onboardingCompleted', 'true');
                 localStorage.setItem('user-skills', JSON.stringify(interests));
                 localStorage.setItem('user-interests', JSON.stringify(interests));
                 localStorage.setItem('user-budget', budget);
