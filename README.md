@@ -194,23 +194,3 @@ cd ..
 npm run build
 ```
 
----
-
-## 🌐 Production Environment Configuration
-
-| Service | Environment Variable | Value |
-|---------|----------------------|-------|
-| **Backend (Render)** | `FRONTEND_URL` | `https://entre-skill-hub-green.vercel.app` |
-| **Backend (Render)** | `GOOGLE_CALLBACK_URL` | `https://entreskill-hub-qafi.onrender.com/api/v1/auth/google/callback` |
-| **Backend (Render)** | `DATABASE_URL` | Supabase PostgreSQL Connection String |
-| **Frontend (Vercel)** | `VITE_API_URL` | `https://entreskill-hub-qafi.onrender.com/api/v1` |
-
----
-
-## 📄 License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
-
-© 2026 **EntreSkill Hub**. All rights reserved.
