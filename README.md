@@ -3,7 +3,7 @@
 [![Production Deployment](https://img.shields.io/badge/Vercel-Frontend-brightgreen)](https://entre-skill-hub-green.vercel.app)
 [![API Server](https://img.shields.io/badge/Render-Backend-blue)](https://entreskill-hub-qafi.onrender.com)
 [![Database](https://img.shields.io/badge/PostgreSQL-Supabase-336791)](https://supabase.com)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 
 **EntreSkill Hub** is an end-to-end skill-to-startup enablement platform designed to help aspiring founders, students, and professionals transform their practical skills, domain interests, and budget into sustainable micro-businesses and high-growth startups.
 
