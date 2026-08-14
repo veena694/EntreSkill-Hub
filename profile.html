@@ -595,27 +595,40 @@ window.addEventListener('load', () => {
             document.getElementById('edit-profile-modal').classList.add('hidden');
         }
 
-        function saveProfileChanges(e) {
+        async function saveProfileChanges(e) {
             e.preventDefault();
             const newName = document.getElementById('input-name').value;
             const newBio = document.getElementById('input-bio').value;
             const newLocation = document.getElementById('input-location').value;
             const newLink = document.getElementById('input-link').value;
 
-            document.getElementById('profile-name').innerText = newName;
-            document.getElementById('profile-bio').innerText = newBio;
-            document.getElementById('profile-location').innerText = newLocation;
-            
-            const linkEl = document.getElementById('profile-link');
-            linkEl.innerText = newLink;
-            linkEl.href = newLink.startsWith('http') ? newLink : 'https://' + newLink;
+            try {
+                if (window.API && window.API.updateProfile) {
+                    await window.API.updateProfile({
+                        personalInfo: {
+                            fullName: newName,
+                            bio: newBio,
+                            location: newLocation,
+                            website: newLink
+                        }
+                    });
+                }
 
-            localStorage.setItem('profile-name', newName);
-            localStorage.setItem('profile-bio', newBio);
-            localStorage.setItem('profile-location', newLocation);
-            localStorage.setItem('profile-link', newLink);
+                document.getElementById('profile-name').innerText = newName;
+                document.getElementById('profile-bio').innerText = newBio;
+                document.getElementById('profile-location').innerText = newLocation;
+                
+                const linkEl = document.getElementById('profile-link');
+                if (linkEl) {
+                    linkEl.innerText = newLink;
+                    linkEl.href = newLink.startsWith('http') ? newLink : 'https://' + newLink;
+                }
 
-            closeEditProfileModal();
+                closeEditProfileModal();
+            } catch (err) {
+                console.error("Failed to save profile changes:", err);
+                alert("Failed to update profile: " + (err.message || 'Error updating profile'));
+            }
         }
 
         // Dark Mode toggling logic
