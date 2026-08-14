@@ -183,12 +183,12 @@
     </nav>
     <div class="p-md mt-auto border-t border-outline-variant">
         <div class="flex items-center gap-sm mb-4">
-            <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden">
-                <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAd9a8FALN5zgdXbVWs-J-lpwDmxkTo1R88TIYdjtehA4fQJrpMnR-F4q007WZE_CVrUr6NRR0Z00Kqkub8WFrZ_TIBQVNOVNuStB1xYG9RdyGBRjT8DpWZSl0I_66UMg5cd1S1F6ZavSg1B0Ob9_DpCf4H5sQ1deLyjTEJfds09LPt3DIgORB37ODnoHOtFEZvaSeL2F7aaGSAc_PKtRMiHMrnAjhFYpQtSRwJNAwbZDnKG5Iq-rwewAw5oRGHBn1sLBFYQAe6uW4">
+            <div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center overflow-hidden border border-outline-variant font-bold">
+                <span class="material-symbols-outlined text-sm">person</span>
             </div>
             <div>
-                <p class="font-label-md text-on-surface">User</p>
-                <p class="text-xs text-on-surface-variant">Level 4 Founder</p>
+                <p class="font-label-md text-on-surface" data-bind="user-fullname">User</p>
+                <p class="text-xs text-on-surface-variant" data-bind="user-role">Founder</p>
             </div>
         </div>
         <a href="profile.html#settings" class="text-on-surface-variant hover:bg-surface-variant rounded-full px-4 py-2 flex items-center gap-3 transition-all">
@@ -220,8 +220,8 @@
             <span class="material-symbols-outlined">notifications</span>
             <span class="absolute top-2 right-2 w-1.5 h-1.5 bg-error rounded-full"></span>
         </button>
-        <a href="profile.html" class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border border-outline-variant">
-            <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAd9a8FALN5zgdXbVWs-J-lpwDmxkTo1R88TIYdjtehA4fQJrpMnR-F4q007WZE_CVrUr6NRR0Z00Kqkub8WFrZ_TIBQVNOVNuStB1xYG9RdyGBRjT8DpWZSl0I_66UMg5cd1S1F6ZavSg1B0Ob9_DpCf4H5sQ1deLyjTEJfds09LPt3DIgORB37ODnoHOtFEZvaSeL2F7aaGSAc_PKtRMiHMrnAjhFYpQtSRwJNAwbZDnKG5Iq-rwewAw5oRGHBn1sLBFYQAe6uW4">
+        <a href="profile.html" class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center overflow-hidden border border-outline-variant">
+            <span class="material-symbols-outlined text-sm">person</span>
         </a>
     </div>
 </header>
@@ -241,29 +241,29 @@
 <div class="relative w-48 h-48 flex items-center justify-center mb-md">
 <svg class="w-full h-full -rotate-90">
 <circle cx="96" cy="96" fill="transparent" r="90" stroke="#F3EFE8" stroke-width="12"></circle>
-<circle class="animate-progress transition-all" cx="96" cy="96" fill="transparent" r="90" stroke="#046C4C" stroke-dasharray="565" stroke-dashoffset="197" stroke-linecap="round" stroke-width="12"></circle>
+<circle class="animate-progress transition-all" cx="96" cy="96" fill="transparent" r="90" stroke="#046C4C" stroke-dasharray="565" stroke-dashoffset="565" stroke-linecap="round" stroke-width="12"></circle>
 </svg>
 <div class="absolute flex flex-col items-center">
-<span class="text-display-lg-mobile md:text-display-lg font-display-lg text-secondary">65%</span>
+<span class="text-display-lg-mobile md:text-display-lg font-display-lg text-secondary">0%</span>
 <span class="text-label-sm text-on-surface-variant">Complete</span>
 </div>
 </div>
-<p class="text-body-sm text-on-surface-variant">Next milestone: <span class="font-bold text-secondary">Market Validation</span></p>
+<p class="text-body-sm text-on-surface-variant">Next milestone: <span class="font-bold text-secondary">Select your first roadmap</span></p>
 </div>
 <!-- Quick Actions & Recommendations -->
 <div class="lg:col-span-8 flex flex-col gap-gutter">
 <!-- Quick Actions Row -->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
-<button class="flex items-center gap-md p-md bg-primary-container text-on-primary-container rounded-lg hover:scale-[0.98] transition-all group text-left shadow-lg">
+<button onclick="window.location.href='learn.html'" class="flex items-center gap-md p-md bg-primary-container text-on-primary-container rounded-lg hover:scale-[0.98] transition-all group text-left shadow-lg">
 <div class="w-12 h-12 bg-on-primary-container/20 rounded-full flex items-center justify-center">
 <span class="material-symbols-outlined">play_circle</span>
 </div>
 <div>
 <h4 class="font-label-md text-label-md">Continue Learning</h4>
-<p class="text-label-sm opacity-80">Module 4: Financial Modeling</p>
+<p class="text-label-sm opacity-80">Explore Courses (Start Module 1)</p>
 </div>
 </button>
-<button class="flex items-center gap-md p-md bg-secondary text-on-secondary rounded-lg hover:scale-[0.98] transition-all group text-left shadow-lg">
+<button onclick="window.location.href='roadmap.html'" class="flex items-center gap-md p-md bg-secondary text-on-secondary rounded-lg hover:scale-[0.98] transition-all group text-left shadow-lg">
 <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
 <span class="material-symbols-outlined">trending_up</span>
 </div>
@@ -320,23 +320,9 @@
 <span class="material-symbols-outlined text-on-surface-variant cursor-pointer">event</span>
 </div>
 <div class="space-y-md">
-<div class="flex gap-md items-start p-sm hover:bg-surface-container-low rounded-lg transition-all cursor-pointer border border-transparent hover:border-outline-variant">
-<div class="w-12 h-12 rounded-full bg-tertiary-fixed flex-shrink-0 flex items-center justify-center">
-<span class="material-symbols-outlined text-on-tertiary-fixed">video_call</span>
-</div>
-<div class="flex-1">
-<h4 class="text-body-md font-bold text-on-surface">Legal Structures for Startups</h4>
-<p class="text-body-sm text-on-surface-variant">With Sarah Jenkins • Today, 4:00 PM</p>
-</div>
-</div>
-<div class="flex gap-md items-start p-sm hover:bg-surface-container-low rounded-lg transition-all cursor-pointer border border-transparent hover:border-outline-variant">
-<div class="w-12 h-12 rounded-full bg-secondary-fixed flex-shrink-0 flex items-center justify-center">
-<span class="material-symbols-outlined text-on-secondary-fixed">chat</span>
-</div>
-<div class="flex-1">
-<h4 class="text-body-md font-bold text-on-surface">Pitch Deck Review</h4>
-<p class="text-body-sm text-on-surface-variant">With Marcus Thorne • Tomorrow, 10:30 AM</p>
-</div>
+<div class="p-base text-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[36px] text-outline mb-xs">event_busy</span>
+<p class="text-body-sm">No upcoming sessions. Book a mentor to get tailored advice.</p>
 </div>
 </div>
 <button onclick="window.location.href='mentors.html'" class="w-full mt-lg py-3 rounded-full border border-primary text-primary font-bold hover:bg-primary hover:text-white transition-all">Book New Session</button>
@@ -345,38 +331,32 @@
 <div class="lg:col-span-7 bg-surface-container-lowest p-md md:p-lg rounded-lg shadow-sm border border-outline-variant flex flex-col">
 <div class="flex justify-between items-center mb-md">
 <h3 class="font-label-md text-label-md text-on-surface uppercase tracking-wider">Your Milestones</h3>
-<span class="text-label-sm text-secondary">Level 4 Founder</span>
+<span class="text-label-sm text-secondary">Level 1 Founder</span>
 </div>
 <div class="flex gap-md overflow-x-auto no-scrollbar py-sm">
 <div class="flex flex-col items-center gap-xs min-w-[80px]">
-<div class="w-16 h-16 rounded-full bg-tertiary-fixed-dim flex items-center justify-center shadow-inner">
-<span class="material-symbols-outlined text-white text-[32px]">workspace_premium</span>
+<div class="w-16 h-16 rounded-full bg-primary-container flex items-center justify-center shadow-inner">
+<span class="material-symbols-outlined text-primary text-[32px]">workspace_premium</span>
 </div>
-<span class="text-label-sm text-center">First 100 Days</span>
+<span class="text-label-sm text-center">Onboarded</span>
 </div>
 <div class="flex flex-col items-center gap-xs min-w-[80px]">
-<div class="w-16 h-16 rounded-full bg-secondary-container flex items-center justify-center shadow-inner">
-<span class="material-symbols-outlined text-secondary text-[32px]">rocket_launch</span>
+<div class="w-16 h-16 rounded-full bg-surface-variant flex items-center justify-center shadow-inner opacity-40 grayscale">
+<span class="material-symbols-outlined text-on-surface-variant text-[32px]">rocket_launch</span>
 </div>
 <span class="text-label-sm text-center">Beta Launch</span>
 </div>
 <div class="flex flex-col items-center gap-xs min-w-[80px]">
-<div class="w-16 h-16 rounded-full bg-primary-container flex items-center justify-center shadow-inner opacity-40">
-<span class="material-symbols-outlined text-on-primary-container text-[32px]">groups</span>
+<div class="w-16 h-16 rounded-full bg-surface-variant flex items-center justify-center shadow-inner opacity-40 grayscale">
+<span class="material-symbols-outlined text-on-surface-variant text-[32px]">groups</span>
 </div>
 <span class="text-label-sm text-center">Team Lead</span>
 </div>
 <div class="flex flex-col items-center gap-xs min-w-[80px]">
-<div class="w-16 h-16 rounded-full bg-surface-variant flex items-center justify-center shadow-inner grayscale opacity-40">
+<div class="w-16 h-16 rounded-full bg-surface-variant flex items-center justify-center shadow-inner opacity-40 grayscale">
 <span class="material-symbols-outlined text-on-surface-variant text-[32px]">monetization_on</span>
 </div>
 <span class="text-label-sm text-center">Profitable</span>
-</div>
-<div class="flex flex-col items-center gap-xs min-w-[80px]">
-<div class="w-16 h-16 rounded-full bg-surface-variant flex items-center justify-center shadow-inner grayscale opacity-40">
-<span class="material-symbols-outlined text-on-surface-variant text-[32px]">public</span>
-</div>
-<span class="text-label-sm text-center">Global Impact</span>
 </div>
 </div>
 </div>
@@ -384,40 +364,9 @@
 <div class="lg:col-span-12 bg-white p-md md:p-lg rounded-lg shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-outline-variant">
 <h3 class="font-label-md text-label-md text-on-surface-variant mb-lg uppercase tracking-wider">Recent Activity</h3>
 <div class="relative space-y-md">
-<!-- Timeline Line -->
-<div class="absolute left-[19px] top-2 bottom-4 w-px bg-outline-variant"></div>
-<div class="flex items-start gap-md relative">
-<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center z-10">
-<span class="material-symbols-outlined text-secondary text-sm">check_circle</span>
-</div>
-<div class="flex-1 pb-base border-b border-surface-variant">
-<div class="flex justify-between items-start">
-<p class="text-body-md text-on-surface">Completed Module: <span class="font-bold text-primary">Financial Projections</span></p>
-<span class="text-label-sm text-on-surface-variant">2h ago</span>
-</div>
-</div>
-</div>
-<div class="flex items-start gap-md relative">
-<div class="w-10 h-10 rounded-full bg-tertiary-fixed flex items-center justify-center z-10">
-<span class="material-symbols-outlined text-on-tertiary-fixed text-sm">reviews</span>
-</div>
-<div class="flex-1 pb-base border-b border-surface-variant">
-<div class="flex justify-between items-start">
-<p class="text-body-md text-on-surface">Mentor Marcus Thorne left a feedback on <span class="font-bold">Pitch Deck v2</span></p>
-<span class="text-label-sm text-on-surface-variant">Yesterday</span>
-</div>
-</div>
-</div>
-<div class="flex items-start gap-md relative">
-<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center z-10">
-<span class="material-symbols-outlined text-primary text-sm">person_add</span>
-</div>
-<div class="flex-1">
-<div class="flex justify-between items-start">
-<p class="text-body-md text-on-surface">New connection request from <span class="font-bold text-primary">Elena Rodriguez</span></p>
-<span class="text-label-sm text-on-surface-variant">2 days ago</span>
-</div>
-</div>
+<div class="p-base text-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[36px] text-outline mb-xs">history</span>
+<p class="text-body-sm">No recent activity yet. Select a business idea and start a roadmap to track progress.</p>
 </div>
 </div>
 </div>

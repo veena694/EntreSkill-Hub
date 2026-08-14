@@ -200,12 +200,12 @@
     </nav>
     <div class="p-md mt-auto border-t border-outline-variant">
         <div class="flex items-center gap-sm mb-4">
-            <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden">
-                <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAd9a8FALN5zgdXbVWs-J-lpwDmxkTo1R88TIYdjtehA4fQJrpMnR-F4q007WZE_CVrUr6NRR0Z00Kqkub8WFrZ_TIBQVNOVNuStB1xYG9RdyGBRjT8DpWZSl0I_66UMg5cd1S1F6ZavSg1B0Ob9_DpCf4H5sQ1deLyjTEJfds09LPt3DIgORB37ODnoHOtFEZvaSeL2F7aaGSAc_PKtRMiHMrnAjhFYpQtSRwJNAwbZDnKG5Iq-rwewAw5oRGHBn1sLBFYQAe6uW4">
+            <div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center overflow-hidden border border-outline-variant font-bold">
+                <span class="material-symbols-outlined text-sm">person</span>
             </div>
             <div>
-                <p class="font-label-md text-on-surface" data-bind="user-fullname"></p>
-                <p class="text-xs text-on-surface-variant">Level 4 Founder</p>
+                <p class="font-label-md text-on-surface" data-bind="user-fullname">User</p>
+                <p class="text-xs text-on-surface-variant" data-bind="user-role">Founder</p>
             </div>
         </div>
         <a href="profile.html#settings" class="text-on-surface-variant hover:bg-surface-variant rounded-full px-4 py-2 flex items-center gap-3 transition-all">
@@ -237,8 +237,8 @@
             <span class="material-symbols-outlined">notifications</span>
             <span class="absolute top-2 right-2 w-1.5 h-1.5 bg-error rounded-full"></span>
         </button>
-        <a href="profile.html" class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border border-outline-variant">
-            <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAd9a8FALN5zgdXbVWs-J-lpwDmxkTo1R88TIYdjtehA4fQJrpMnR-F4q007WZE_CVrUr6NRR0Z00Kqkub8WFrZ_TIBQVNOVNuStB1xYG9RdyGBRjT8DpWZSl0I_66UMg5cd1S1F6ZavSg1B0Ob9_DpCf4H5sQ1deLyjTEJfds09LPt3DIgORB37ODnoHOtFEZvaSeL2F7aaGSAc_PKtRMiHMrnAjhFYpQtSRwJNAwbZDnKG5Iq-rwewAw5oRGHBn1sLBFYQAe6uW4">
+        <a href="profile.html" class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center overflow-hidden border border-outline-variant">
+            <span class="material-symbols-outlined text-sm">person</span>
         </a>
     </div>
 </header>
@@ -248,8 +248,8 @@
 <section class="grid grid-cols-1 lg:grid-cols-3 gap-gutter mb-xl">
 <div class="lg:col-span-2 flex flex-col md:flex-row gap-md items-center md:items-start bg-white p-lg rounded-lg border border-outline-variant shadow-[0_4px_20px_rgba(0,0,0,0.04)]">
 <div class="relative group">
-<div class="w-32 h-32 md:w-40 md:h-40 rounded-xl overflow-hidden border-4 border-secondary-container">
-<img class="w-full h-full object-cover" data-alt="A high-resolution professional portrait of an entrepreneur in a bright, modern studio. The lighting is soft and natural, emphasizing a calm and confident expression. The background is a warm beige, maintaining the aesthetic of the EntreSkill Hub design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfAu7JHfIIoJBBlcjhdFogGcCJ-YhDA5bhaZtEYy2YL2J4SsIQ7fRtrr68-qgkEJcGMUTOwlVJS0JLQA08IEx41CozNroqZzMBlgYYzLHoSbgkkMTNzv6YKzgsDSPlcgQuyBhdR2psEmPENcv8xbl7GyjyRBkOahFvNPiR8o6dDt5j_NGzXxn-svPDbLFOx2qu39UQE4duSS3sIkNP2qv1iXKF5hBghCBoPNy8xKTs_95qy6xo2t6VfucX9713YseOqEGay6zY0FM">
+<div class="w-32 h-32 md:w-40 md:h-40 rounded-xl overflow-hidden border-4 border-secondary-container bg-primary-container text-on-primary-container flex items-center justify-center text-[64px]" id="profile-avatar-container">
+<span class="material-symbols-outlined text-[64px]">person</span>
 </div>
 <button onclick="openEditProfileModal()" class="absolute -bottom-2 -right-2 bg-primary text-white p-2 rounded-full shadow-lg">
 <span class="material-symbols-outlined text-sm">edit</span>
@@ -257,18 +257,18 @@
 </div>
 <div class="flex-grow text-center md:text-left">
 <div class="flex flex-col md:flex-row md:items-center justify-between gap-base mb-xs">
-<h1 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary" id="profile-name"></h1>
-<span class="px-4 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-md self-center md:self-start">EntreSkill Pro</span>
+<h1 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary" id="profile-name">User</h1>
+<span class="px-4 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-md self-center md:self-start" data-bind="user-role">Founder</span>
 </div>
-<p class="text-on-surface-variant font-body-md mb-md" id="profile-bio">Product Strategist &amp; Founder of BloomTech. Passionate about sustainable growth and community-led enablement.</p>
+<p class="text-on-surface-variant font-body-md mb-md" id="profile-bio">No bio provided yet. Click Edit Profile to add a bio.</p>
 <div class="flex flex-wrap justify-center md:justify-start gap-sm">
 <div class="flex items-center gap-xs text-on-surface-variant bg-surface-container px-3 py-1 rounded-full">
 <span class="material-symbols-outlined text-sm">location_on</span>
-<span class="font-label-sm" id="profile-location">San Francisco, CA</span>
+<span class="font-label-sm" id="profile-location">Location not set</span>
 </div>
 <div class="flex items-center gap-xs text-on-surface-variant bg-surface-container px-3 py-1 rounded-full">
 <span class="material-symbols-outlined text-sm">link</span>
-<a class="font-label-sm hover:underline text-primary" id="profile-link" href="https://bloomtech.io">bloomtech.io</a>
+<a class="font-label-sm hover:underline text-primary" id="profile-link" href="#">Website not set</a>
 </div>
 </div>
 </div>
@@ -277,20 +277,12 @@
 <div class="flex flex-col gap-base bg-secondary-container p-lg rounded-lg border border-secondary text-on-secondary-container">
 <h3 class="font-headline-md">Business Goals</h3>
 <ul class="space-y-base">
-<li class="flex items-start gap-base">
-<span class="material-symbols-outlined text-primary">check_circle</span>
-<span class="font-body-sm">Scale BloomTech to 5k monthly active users.</span>
-</li>
-<li class="flex items-start gap-base">
-<span class="material-symbols-outlined text-primary">check_circle</span>
-<span class="font-body-sm">Complete Advanced Leadership Roadmap.</span>
-</li>
-<li class="flex items-start gap-base">
-<span class="material-symbols-outlined text-primary">radio_button_unchecked</span>
-<span class="font-body-sm">Launch Seed Series funding round.</span>
+<li class="flex items-start gap-base text-on-surface-variant">
+<span class="material-symbols-outlined text-outline">info</span>
+<span class="font-body-sm">No business goals specified yet. Complete onboarding or edit profile.</span>
 </li>
 </ul>
-<button onclick="window.location.href='join.html'" class="mt-auto bg-primary text-white py-3 rounded-[18px] font-label-md hover:bg-opacity-90 transition-all">Update Strategy</button>
+<button onclick="openEditProfileModal()" class="mt-auto bg-primary text-white py-3 rounded-[18px] font-label-md hover:bg-opacity-90 transition-all">Edit Strategy</button>
 </div>
 </section>
 <!-- Analytics Dashboard (Bento Grid) -->
@@ -303,13 +295,13 @@
 <div class="relative w-32 h-32">
 <svg class="w-full h-full" viewBox="0 0 100 100">
 <circle class="text-surface-container-highest stroke-current" cx="50" cy="50" fill="transparent" r="40" stroke-width="10"></circle>
-<circle class="text-secondary stroke-current progress-ring__circle" cx="50" cy="50" fill="transparent" r="40" stroke-linecap="round" stroke-width="10" style="stroke-dasharray: 251.2; stroke-dashoffset: 62.8;"></circle>
+<circle class="text-secondary stroke-current progress-ring__circle" cx="50" cy="50" fill="transparent" r="40" stroke-linecap="round" stroke-width="10" style="stroke-dasharray: 251.2; stroke-dashoffset: 251.2;"></circle>
 </svg>
 <div class="absolute inset-0 flex items-center justify-center">
-<span class="font-headline-md text-primary">75%</span>
+<span class="font-headline-md text-primary">0%</span>
 </div>
 </div>
-<p class="mt-md text-body-sm text-center">3 of 4 milestones reached this quarter.</p>
+<p class="mt-md text-body-sm text-center">0 of 0 milestones reached.</p>
 </div>
 <!-- Weekly Growth Graph -->
 <div class="md:col-span-8 bg-white p-lg rounded-lg border border-outline-variant">
@@ -327,34 +319,35 @@
 <!-- Simple bar chart for growth -->
 <div class="flex items-end justify-between h-40 gap-xs">
 <div class="flex flex-col items-center gap-base flex-1">
-<div class="w-full bg-surface-container-high rounded-t-sm h-1/2 relative group">
-<div class="absolute bottom-0 w-full bg-secondary-container h-[80%] rounded-t-sm transition-all group-hover:h-[85%]"></div>
+<div class="w-full bg-surface-container-high rounded-t-sm h-full relative group">
+<div class="absolute bottom-0 w-full bg-secondary-container h-[0%] rounded-t-sm transition-all"></div>
 </div>
 <span class="font-label-sm text-on-surface-variant">Mon</span>
 </div>
 <div class="flex flex-col items-center gap-base flex-1">
 <div class="w-full bg-surface-container-high rounded-t-sm h-full relative group">
-<div class="absolute bottom-0 w-full bg-secondary-container h-[60%] rounded-t-sm transition-all group-hover:h-[65%]"></div>
+<div class="absolute bottom-0 w-full bg-secondary-container h-[0%] rounded-t-sm transition-all"></div>
 </div>
 <span class="font-label-sm text-on-surface-variant">Tue</span>
 </div>
 <div class="flex flex-col items-center gap-base flex-1">
-<div class="w-full bg-surface-container-high rounded-t-sm h-3/4 relative group">
-<div class="absolute bottom-0 w-full bg-secondary-container h-[90%] rounded-t-sm transition-all group-hover:h-[95%]"></div>
+<div class="w-full bg-surface-container-high rounded-t-sm h-full relative group">
+<div class="absolute bottom-0 w-full bg-secondary-container h-[0%] rounded-t-sm transition-all"></div>
 </div>
 <span class="font-label-sm text-on-surface-variant">Wed</span>
 </div>
 <div class="flex flex-col items-center gap-base flex-1">
-<div class="w-full bg-surface-container-high rounded-t-sm h-2/3 relative group">
-<div class="absolute bottom-0 w-full bg-secondary-container h-[40%] rounded-t-sm transition-all group-hover:h-[45%]"></div>
+<div class="w-full bg-surface-container-high rounded-t-sm h-full relative group">
+<div class="absolute bottom-0 w-full bg-secondary-container h-[0%] rounded-t-sm transition-all"></div>
 </div>
 <span class="font-label-sm text-on-surface-variant">Thu</span>
 </div>
 <div class="flex flex-col items-center gap-base flex-1">
-<div class="w-full bg-surface-container-high rounded-t-sm h-5/6 relative group">
-<div class="absolute bottom-0 w-full bg-secondary-container h-[70%] rounded-t-sm transition-all group-hover:h-[75%]"></div>
+<div class="w-full bg-surface-container-high rounded-t-sm h-full relative group">
+<div class="absolute bottom-0 w-full bg-secondary-container h-[0%] rounded-t-sm transition-all"></div>
 </div>
 <span class="font-label-sm text-on-surface-variant">Fri</span>
+</div>
 </div>
 </div>
 </div>

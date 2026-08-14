@@ -396,6 +396,25 @@ window.API = API;
                         el.innerText = displayRole;
                     });
 
+                    // Update user avatar containers with profile photo or initials
+                    const userInitial = (fullName.trim()[0] || 'U').toUpperCase();
+                    document.querySelectorAll('a[href="profile.html"].rounded-full, .w-10.h-10.rounded-full').forEach(container => {
+                        if (user?.personalInfo?.profilePicture) {
+                            container.innerHTML = `<img class="w-full h-full object-cover" src="${user.personalInfo.profilePicture}">`;
+                        } else {
+                            container.innerHTML = `<span class="font-bold text-sm">${userInitial}</span>`;
+                        }
+                    });
+
+                    const heroAvatarContainer = document.getElementById('profile-avatar-container');
+                    if (heroAvatarContainer) {
+                        if (user?.personalInfo?.profilePicture) {
+                            heroAvatarContainer.innerHTML = `<img class="w-full h-full object-cover" src="${user.personalInfo.profilePicture}">`;
+                        } else {
+                            heroAvatarContainer.innerHTML = `<span class="font-bold text-display-lg">${userInitial}</span>`;
+                        }
+                    }
+
                     // Fetch user's dashboard metrics and bookmarks for dynamic rendering
                     Promise.all([
                         window.API.getDashboard ? window.API.getDashboard().catch(() => null) : Promise.resolve(null),
