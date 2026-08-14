@@ -303,11 +303,11 @@ describe('User Isolation Tests', () => {
     const userA = await login(userAPayload.email, userAPayload.password);
     const userB = await login(userBPayload.email, userBPayload.password);
 
-    // Create a business idea directly in DB
+    const testId = Date.now();
     const idea = await prisma.businessIdea.create({
       data: {
-        title: 'Bookmark Isolation Test Idea',
-        slug: 'bookmark-isolation-test-idea',
+        title: `Bookmark Isolation Test Idea ${testId}`,
+        slug: `bookmark-isolation-test-idea-${testId}`,
         description: 'Test description',
         shortDescription: 'Short test',
         category: 'Tech',
