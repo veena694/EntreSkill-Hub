@@ -138,12 +138,8 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        @keyframes progress-spin {
-            from { stroke-dashoffset: 283; }
-            to { stroke-dashoffset: 99; } /* 65% of 283 is 184, so offset is 99 */
-        }
         .animate-progress {
-            animation: progress-spin 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
     </style>
 </head>

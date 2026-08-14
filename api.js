@@ -446,18 +446,23 @@ function bindDashboardData(user, dashData) {
 
     // Calculate Overall Journey Progress
     let overallProgress = 0;
-    if (roadmapSummary.length > 0) {
-        const total = roadmapSummary.reduce((acc, curr) => acc + (curr.percentageComplete || 0), 0);
+    if (Array.isArray(roadmapSummary) && roadmapSummary.length > 0) {
+        const total = roadmapSummary.reduce((acc, curr) => acc + Math.max(0, Math.min(100, Number(curr.percentageComplete || 0))), 0);
         overallProgress = Math.round(total / roadmapSummary.length);
     }
+    const safePercentage = Math.max(0, Math.min(100, Number(overallProgress || 0)));
 
     const progressSpan = document.querySelector('.animate-progress')?.parentElement?.nextElementSibling?.querySelector('span');
-    if (progressSpan) progressSpan.innerText = `${overallProgress}%`;
+    if (progressSpan) progressSpan.innerText = `${safePercentage}%`;
 
     const circle = document.querySelector('circle.animate-progress');
     if (circle) {
-        const offset = 565 - (565 * overallProgress) / 100;
-        circle.style.strokeDashoffset = offset;
+        const radius = 90;
+        const circumference = 2 * Math.PI * radius;
+        const offset = circumference - (safePercentage / 100) * circumference;
+        circle.setAttribute('stroke-dasharray', String(Math.round(circumference)));
+        circle.setAttribute('stroke-dashoffset', String(Math.round(offset)));
+        circle.style.strokeDashoffset = `${Math.round(offset)}px`;
     }
 
     const milestoneSpan = document.querySelector('circle.animate-progress')?.parentElement?.parentElement?.querySelector('p span.font-bold');
@@ -550,15 +555,23 @@ function bindProfileData(user, dashData, bookmarks) {
     // Roadmap Progress
     const roadmapSummary = dashData?.roadmapProgressSummary || [];
     let overallProgress = 0;
-    if (roadmapSummary.length > 0) {
-        const total = roadmapSummary.reduce((acc, curr) => acc + (curr.percentageComplete || 0), 0);
+    if (Array.isArray(roadmapSummary) && roadmapSummary.length > 0) {
+        const total = roadmapSummary.reduce((acc, curr) => acc + Math.max(0, Math.min(100, Number(curr.percentageComplete || 0))), 0);
         overallProgress = Math.round(total / roadmapSummary.length);
     }
+    const safePercentage = Math.max(0, Math.min(100, Number(overallProgress || 0)));
 
     const progressRing = document.querySelector('.progress-ring__circle');
     if (progressRing) {
+        const radius = 40;
+        const circumference = 2 * Math.PI * radius;
+        const offset = circumference - (safePercentage / 100) * circumference;
+        progressRing.setAttribute('stroke-dasharray', String(Math.round(circumference)));
+        progressRing.setAttribute('stroke-dashoffset', String(Math.round(offset)));
+        progressRing.style.strokeDashoffset = `${Math.round(offset)}px`;
+
         const percentText = progressRing.parentElement.nextElementSibling?.querySelector('span');
-        if (percentText) percentText.innerText = `${overallProgress}%`;
+        if (percentText) percentText.innerText = `${safePercentage}%`;
 
         const completedCount = roadmapSummary.filter(r => r.isCompleted).length;
         const summaryText = progressRing.parentElement.parentElement.nextElementSibling;
